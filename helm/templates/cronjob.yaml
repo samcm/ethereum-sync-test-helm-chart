@@ -1,0 +1,58 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ include "ethereum-sync-tests.fullname" . }}
+  labels:
+    {{- include "ethereum-sync-tests.labels" . | nindent 4 }}
+  annotations:
+    {{- if .Values.cronjob.annotations }}
+    {{- toYaml .Values.cronjob.annotations | nindent 4 }}
+    {{- end }}
+spec:
+  schedule: {{ .Values.cronjob.schedule | quote }}
+  successfulJobsHistoryLimit: {{ .Values.cronjob.successfulJobsHistoryLimit }}
+  suspended: {{ .Values.cronjob.suspended }}
+  {{- if .Values.cronjob.concurrencyPolicy }}
+  concurrencyPolicy: {{ .Values.cronjob.concurrencyPolicy }}
+  {{- end }}
+  {{- if .Values.cronjob.failedJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ .Values.cronjob.failedJobsHistoryLimit }}
+  {{- end }}
+  {{- if .Values.persistence.enabled }}
+  volumeClaimTemplates:
+  - metadata:
+      name: storage
+      annotations:
+        {{- toYaml .Values.persistence.annotations | nindent 8 }}
+    spec:
+      accessModes:
+        {{- toYaml .Values.persistence.accessModes | nindent 8 }}
+      resources:
+        requests:
+          storage: {{ .Values.persistence.size | quote }}
+      {{- if .Values.persistence.storageClassName }}
+      storageClassName: {{ .Values.persistence.storageClassName }}
+      {{- end }}
+      {{- if .Values.persistence.selector }}
+      selector:
+        {{- toYaml .Values.persistence.selector | nindent 8 }}
+      {{- end }}
+  {{- end }}
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+          {{- include "ethereum-sync-tests.selectorLabels" . | nindent 12 }}
+          {{- with .Values.podLabels }}
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.podAnnotations }}
+          annotations:
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
+        spec:
+          initContainers:
+          {{ include "ethereum-sync-tests.initContainers" . | nindent 12 }}
+          containers:
+          {{ include "ethereum-sync-tests.containers" . | nindent 12 }}

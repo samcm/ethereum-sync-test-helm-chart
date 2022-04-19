@@ -1,0 +1,27 @@
+initContainers:
+  initNodeport:
+    enabled: true
+    image: 
+      repository: "lachlanevenson/k8s-kubectl"
+      tag: "v1.18.0"
+    pullPolicy: IfNotPresent
+
+  initGenesis:
+    enabled: true
+
+extraArgs: []
+
+extraContainerPorts: []
+
+customCommand: []
+
+p2pNodePort:
+  # -- Expose P2P port via NodePort
+  enabled: true
+  # -- NodePort to be used
+  # port: 31000 # Defaults to global.ethereum.execution.client.ports.p2p
+
+resources:
+  requests:
+    cpu: 2000m
+    memory: 4000Mi

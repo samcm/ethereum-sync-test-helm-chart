@@ -1,0 +1,6 @@
+dependencies:
+- name: geth
+  repository: file://charts/geth
+  version: 0.1.0
+digest: sha256:e81a457c7ff3f609ff0cc93b82f16c0af3bc9698799c8c5597c054f358e7ac92
+generated: "2022-04-19T17:17:33.71341+10:00"
