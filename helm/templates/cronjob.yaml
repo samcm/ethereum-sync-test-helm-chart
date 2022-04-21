@@ -1,4 +1,4 @@
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: {{ include "ethereum-sync-tests.fullname" . }}
@@ -10,36 +10,17 @@ metadata:
     {{- end }}
 spec:
   schedule: {{ .Values.cronjob.schedule | quote }}
-  successfulJobsHistoryLimit: {{ .Values.cronjob.successfulJobsHistoryLimit }}
-  suspended: {{ .Values.cronjob.suspended }}
+  suspend: {{ .Values.cronjob.suspend }}
   {{- if .Values.cronjob.concurrencyPolicy }}
   concurrencyPolicy: {{ .Values.cronjob.concurrencyPolicy }}
   {{- end }}
+  successfulJobsHistoryLimit: {{ .Values.cronjob.successfulJobsHistoryLimit }}
   {{- if .Values.cronjob.failedJobsHistoryLimit }}
   failedJobsHistoryLimit: {{ .Values.cronjob.failedJobsHistoryLimit }}
   {{- end }}
-  {{- if .Values.persistence.enabled }}
-  volumeClaimTemplates:
-  - metadata:
-      name: storage
-      annotations:
-        {{- toYaml .Values.persistence.annotations | nindent 8 }}
-    spec:
-      accessModes:
-        {{- toYaml .Values.persistence.accessModes | nindent 8 }}
-      resources:
-        requests:
-          storage: {{ .Values.persistence.size | quote }}
-      {{- if .Values.persistence.storageClassName }}
-      storageClassName: {{ .Values.persistence.storageClassName }}
-      {{- end }}
-      {{- if .Values.persistence.selector }}
-      selector:
-        {{- toYaml .Values.persistence.selector | nindent 8 }}
-      {{- end }}
-  {{- end }}
   jobTemplate:
     spec:
+      backoffLimit: {{ .Values.cronjob.job.backoffLimit }}
       template:
         metadata:
           labels:
@@ -56,3 +37,13 @@ spec:
           {{ include "ethereum-sync-tests.initContainers" . | nindent 12 }}
           containers:
           {{ include "ethereum-sync-tests.containers" . | nindent 12 }}
+          volumes:
+          {{ include "ethereum-sync-tests.volumes" . | nindent 12 }}
+          nodeSelector:
+          {{- toYaml .Values.nodeSelector | nindent 12 }}
+          affinity:
+          {{- toYaml .Values.affinity | nindent 12 }}
+          tolerations:
+          {{- toYaml .Values.tolerations | nindent 12 }}
+          restartPolicy: {{ .Values.cronjob.restartPolicy | quote }}
+          shareProcessNamespace: true

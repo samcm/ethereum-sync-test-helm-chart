@@ -19,7 +19,7 @@
   {{- end }}
   - name: storage
     mountPath: /data
-  {{- if .Values.p2pNodePort.enabled }}
+  {{- if .Values.global.p2pNodePort.enabled }}
   - name: env-nodeport
     mountPath: /env
   {{- end }}
@@ -30,19 +30,19 @@
   {{- if .Values.extraContainerPorts }}
     {{ toYaml .Values.extraContainerPorts | nindent 8 }}
   {{- end }}
-  - name: p2p-tcp
+  - name: exe-p2p-tcp
     containerPort: {{ .Values.global.ethereum.execution.config.ports.p2p_tcp }}
     protocol: TCP
-  - name: p2p-udp
+  - name: exe-p2p-udp
     containerPort: {{ .Values.global.ethereum.execution.config.ports.p2p_udp }}
     protocol: UDP
-  - name: http-rpc
+  - name: exe-http-rpc
     containerPort: {{ .Values.global.ethereum.execution.config.ports.http_rpc }}
     protocol: TCP
-  - name: ws-rpc
+  - name: exe-ws-rpc
     containerPort: {{ .Values.global.ethereum.execution.config.ports.ws_rpc }}
     protocol: TCP
-  - name: metrics
+  - name: exe-metrics
     containerPort: {{ .Values.global.ethereum.execution.config.ports.metrics }}
     protocol: TCP
   {{- if .Values.livenessProbe }}

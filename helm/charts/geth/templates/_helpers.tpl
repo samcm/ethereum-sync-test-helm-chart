@@ -5,13 +5,12 @@
 - sh
 - -ac
 - >
-{{- if .Values.p2pNodePort.enabled }}
+{{- if .Values.global.p2pNodePort.enabled }}
   . /env/init-nodeport;
 {{- end }}
   exec geth
-  --datadir=/data
-  --config=/config/geth.toml
-{{- if .Values.p2pNodePort.enabled }}
+  --datadir={{ .Values.global.ethereum.execution.dataDir }}
+{{- if .Values.global.p2pNodePort.enabled }}
   --nat=extip:$EXTERNAL_IP
   --port=$EXTERNAL_PORT
 {{- else }}
@@ -33,4 +32,11 @@
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}
+{{- end }}
+
+{{/*
+# Sync-status check command. Can be used to check when the sync is complete.
+*/}}
+{{- define "geth.sync-status-check-command" -}}
+curl -s -X POST --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' -H 'Content-Type: application/json' -H 'Accept: application/json' $POD_IP:8545 | jq  -e -r 'has("result")'
 {{- end }}

@@ -2,10 +2,28 @@ cronjob:
   schedule: '*/10 * * * *'
   suspend: true
   successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  restartPolicy: Never
+  concurrencyPolicy: Forbid
+
+  job:
+    backoffLimit: 0
+
+# Maybe this should live in a subchart too?
+initContainers:
+
+
+tolerations: []
+
+nodeSelector: {}
+
+affinity: {}
+
+extraPorts: []
 
 persistence:
   # -- Uses an EmptyDir when not enabled
-  enabled: true
+  enabled: false
   # -- Use an existing PVC when persistence.enabled
   existingClaim: null
   # -- Access mode for the volume claim template
@@ -21,17 +39,99 @@ persistence:
   #     app.kubernetes.io/name: something
 
 global:
-  ethereum:
-    execution:
-      # network: "kiln"
-      dataDir: /data/execution
+  initContainers:
+    initStorage:
+      enabled: true
+      image:
+        repository: busybox
+        tag: latest
+        pullPolicy: IfNotPresent
+      command:
+        - /bin/sh
+      args:
+        - -c
+        - rm -rf /data/*
+        - mkdir -p /data/execution
+        - mkdir -p /data/consensus
+        - touch /data/execution/test.txt
+        - ls /data
+    initChownData:
+      # -- Init container to set the correct permissions to access data directories
+      enabled: true
+      image:
+        # -- Container repository
+        repository: busybox
+        # -- Container tag
+        tag: "1.34.0"
+        # -- Container pull policy
+        pullPolicy: IfNotPresent
+      # -- Resource requests and limits
+      resources: {}
+      #  limits:
+      #    cpu: 100m
+      #    memory: 128Mi
+      #  requests:
+      #    cpu: 100m
+      #    memory: 128Mi
 
-      customNetwork:
-        name: "kiln"
-        config:
-          bootnodes: https://config.kiln.themerge.dev/el/bootnodes
-          genesis_geth: https://config.kiln.themerge.dev/el/genesis/geth.json
-          genesis_chainspec: https://config.kiln.themerge.dev/el/genesis/chainspec.json
+    generateJWT:
+      enabled: true # If disabled you must provide a secret in global.jwtsecret
+      name: generate-jwt-secret
+      image:
+        repository: alpine
+        tag: latest
+        pullPolicy: IfNotPresent
+      command:
+        - /bin/sh
+        - -c
+        - apk add openssl;
+        - openssl rand -hex 32 > /data/jwtsecret;
+      resources: {}
+      #  limits:
+      #    cpu: 100m
+      #    memory: 128Mi
+      #  requests:
+      #    cpu: 100m
+      #    memory: 128Mi
+      volumeMounts:
+      - name: storage
+        mountPath: "/data"
+
+  # When p2pNodePort is enabled, your P2P port will be exposed via service type NodePort.
+  # This is useful if you want to expose and announce your node to the Internet.
+  # Limitation: You can only one have one replica when exposing via NodePort.
+  #             Check the chart README.md for more details
+  p2pNodePort:
+    # -- Expose P2P port via NodePort
+    enabled: true
+    # -- Ports can be configured in global.ethereum.execution.client.ports.p2p_tcp etc
+    initContainer:
+      image:
+        # -- Container image to fetch nodeport information
+        repository: lachlanevenson/k8s-kubectl
+        # -- Container tag
+        tag: v1.21.3
+        # -- Container pull policy
+        pullPolicy: IfNotPresent
+  networkConfigs:
+    kiln:
+      execution:
+        bootnodes: https://config.kiln.themerge.dev/el/bootnodes
+        genesis_geth: https://config.kiln.themerge.dev/el/genesis/geth.json
+        genesis_chainspec: https://config.kiln.themerge.dev/el/genesis/chainspec.json
+      consensus:
+        bootnodes: https://config.kiln.themerge.dev/cl/bootnodes
+        config.yaml: https://config.kiln.themerge.dev/cl/genesis/config.yaml
+        genesis.ssz: https://config.kiln.themerge.dev/cl/genesis/genesis.ssz
+        deploy_block.txt: https://config.kiln.themerge.dev/cl/genesis/deposit_contract.txt
+        deposit_contract.json: https://config.kiln.themerge.dev/cl/genesis/deposit_contract_block.txt
+        
+
+  ethereum:
+    network: kiln
+
+    execution:
+      dataDir: /data/execution
 
       config:
         ports:
@@ -40,7 +140,7 @@ global:
           p2p_udp: 30140
           http_rpc: 8545
           ws_rpc: 8546
-          metrics: 8551
+          metrics: 6060
 
       client:
         name: geth
@@ -50,19 +150,13 @@ global:
           pullPolicy: Always
 
     consensus:
-      # network: "kiln"
 
       dataDir: /data/consensus
 
       customNetwork:
         name: "kiln"
         config:
-          bootnodes: https://config.kiln.themerge.dev/cl/bootnodes
-          config.yaml: https://config.kiln.themerge.dev/cl/genesis/config.yaml
-          genesis.ssz: https://config.kiln.themerge.dev/cl/genesis/genesis.ssz
-          deploy_block.txt: https://config.kiln.themerge.dev/cl/genesis/deposit_contract.txt
-          deposit_contract.json: https://config.kiln.themerge.dev/cl/genesis/deposit_contract_block.txt
-        
+
       config:
         ports:
           p2p_tcp: 9000
@@ -77,40 +171,22 @@ global:
           tag: latest
           pullPolicy: Always
 
+  # -- The security context for pods
+  # @default -- See `values.yaml`
+  securityContext:
+    fsGroup: 10001
+    runAsGroup: 10001
+    runAsNonRoot: true
+    runAsUser: 10001
+
+## Client-specific config
+geth:
+  image:
+    repository: ethereum/client-go
+    tag: latest
+    pullPolicy: Always
 
 
-templates:
-  networks:
-    kiln: #TODO(sam.calder-mason): Maybe move this to its own values file?
-      consensus:
-        configs:
-          bootnodes: https://config.kiln.themerge.dev/cl/bootnodes
-          config.yaml: https://config.kiln.themerge.dev/cl/genesis/config.yaml
-          genesis.ssz: https://config.kiln.themerge.dev/cl/genesis/genesis.ssz
-          deploy_block.txt: https://config.kiln.themerge.dev/cl/genesis/deposit_contract.txt
-          deposit_contract.json: https://config.kiln.themerge.dev/cl/genesis/deposit_contract_block.txt
-      
-      execution:
-        bootnodes: https://config.kiln.themerge.dev/el/bootnodes
-        genesis_geth: https://config.kiln.themerge.dev/el/genesis/geth.json
-        genesis_chainspec: https://config.kiln.themerge.dev/el/genesis/chainspec.json
-
-  clients:
-    common:
-      initContainers:
-      - name: generate-jwt-secret
-        image:
-          repository: busybox
-          tag: latest
-          pullPolicy: IfNotPresent
-        command:
-          - openssl
-          - rand 
-          - -hex
-          - 32 > /shared/jwtsecret
-        volumeMounts:
-        - name: shared
-          mountPath: "/shared"
 
 
     # consensus:

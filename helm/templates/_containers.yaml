@@ -1,4 +1,5 @@
 {{- define "ethereum-sync-tests.containers" }}
+{{ include "common.containers" .Subcharts.common }} 
 {{- if eq .Values.global.ethereum.execution.client.name "geth" }}
 {{ include "geth.containers" .Subcharts.geth }}
 {{- end }}

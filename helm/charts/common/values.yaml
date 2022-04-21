@@ -1,0 +1,32 @@
+# Controlled by global values for now
+# initContainers:
+#   initNodeport:
+#     enabled: true
+#     image: 
+#       repository: "lachlanevenson/k8s-kubectl"
+#       tag: "v1.18.0"
+#     pullPolicy: IfNotPresent
+
+extraArgs: []
+
+extraContainerPorts: []
+
+customCommand: []
+
+resources:
+  {}
+  # requests:
+  #   cpu: 16m
+  #   memory: 32Mi
+
+statusChecker:
+  image:
+    repository: alpine
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  resources:
+    {}
+  # requests:
+  #   cpu: 16m
+  #   memory: 32Mi

@@ -1,0 +1,28 @@
+{{- if .Values.global.p2pNodePort.enabled -}}
+
+{{- $port := .Values.global.p2pNodePort.port -}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ethereum-sync-tests.fullname" . }}-p2p
+  labels:
+    {{- include "ethereum-sync-tests.labels" . | nindent 4 }}
+    type: p2p
+spec:
+  type: NodePort
+  externalTrafficPolicy: Local
+  ports:
+    - name: exe-p2p-tcp
+      port: {{ get .Values.global.ethereum.execution.config.ports "p2p_tcp" }}
+      protocol: TCP
+      targetPort: exe-p2p-tcp
+      nodePort: {{ get .Values.global.ethereum.execution.config.ports "p2p_tcp" }}
+    - name: exe-p2p-udp
+      port: {{ get .Values.global.ethereum.execution.config.ports "p2p_udp" }}
+      protocol: UDP
+      targetPort: exe-p2p-udp
+      nodePort: {{ get .Values.global.ethereum.execution.config.ports "p2p_tcp" }}
+  selector:
+    {{- include "ethereum-sync-tests.selectorLabels" $ | nindent 4 }}
+{{- end }}

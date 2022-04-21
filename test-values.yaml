@@ -1,0 +1,17 @@
+global:
+  p2pNodePort:
+    publicIP: 9.9.9.9
+  initContainers:
+    generateJWT:
+      enabled: false
+  jwtsecret: notreallysecrettestingvalue
+  
+persistence:
+  existingClaim: "pvc-general"
+
+geth:
+  extraArgs:
+  - --bootnodes="$(head -n 1 /data/execution/bootnode.txt)"
+  - --networkid=$(cat /data/execution/chainid.txt)
+  - --override.terminaltotaldifficulty=20000000000000
+  - --authrpc.jwtsecret="/data/jwtsecret"
