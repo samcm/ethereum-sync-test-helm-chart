@@ -20,15 +20,21 @@
   --http
   --http.addr=0.0.0.0
   --http.port={{ .Values.global.ethereum.execution.config.ports.http_rpc  }}
+  --http.api="engine,net,eth"
   --http.vhosts=*
   --http.corsdomain=*
   --ws
   --ws.addr=0.0.0.0
   --ws.port={{ .Values.global.ethereum.execution.config.ports.ws_rpc  }}
   --ws.origins=*
+  --ws.api="engine,net,eth"
   --metrics
   --metrics.addr=0.0.0.0
   --metrics.port={{ .Values.global.ethereum.execution.config.ports.metrics  }}
+  --authrpc.jwtsecret="/data/jwtsecret"
+  --authrpc.port={{ .Values.global.ethereum.execution.config.ports.engine_api  }}
+  --authrpc.vhosts=*
+  --authrpc.addr=0.0.0.0
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}
@@ -38,5 +44,9 @@
 # Sync-status check command. Can be used to check when the sync is complete.
 */}}
 {{- define "geth.sync-status-check-command" -}}
-curl -s -X POST --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' -H 'Content-Type: application/json' -H 'Accept: application/json' $POD_IP:8545 | jq  -e -r 'has("result")'
+#!/bin/sh
+current=$(curl -s -X POST --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' -H 'Content-Type: application/json' -H 'Accept: application/json' $POD_IP:8545 | jq -e '.result.currentBlock' | xargs printf '%d' || echo 0)
+highest=$(curl -s -X POST --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' -H 'Content-Type: application/json' -H 'Accept: application/json' $POD_IP:8545 | jq -e '.result.highestBlock' | xargs printf '%d' || echo 100000000)
+percent=$((($current * 100) / $highest));
+echo -ne "$percent";
 {{- end }}

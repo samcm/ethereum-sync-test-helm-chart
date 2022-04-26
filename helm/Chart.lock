@@ -1,6 +1,12 @@
 dependencies:
+- name: common
+  repository: file://charts/common
+  version: 0.1.0
 - name: geth
   repository: file://charts/geth
   version: 0.1.0
-digest: sha256:e81a457c7ff3f609ff0cc93b82f16c0af3bc9698799c8c5597c054f358e7ac92
-generated: "2022-04-19T17:17:33.71341+10:00"
+- name: ligthouse
+  repository: file://charts/lighthouse
+  version: 0.1.0
+digest: sha256:75817884ebb774da7e0afb21b6b64124aa770c198a9f75cac4be06465de46e1a
+generated: "2022-04-26T12:22:00.918148+10:00"

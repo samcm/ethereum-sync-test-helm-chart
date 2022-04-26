@@ -1,6 +1,6 @@
 apiVersion: v2
-name: geth
-description: A library-type helm chart that exposes raw Geth containers/helpers
+name: lighthouse
+description: A library-type helm chart that exposes raw Lighthouse containers/helpers
 
 type: library
 

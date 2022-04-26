@@ -35,6 +35,9 @@ Common labels
 */}}
 {{- define "ethereum-sync-tests.labels" -}}
 helm.sh/chart: {{ include "ethereum-sync-tests.chart" . }}
+consensus_client: {{ .global.ethereum.consensus.client.name | quote }}
+execution_client: {{ .global.ethereum.execution.client.name | quote }}
+network: {{ .global.ethereum.network | quote }}
 {{ include "ethereum-sync-tests.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}

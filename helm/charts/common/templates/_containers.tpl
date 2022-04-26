@@ -17,26 +17,17 @@
     - >
       apk add curl;
       apk add jq;
-      tee /data/execution_check.sh << END
-        #!/bin/sh
-{{- include "ethereum-sync-tests.status-checking" . | nindent 8 }} && echo "COMPLETED" || echo "SYNCING";
-        
-      END
-
-      chmod +x /data/execution_check.sh
 
       while true;
       do
-        EXECUTION_STATUS=$(/data/execution_check.sh);
-        CONSENSUS_STATUS=
+        EXECUTION_STATUS=$(/status/execution.sh);
+        CONSENSUS_STATUS=$(/status/consensus.sh);
 
-        echo "EXECUTION_STATUS: $EXECUTION_STATUS, CONSENSUS_STATUS: $CONSENSUS_STATUS"
+        echo "EXECUTION_STATUS: $EXECUTION_STATUS%, CONSENSUS_STATUS: $CONSENSUS_STATUS%"
         
 
-        if [ "$EXECUTION_STATUS" == "COMPLETED" ]; then
+        if [ "$CONSENSUS_STATUS" == "100" ]; then
           echo "Shutting down...";
-          pkill -SIGTERM geth;
-          exit 0;
         fi
 
         sleep 5;
@@ -46,5 +37,7 @@
   volumeMounts:
     - name: storage
       mountPath: /data
+    - name: status-checks
+      mountPath: /status
 {{- end }}
 

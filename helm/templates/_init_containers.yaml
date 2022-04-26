@@ -3,4 +3,7 @@
 {{- if eq .Values.global.ethereum.execution.client.name "geth" }}
 {{ include "geth.initContainers" .Subcharts.geth }}
 {{- end }}
+{{- if eq .Values.global.ethereum.consensus.client.name "lighthouse" }}
+{{ include "lighthouse.initContainers" .Subcharts.lighthouse }}
+{{- end }}
 {{- end }}

@@ -10,8 +10,6 @@ cronjob:
     backoffLimit: 0
 
 # Maybe this should live in a subchart too?
-initContainers:
-
 
 tolerations: []
 
@@ -50,10 +48,11 @@ global:
         - /bin/sh
       args:
         - -c
-        - rm -rf /data/*
+        # - rm -rf /data/*
         - mkdir -p /data/execution
         - mkdir -p /data/consensus
         - touch /data/execution/test.txt
+        - touch /data/consensus/test.txt
         - ls /data
     initChownData:
       # -- Init container to set the correct permissions to access data directories
@@ -113,6 +112,7 @@ global:
         tag: v1.21.3
         # -- Container pull policy
         pullPolicy: IfNotPresent
+
   networkConfigs:
     kiln:
       execution:
@@ -123,8 +123,9 @@ global:
         bootnodes: https://config.kiln.themerge.dev/cl/bootnodes
         config.yaml: https://config.kiln.themerge.dev/cl/genesis/config.yaml
         genesis.ssz: https://config.kiln.themerge.dev/cl/genesis/genesis.ssz
-        deploy_block.txt: https://config.kiln.themerge.dev/cl/genesis/deposit_contract.txt
-        deposit_contract.json: https://config.kiln.themerge.dev/cl/genesis/deposit_contract_block.txt
+        deploy_block.txt: https://config.kiln.themerge.dev/cl/genesis/deposit_contract_block.txt
+        deposit_contract.txt: https://config.kiln.themerge.dev/cl/genesis/deposit_contract.txt 
+        deposit_contract_block.txt: https://config.kiln.themerge.dev/cl/genesis/deposit_contract_block.txt
         
 
   ethereum:
@@ -150,24 +151,19 @@ global:
           pullPolicy: Always
 
     consensus:
-
       dataDir: /data/consensus
-
-      customNetwork:
-        name: "kiln"
-        config:
 
       config:
         ports:
-          p2p_tcp: 9000
-          p2p_udp: 9000
+          p2p_tcp: 30240
+          p2p_udp: 30240
           http_api: 5052
           metrics: 5054
 
       client:
         name: lighthouse
         image:
-          repository: sigmap/lighthouse
+          repository: sigp/lighthouse
           tag: latest
           pullPolicy: Always
 
@@ -181,11 +177,10 @@ global:
 
 ## Client-specific config
 geth:
-  image:
-    repository: ethereum/client-go
-    tag: latest
-    pullPolicy: Always
+  {}
 
+lighthouse:
+  {}
 
 
 

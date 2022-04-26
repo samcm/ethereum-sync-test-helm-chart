@@ -1,18 +1,21 @@
-{{- define "geth.containers" }}
-- image: {{ .Values.global.ethereum.execution.client.image.repository }}:{{ .Values.global.ethereum.execution.client.image.tag }}
-  name: geth
-  imagePullPolicy: {{ .Values.global.ethereum.execution.client.image.pullPolicy }}
+{{- define "lighthouse.containers" }}
+- image: {{ .Values.global.ethereum.consensus.client.image.repository }}:{{ .Values.global.ethereum.consensus.client.image.tag }}
+  name: lighthouse-beacon
+  imagePullPolicy: {{ .Values.global.ethereum.consensus.client.image.pullPolicy }}
   command:
   {{- if gt (len .Values.customCommand) 0 }}
     {{- toYaml .Values.customCommand | nindent 2}}
   {{- else }}
-    {{- include "geth.defaultCommand" . | nindent 2 }}
+    {{- include "lighthouse.beaconCommand" . | nindent 2 }}
   {{- end }}
   env:
   - name: POD_IP
     valueFrom:
       fieldRef:
         fieldPath: status.podIP
+  {{- if .Values.extraEnv }}
+  {{- toYaml .Values.extraEnv | nindent 2 }}
+  {{- end }}
   volumeMounts:
   {{- if .Values.extraVolumeMounts }}
     {{ toYaml .Values.extraVolumeMounts | nindent 8}}
@@ -30,23 +33,17 @@
   {{- if .Values.extraContainerPorts }}
     {{ toYaml .Values.extraContainerPorts | nindent 8 }}
   {{- end }}
-  - name: exe-p2p-tcp
-    containerPort: {{ .Values.global.ethereum.execution.config.ports.p2p_tcp }}
+  - name: con-p2p-tcp
+    containerPort: {{ .Values.global.ethereum.consensus.config.ports.p2p_tcp }}
     protocol: TCP
-  - name: exe-p2p-udp
-    containerPort: {{ .Values.global.ethereum.execution.config.ports.p2p_udp }}
+  - name: con-p2p-udp
+    containerPort: {{ .Values.global.ethereum.consensus.config.ports.p2p_udp }}
     protocol: UDP
-  - name: exe-http-rpc
-    containerPort: {{ .Values.global.ethereum.execution.config.ports.http_rpc }}
+  - name: con-http-api
+    containerPort: {{ .Values.global.ethereum.consensus.config.ports.http_api }}
     protocol: TCP
-  - name: exe-engine-api
-    containerPort: {{ .Values.global.ethereum.execution.config.ports.engine_api }}
-    protocol: TCP
-  - name: exe-ws-rpc
-    containerPort: {{ .Values.global.ethereum.execution.config.ports.ws_rpc }}
-    protocol: TCP
-  - name: exe-metrics
-    containerPort: {{ .Values.global.ethereum.execution.config.ports.metrics }}
+  - name: con-metrics
+    containerPort: {{ .Values.global.ethereum.consensus.config.ports.metrics }}
     protocol: TCP
   {{- if .Values.livenessProbe }}
   livenessProbe:
@@ -58,5 +55,6 @@
   {{- end }}
   resources:
     {{- toYaml .Values.resources | nindent 4 }}
+  
 {{- end }}
 

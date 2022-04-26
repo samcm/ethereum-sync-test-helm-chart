@@ -6,11 +6,12 @@
 {{- if .Values.extraVolumes }}
 {{ toYaml .Values.extraVolumes | nindent 8}}
 {{- end }}
+- name: status-checks
+  configMap:
+    name: {{ include "ethereum-sync-tests.fullname" . }}-checks
+    defaultMode: 0777
 - name: config
   emptyDir: {}
-  # configMap:
-    # name: {{ include "ethereum-sync-tests.fullname" . }}
-
 {{- if .Values.persistence.enabled }}
 - name: storage
   persistentVolumeClaim:

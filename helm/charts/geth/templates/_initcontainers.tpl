@@ -1,6 +1,6 @@
 {{- define "geth.initContainers" }}
 {{- $initGenesis := .Values.initContainers.initGenesis }}
-- name: init-genesis
+- name: exe-init-genesis
   image:  {{ .Values.global.ethereum.execution.client.image.repository }}:{{ .Values.global.ethereum.execution.client.image.tag }}
   imagePullPolicy: {{ .Values.global.ethereum.execution.client.image.pullPolicy }}
   securityContext:

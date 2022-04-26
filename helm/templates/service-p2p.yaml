@@ -23,6 +23,16 @@ spec:
       protocol: UDP
       targetPort: exe-p2p-udp
       nodePort: {{ get .Values.global.ethereum.execution.config.ports "p2p_tcp" }}
+    - name: con-p2p-tcp
+      port: {{ get .Values.global.ethereum.consensus.config.ports "p2p_tcp" }}
+      protocol: TCP
+      targetPort: con-p2p-tcp
+      nodePort: {{ get .Values.global.ethereum.consensus.config.ports "p2p_tcp" }}
+    - name: con-p2p-udp
+      port: {{ get .Values.global.ethereum.consensus.config.ports "p2p_udp" }}
+      protocol: UDP
+      targetPort: con-p2p-udp
+      nodePort: {{ get .Values.global.ethereum.consensus.config.ports "p2p_tcp" }}
   selector:
     {{- include "ethereum-sync-tests.selectorLabels" $ | nindent 4 }}
 {{- end }}

@@ -8,6 +8,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
+    ## Execution
     - port: {{ get .Values.global.ethereum.execution.config.ports "p2p_tcp" }}
       targetPort: exe-p2p-tcp
       protocol: TCP
@@ -17,17 +18,38 @@ spec:
       protocol: UDP
       name: exe-p2p-udp
     - port: {{ get .Values.global.ethereum.execution.config.ports "http_rpc" }}
-      targetPort: http-rpc
+      targetPort: exe-http-rpc
       protocol: TCP
       name: exe-http-rpc
+    - port: {{ get .Values.global.ethereum.execution.config.ports "engine_api" }}
+      targetPort: exe-engine-api
+      protocol: TCP
+      name: exe-engine-api
     - port: {{ get .Values.global.ethereum.execution.config.ports "ws_rpc" }}
-      targetPort: ws-rpc
+      targetPort: exe-ws-rpc
       protocol: TCP
       name: exe-ws-rpc
     - port: {{ get .Values.global.ethereum.execution.config.ports "metrics" }}
-      targetPort: metrics
+      targetPort: exe-metrics
       protocol: TCP
       name: exe-metrics
+  ## Consensus
+    - port: {{ get .Values.global.ethereum.consensus.config.ports "p2p_tcp" }}
+      targetPort: con-p2p-tcp
+      protocol: TCP
+      name: con-p2p-tcp
+    - port: {{ get .Values.global.ethereum.consensus.config.ports "p2p_udp" }}
+      targetPort: con-p2p-udp
+      protocol: UDP
+      name: con-p2p-udp
+    - port: {{ get .Values.global.ethereum.consensus.config.ports "http_api" }}
+      targetPort: con-http-api
+      protocol: TCP
+      name: con-http-api
+    - port: {{ get .Values.global.ethereum.consensus.config.ports "metrics" }}
+      targetPort: con-metrics
+      protocol: TCP
+      name: con-metrics
   {{- if .Values.extraPorts }}
     {{ toYaml .Values.extraPorts | nindent 4}}
   {{- end }}

@@ -1,11 +1,14 @@
 initContainers:
   initGenesis:
+    enabled: true
+
     image: 
       repository: alpine
       tag: latest
-      pullPolicy: IfNotPresent
-
-    enabled: true
+    imagePullPolicy: IfNotPresent
+    securityContext:
+      runAsNonRoot: false
+      runAsUser: 0
 
 extraArgs: []
 
