@@ -28,6 +28,8 @@
 
         if [[ "$CONSENSUS_STATUS" == "100" && "$EXECUTION_STATUS" == "100" ]]; then
           echo "Shutting down...";
+          pkill -U root;
+          exit 0;
         fi
 
         sleep 5;
