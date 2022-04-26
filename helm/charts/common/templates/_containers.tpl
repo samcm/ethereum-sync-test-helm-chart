@@ -23,10 +23,10 @@
         EXECUTION_STATUS=$(/status/execution.sh);
         CONSENSUS_STATUS=$(/status/consensus.sh);
 
-        echo "EXECUTION_STATUS: $EXECUTION_STATUS%, CONSENSUS_STATUS: $CONSENSUS_STATUS%"
+        echo "EXECUTION: $EXECUTION_STATUS%, CONSENSUS: $CONSENSUS_STATUS%"
         
 
-        if [ "$CONSENSUS_STATUS" == "100" ]; then
+        if [[ "$CONSENSUS_STATUS" == "100" && "$EXECUTION_STATUS" == "100" ]]; then
           echo "Shutting down...";
         fi
 

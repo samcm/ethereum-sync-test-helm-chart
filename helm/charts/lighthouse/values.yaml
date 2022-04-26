@@ -1,3 +1,12 @@
+initContainers:
+  initGenesis:
+    image: 
+      repository: alpine
+      tag: latest
+      pullPolicy: IfNotPresent
+
+    enabled: true
+
 extraArgs: []
 
 extraContainerPorts: []

@@ -124,9 +124,8 @@ global:
         config.yaml: https://config.kiln.themerge.dev/cl/genesis/config.yaml
         genesis.ssz: https://config.kiln.themerge.dev/cl/genesis/genesis.ssz
         deploy_block.txt: https://config.kiln.themerge.dev/cl/genesis/deposit_contract_block.txt
-        deposit_contract.txt: https://config.kiln.themerge.dev/cl/genesis/deposit_contract.txt 
+        deposit_contract.txt: https://config.kiln.themerge.dev/cl/genesis/deposit_contract.txt
         deposit_contract_block.txt: https://config.kiln.themerge.dev/cl/genesis/deposit_contract_block.txt
-        
 
   ethereum:
     network: kiln
@@ -137,8 +136,8 @@ global:
       config:
         ports:
           engine_api: 8551
-          p2p_tcp: 30140
-          p2p_udp: 30140
+          p2p_tcp: 30141
+          p2p_udp: 30141
           http_rpc: 8545
           ws_rpc: 8546
           metrics: 6060
@@ -155,8 +154,8 @@ global:
 
       config:
         ports:
-          p2p_tcp: 30240
-          p2p_udp: 30240
+          p2p_tcp: 30241
+          p2p_udp: 30241
           http_api: 5052
           metrics: 5054
 
@@ -181,95 +180,6 @@ geth:
 
 lighthouse:
   {}
-
-
-
-    # consensus:
-    #   lighthouse:
-    #     initContainers:
-    #     - name: init-genesis
-    #       image: alpine:latest
-    #       pullPolicy: IfNotPresent
-    #       securityContext:
-    #         runAsNonRoot: false
-    #         runAsUser: 0
-    #       env:
-    #       - name: "ETH_CLIENTS_AUTH_JWT"
-    #         value: "" # Will be overwritten via `-set` on main helmsman file
-    #       command:
-    #         - sh
-    #         - -ace
-    #         - >
-    #           DEPOSIT_CONTRACT_URI=https://config.kiln.themerge.dev/cl/genesis/deposit_contract.txt;
-    #           DEPOSIT_CONTRACT_BLOCK_URI=https://config.kiln.themerge.dev/cl/genesis/deposit_contract_block.txt;
-    #           DEPLOY_BLOCK_URI=https://config.kiln.themerge.dev/cl/genesis/deploy_block.txt;
-    #           GENESIS_CONFIG_URI=https://config.kiln.themerge.dev/cl/genesis/config.yaml;
-    #           GENESIS_SSZ_URI=https://config.kiln.themerge.dev/cl/genesis/genesis.ssz;
-    #           BOOTNODE="enr:-Iq4QKuNB_wHmWon7hv5HntHiSsyE1a6cUTK1aT7xDSU_hNTLW3R4mowUboCsqYoh1kN9v3ZoSu_WuvW9Aw0tQ0Dxv6GAXxQ7Nv5gmlkgnY0gmlwhLKAlv6Jc2VjcDI1NmsxoQK6S-Cii_KmfFdUJL2TANL3ksaKUnNXvTCv1tLwXs0QgIN1ZHCCIyk";
-    #           mkdir -p /data/consensus/testnet_spec;
-    #           if ! [ -f /data/consensus/testnet_spec/genesis.ssz ];
-    #           then
-    #             wget -O /data/consensus/testnet_spec/deposit_contract.txt $DEPOSIT_CONTRACT_URI;
-    #             wget -O /data/consensus/testnet_spec/deposit_contract_block.txt $DEPOSIT_CONTRACT_BLOCK_URI;
-    #             wget -O /data/consensus/testnet_spec/deploy_block.txt $DEPLOY_BLOCK_URI;
-    #             wget -O /data/consensus/testnet_spec/config.yaml $GENESIS_CONFIG_URI;
-    #             wget -O /data/consensus/testnet_spec/genesis.ssz $GENESIS_SSZ_URI;
-    #             echo "genesis init done";
-    #           else
-    #             echo "genesis exists. skipping...";
-    #           fi;
-    #           echo $BOOTNODE > /data/consensus/testnet_spec/bootstrap_nodes.txt;
-    #           echo "bootnode init done: $(cat /data/consensus/testnet_spec/bootstrap_nodes.txt)";
-    #       volumeMounts:
-    #         - name: storage
-    #           mountPath: "/data"
-
-    #     containers:
-    #     - name: lighthouse-beacon
-    #       image: 
-    #         repository: sigmap/lighthouse
-    #         tag: latest
-    #       pullPolicy: Always
-    #       commands:
-    #       - --testnet-dir=/data/consensus/testnet_spec
-    #       - --boot-nodes="$(cat /data/consensus/testnet_spec/bootstrap_nodes.txt)"
-    #       - --eth1
-    #       - --execution-endpoints="http://${POD_IP}:8551"
-    #       - --eth1-endpoints="http://${POD_IP}:8545"
-    #       - --merge
-    #       - --terminal-total-difficulty-override=20000000000000
-    #       - --jwt-secrets="/shared/jwtsecret"
-    #       env:
-    #         - name: ETHEREUM_EXECUTION_CLIENT_NAME
-    #           value: lighthouse
-    #         - name: POD_IP
-    #           valueFrom:
-    #             fieldRef:
-    #               fieldPath: status.podIP
-    #       volumeMounts:
-    #         - name: storage
-    #           mountPath: /data
-    #         - name: shared
-    #           mountPath: /shared
-    #       resources:
-    #         requests:
-    #           cpu: 2000m
-    #           memory: 4000Mi
-    #       ports:
-    #         - containerPort: 9000
-    #           hostPort: 9000
-    #           protocol: TCP
-    #           name: p2p-tcp
-    #         - containerPort: 9000
-    #           hostPort: 9000
-    #           protocol: UDP
-    #           name: p2p-udp
-    #         - containerPort: 5052
-    #           protocol: TCP
-    #           name: http-rpc
-    #         - containerPort: 5054
-    #           protocol: TCP
-    #           name: metrics
 
 
 serviceAccount:

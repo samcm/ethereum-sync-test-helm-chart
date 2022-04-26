@@ -5,8 +5,8 @@ dependencies:
 - name: geth
   repository: file://charts/geth
   version: 0.1.0
-- name: ligthouse
+- name: lighthouse
   repository: file://charts/lighthouse
   version: 0.1.0
-digest: sha256:75817884ebb774da7e0afb21b6b64124aa770c198a9f75cac4be06465de46e1a
-generated: "2022-04-26T12:22:00.918148+10:00"
+digest: sha256:d6e65be4ff753da43dec3b7beeeef7ba04e9683a8fcb07fd8d542ed2bd4a2f72
+generated: "2022-04-26T15:55:55.559965+10:00"
