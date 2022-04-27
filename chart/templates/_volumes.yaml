@@ -1,0 +1,28 @@
+{{- define "ethereum-sync-tests.volumes" }}
+{{- if .Values.global.p2pNodePort.enabled }}
+- name: env-nodeport
+  emptyDir: {}
+{{- end }}
+{{- if .Values.extraVolumes }}
+{{ toYaml .Values.extraVolumes | nindent 8}}
+{{- end }}
+- name: status-checks
+  configMap:
+    name: {{ include "ethereum-sync-tests.fullname" . }}-checks
+    defaultMode: 0777
+- name: config
+  emptyDir: {}
+{{- if .Values.persistence.enabled }}
+- name: storage
+  persistentVolumeClaim:
+    claimName: {{ include "ethereum-sync-tests.fullname" . }}
+{{- end }}
+{{- if not .Values.persistence.enabled }}
+- name: storage
+  emptyDir: {}
+{{- else if .Values.persistence.existingClaim }}
+- name: storage
+  persistentVolumeClaim:
+    claimName: {{ .Values.persistence.existingClaim }}
+{{- end }}
+{{- end }}

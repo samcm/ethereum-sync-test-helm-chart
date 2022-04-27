@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "ethereum-sync-tests.fullname" . }}
+  labels:
+    {{- include "ethereum-sync-tests.labels" . | nindent 4 }}
+  annotations:
+    {{- if .Values.cronjob.annotations }}
+    {{- toYaml .Values.cronjob.annotations | nindent 4 }}
+    {{- end }}
+spec:
+  schedule: {{ .Values.cronjob.schedule | quote }}
+  suspend: {{ .Values.cronjob.suspend }}
+  {{- if .Values.cronjob.concurrencyPolicy }}
+  concurrencyPolicy: {{ .Values.cronjob.concurrencyPolicy }}
+  {{- end }}
+  successfulJobsHistoryLimit: {{ .Values.cronjob.successfulJobsHistoryLimit }}
+  {{- if .Values.cronjob.failedJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ .Values.cronjob.failedJobsHistoryLimit }}
+  {{- end }}
+  jobTemplate:
+    spec:
+      backoffLimit: {{ .Values.cronjob.job.backoffLimit }}
+      template:
+        metadata:
+          labels:
+          {{- include "ethereum-sync-tests.selectorLabels" . | nindent 12 }}
+          {{- with .Values.podLabels }}
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.podAnnotations }}
+          annotations:
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
+        spec:
+          initContainers:
+          {{ include "ethereum-sync-tests.initContainers" . | nindent 12 }}
+          containers:
+          {{ include "ethereum-sync-tests.containers" . | nindent 12 }}
+          volumes:
+          {{ include "ethereum-sync-tests.volumes" . | nindent 12 }}
+          nodeSelector:
+          {{- toYaml .Values.nodeSelector | nindent 12 }}
+          affinity:
+          {{- toYaml .Values.affinity | nindent 12 }}
+          tolerations:
+          {{- toYaml .Values.tolerations | nindent 12 }}
+          restartPolicy: {{ .Values.cronjob.restartPolicy | quote }}
+          shareProcessNamespace: true

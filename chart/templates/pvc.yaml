@@ -1,0 +1,23 @@
+{{- if .Values.persistence.enabled }}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ template "ethereum-sync-tests.fullname" . }}
+  labels:
+    {{- include "ethereum-sync-tests.labels" . | nindent 4 }}
+  annotations:
+    {{- toYaml .Values.persistence.annotations | nindent 4 }}
+spec:
+  {{- if .Values.persistence.storageClass }}
+  storageClassName: {{ .Values.persistence.storageClassName }}
+  {{- end }}
+  accessModes:
+    {{- toYaml .Values.persistence.accessModes | nindent 4 }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.size | quote }}
+  {{- if .Values.persistence.selector }}
+  selector:
+    {{- toYaml .Values.persistence.selector | nindent 4 }}
+  {{- end }}
+{{- end }}

@@ -1,0 +1,9 @@
+{{- define "ethereum-sync-tests.containers" }}
+{{ include "common.containers" .Subcharts.common }} 
+{{- if eq .Values.global.ethereum.execution.client.name "geth" }}
+{{ include "geth.containers" .Subcharts.geth }}
+{{- end }}
+{{- if eq .Values.global.ethereum.consensus.client.name "lighthouse" }}
+{{ include "lighthouse.containers" .Subcharts.lighthouse }}
+{{- end }}
+{{- end }}

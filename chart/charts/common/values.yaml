@@ -1,0 +1,11 @@
+statusChecker:
+  image:
+    repository: alpine
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  resources:
+    {}
+  # requests:
+  #   cpu: 16m
+  #   memory: 32Mi
