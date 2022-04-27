@@ -1,7 +1,7 @@
 {{- define "geth.containers" }}
-- image: {{ .Values.global.ethereum.execution.client.image.repository }}:{{ .Values.global.ethereum.execution.client.image.tag }}
+- image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
   name: geth
-  imagePullPolicy: {{ .Values.global.ethereum.execution.client.image.pullPolicy }}
+  imagePullPolicy: {{ .Values.image.pullPolicy }}
   command:
   {{- if gt (len .Values.customCommand) 0 }}
     {{- toYaml .Values.customCommand | nindent 2}}

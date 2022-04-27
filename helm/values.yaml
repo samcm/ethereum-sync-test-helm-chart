@@ -42,13 +42,13 @@ global:
       enabled: true
       image:
         repository: busybox
-        tag: latest
+        tag: "1.34.0"
         pullPolicy: IfNotPresent
       command:
         - /bin/sh
       args:
         - -c
-        # - rm -rf /data/*
+        - rm -rf /data/*
         - mkdir -p /data/execution
         - mkdir -p /data/consensus
         - touch /data/execution/test.txt
@@ -144,10 +144,7 @@ global:
 
       client:
         name: geth
-        image:
-          repository: ethereum/client-go
-          tag: latest
-          pullPolicy: Always
+
 
     consensus:
       dataDir: /data/consensus
@@ -161,10 +158,7 @@ global:
 
       client:
         name: lighthouse
-        image:
-          repository: sigp/lighthouse
-          tag: latest
-          pullPolicy: Always
+
 
   # -- The security context for pods
   # @default -- See `values.yaml`
@@ -176,10 +170,16 @@ global:
 
 ## Client-specific config
 geth:
-  {}
+  image:
+    repository: ethereum/client-go
+    tag: latest
+    pullPolicy: Always
 
 lighthouse:
-  {}
+  image:
+    repository: sigp/lighthouse
+    tag: latest
+    pullPolicy: Always
 
 
 serviceAccount:

@@ -2,7 +2,7 @@
 {{- $initGenesis := .Values.initContainers.initGenesis }}
 - name: con-init-genesis
   image:  {{ .Values.initContainers.initGenesis.image.repository }}:{{ .Values.initContainers.initGenesis.image.tag }}
-  imagePullPolicy: {{ .Values.global.ethereum.consensus.client.image.pullPolicy }}
+  imagePullPolicy: {{ .Values.initContainers.initGenesis.image.pullPolicy }}
   securityContext:
     runAsNonRoot: false
     runAsUser: 0

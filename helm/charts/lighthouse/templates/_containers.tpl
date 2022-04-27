@@ -1,7 +1,7 @@
 {{- define "lighthouse.containers" }}
-- image: {{ .Values.global.ethereum.consensus.client.image.repository }}:{{ .Values.global.ethereum.consensus.client.image.tag }}
+- image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
   name: lighthouse-beacon
-  imagePullPolicy: {{ .Values.global.ethereum.consensus.client.image.pullPolicy }}
+  imagePullPolicy: {{ .Values.image.pullPolicy }}
   command:
   {{- if gt (len .Values.customCommand) 0 }}
     {{- toYaml .Values.customCommand | nindent 2}}

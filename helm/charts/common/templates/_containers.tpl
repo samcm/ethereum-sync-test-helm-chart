@@ -18,6 +18,9 @@
       apk add curl;
       apk add jq;
 
+      # Sleep to give time for the clients to boot up and find peers etc.
+      sleep 60;
+
       while true;
       do
         EXECUTION_STATUS=$(/status/execution.sh);
@@ -28,7 +31,8 @@
 
         if [[ "$CONSENSUS_STATUS" == "100" && "$EXECUTION_STATUS" == "100" ]]; then
           echo "Shutting down...";
-          pkill -U root;
+          pkill geth;
+          pkill lighthouse;
           exit 0;
         fi
 
