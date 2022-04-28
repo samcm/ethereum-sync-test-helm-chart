@@ -1,0 +1,28 @@
+apiVersion: v1
+entries:
+  ethereum-sync-tests:
+  - apiVersion: v2
+    appVersion: 0.0.0
+    created: "2022-04-28T01:02:36.026523437Z"
+    dependencies:
+    - name: common
+      repository: file://charts/common
+      version: 0.1.0
+    - name: geth
+      repository: file://charts/geth
+      version: 0.1.0
+    - name: lighthouse
+      repository: file://charts/lighthouse
+      version: 0.1.0
+    description: A Helm chart for testing how long it takes to sync Ethereum Consensus
+      & Execution clients
+    digest: 0a5ee6a00e1d843cf7bb883c220c8873fd8675dd6414d83a7822aa4d21b6daf4
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    name: ethereum-sync-tests
+    type: application
+    urls:
+    - https://github.com/samcm/ethereum-sync-test-helm-chart/releases/download/ethereum-sync-tests-0.1.0/ethereum-sync-tests-0.1.0.tgz
+    version: 0.1.0
+generated: "2022-04-28T01:02:36.026541337Z"
