@@ -3,6 +3,6 @@
 remote: origin
 target-branch: main
 chart-dirs:
-  - ./chart
+  - ./charts/ethereum-sync-test
 check-version-increment: true
 lint-conf: lintconf.yaml
