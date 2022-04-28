@@ -59,8 +59,8 @@ Create the name of the service account to use
 */}}
 {{- define "ethereum-sync-tests.serviceAccountName" -}}
 {{- if .Values.rbac.create }}
-{{- default (include "ethereum-sync-tests.fullname" .) .Values.rbac.serviceAccountName }}
+{{- default (include "ethereum-sync-tests.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
-{{- default "default" .Values.rbac.serviceAccountName }}
+{{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
