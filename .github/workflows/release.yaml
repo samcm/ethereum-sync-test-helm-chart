@@ -1,10 +1,9 @@
-name: release
-on: 
+name: Release Helm Charts
+
+on:
   push:
     branches:
       - main
-  release:
-    types: [published, created]
 
 jobs:
   release:
@@ -12,8 +11,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Publish Helm charts
-        uses: stefanprodan/helm-gh-pages@v1.4.1
         with:
-          token: ${{ secrets.CR_TOKEN }}
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - name: Set up Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.7.0
+
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.2.1
+        with:
           charts_dir: chart
+        env:
+          CR_TOKEN: "${{ secrets.CR_TOKEN }}"
