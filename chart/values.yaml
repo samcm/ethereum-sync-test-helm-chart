@@ -9,8 +9,6 @@ cronjob:
   job:
     backoffLimit: 0
 
-# Maybe this should live in a subchart too?
-
 tolerations: []
 
 nodeSelector: {}
