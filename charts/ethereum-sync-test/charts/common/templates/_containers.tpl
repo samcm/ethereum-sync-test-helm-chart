@@ -19,7 +19,7 @@
       apk add jq;
 
       # Sleep to give time for the clients to boot up and find peers etc.
-      sleep 60;
+      sleep 5;
 
       while true;
       do

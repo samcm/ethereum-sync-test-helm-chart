@@ -45,12 +45,12 @@
 */}}
 {{- define "geth.sync-status-check-command" -}}
 #!/bin/sh
-syncing=$(curl -s -X POST --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' -H 'Content-Type: application/json' -H 'Accept: application/json' $POD_IP:8545 | jq -e '.result')
-if [ $syncing == false ]; then
+syncing=$(curl -s -X POST --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' -H 'Content-Type: application/json' -H 'Accept: application/json' $POD_IP:8545 | jq -e '. | if type == "object" and has ("result") then true else false end') 2> /dev/null
+if [ "$syncing" == "false" ]; then
   echo "100"
 else
-  current=$(curl -s -X POST --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' -H 'Content-Type: application/json' -H 'Accept: application/json' $POD_IP:8545 | jq -e '.result.currentBlock' | xargs printf '%d' || echo 0)
-  highest=$(curl -s -X POST --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' -H 'Content-Type: application/json' -H 'Accept: application/json' $POD_IP:8545 | jq -e '.result.highestBlock' | xargs printf '%d' || echo 100000000)
+  current=$(curl -s -X POST --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' -H 'Content-Type: application/json' -H 'Accept: application/json' $POD_IP:8545 | jq -e '.result.currentBlock' | xargs printf '%d' || echo 0) 2> /dev/null
+  highest=$(curl -s -X POST --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' -H 'Content-Type: application/json' -H 'Accept: application/json' $POD_IP:8545 | jq -e '.result.highestBlock' | xargs printf '%d' || echo 100000000) 2> /dev/null
   percent=$((($current * 100) / $highest));
   echo -ne "$percent";
 fi;
