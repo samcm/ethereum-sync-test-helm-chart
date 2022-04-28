@@ -28,12 +28,12 @@ jobs:
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
-          changed=$(ct list-changed --config ./chart/ct.yaml ./chart)
+          changed=$(ct list-changed --config ct.yaml ./chart)
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
           fi
       - name: Run chart-testing (lint)
-        run: ct lint --config ./chart/ct.yaml ./chart
+        run: ct lint --config ct.yaml ./chart
 
       - name: Create kind cluster
         uses: helm/kind-action@v1.2.0
@@ -41,4 +41,4 @@ jobs:
 
       - name: Run chart-testing (install)
         run: >
-          ct install --config ./chart/ct.yaml ./chart
+          ct install --config ct.yaml ./chart
