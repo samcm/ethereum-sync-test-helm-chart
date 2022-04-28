@@ -24,7 +24,7 @@ spec:
       template:
         metadata:
           labels:
-          {{- include "ethereum-sync-tests.selectorLabels" . | nindent 12 }}
+          {{- include "ethereum-sync-tests.labels" . | nindent 12 }}
           {{- with .Values.podLabels }}
           {{- toYaml . | nindent 12 }}
           {{- end }}
@@ -47,3 +47,6 @@ spec:
           {{- toYaml .Values.tolerations | nindent 12 }}
           restartPolicy: {{ .Values.cronjob.restartPolicy | quote }}
           shareProcessNamespace: true
+          {{- if .Values.rbac.create }}
+          serviceAccountName: {{ include "ethereum-sync-tests.serviceAccountName" . }}
+          {{- end }}

@@ -1,6 +1,6 @@
 cronjob:
-  schedule: '*/10 * * * *'
-  suspend: true
+  schedule: '0 0 * * 0'
+  suspend: false
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
   restartPolicy: Never
@@ -25,6 +25,8 @@ persistence:
   # -- Access mode for the volume claim template
   accessModes:
   - ReadWriteOnce
+  # -- Storage class for the volume claim template
+  storageClassName: ""
   # -- Requested size for volume claim template
   size: 20Gi
   # -- Annotations for volume claim template
@@ -160,6 +162,7 @@ global:
 
   # -- The security context for pods
   # @default -- See `values.yaml`
+  # TODO(sam.caldermason): Actually use this
   securityContext:
     fsGroup: 10001
     runAsGroup: 10001
@@ -178,10 +181,6 @@ lighthouse:
     repository: sigp/lighthouse
     tag: latest
     pullPolicy: Always
-
-
-serviceAccount:
-  create: true
 
 rbac:
   # -- Specifies whether RBAC resources are to be created
