@@ -21,6 +21,10 @@ spec:
   jobTemplate:
     spec:
       backoffLimit: {{ .Values.cronjob.job.backoffLimit }}
+      {{- if .Values.cronjob.activeDeadlineSeconds }}
+      activeDeadlineSeconds: {{ .Values.cronjob.activeDeadlineSeconds }}
+      {{- end }}
+
       template:
         metadata:
           labels:
