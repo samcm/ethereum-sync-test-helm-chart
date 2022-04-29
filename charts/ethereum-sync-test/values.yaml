@@ -102,7 +102,7 @@ global:
   #             Check the chart README.md for more details
   p2pNodePort:
     # -- Expose P2P port via NodePort
-    enabled: true
+    enabled: false
     # -- Ports can be configured in global.ethereum.execution.client.ports.p2p_tcp etc
     initContainer:
       image:
@@ -131,6 +131,9 @@ global:
     network: kiln
 
     execution:
+      client:
+        name: geth
+
       dataDir: /data/execution
 
       config:
@@ -142,11 +145,11 @@ global:
           ws_rpc: 8546
           metrics: 6060
 
-      client:
-        name: geth
-
 
     consensus:
+      client:
+        name: prysm
+
       dataDir: /data/consensus
 
       config:
@@ -154,10 +157,8 @@ global:
           p2p_tcp: 30241
           p2p_udp: 30241
           http_api: 5052
+          rpc: 5053
           metrics: 5054
-
-      client:
-        name: lighthouse
 
 
   # -- The security context for pods
@@ -179,6 +180,13 @@ geth:
 lighthouse:
   image:
     repository: sigp/lighthouse
+    tag: latest
+    pullPolicy: Always
+
+prysm:
+  image:
+    repository: samcm/prysm-debian # Official prysm image doesnt have `sh` which is required for p2pnodeport
+    # repository: gcr.io/prysmaticlabs/prysm/beacon-chain
     tag: latest
     pullPolicy: Always
 

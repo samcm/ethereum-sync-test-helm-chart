@@ -25,3 +25,6 @@ dependencies:
 - name: "lighthouse"
   version: "0.1.0"
   repository: "file://charts/lighthouse"
+- name: "prysm"
+  version: "0.1.0"
+  repository: "file://charts/prysm"

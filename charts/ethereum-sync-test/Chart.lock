@@ -8,5 +8,8 @@ dependencies:
 - name: lighthouse
   repository: file://charts/lighthouse
   version: 0.1.0
-digest: sha256:d6e65be4ff753da43dec3b7beeeef7ba04e9683a8fcb07fd8d542ed2bd4a2f72
-generated: "2022-04-28T10:38:04.180384+10:00"
+- name: prysm
+  repository: file://charts/prysm
+  version: 0.1.0
+digest: sha256:c5f5bd44c2cc516d0d193587c3e90b146ba80bd6d3308481423ca9249ab4a825
+generated: "2022-04-29T14:07:25.74813+10:00"
