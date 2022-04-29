@@ -13,8 +13,8 @@
   --datadir={{ .Values.global.ethereum.consensus.dataDir }}
 {{- if .Values.global.p2pNodePort.enabled }}
   --p2p-host-ip=$EXTERNAL_IP
-  --p2p-tcp-port=$EXTERNAL_PORT
-  --p2p-udp-port=$EXTERNAL_PORT
+  --p2p-tcp-port=$EXTERNAL_CONSENSUS_PORT
+  --p2p-udp-port=$EXTERNAL_CONSENSUS_PORT
 {{- else }}
   --p2p-host-ip=$(POD_IP)
   --p2p-tcp-port={{ .Values.global.ethereum.consensus.config.ports.p2p_tcp }}

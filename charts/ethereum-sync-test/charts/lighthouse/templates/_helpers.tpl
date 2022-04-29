@@ -15,8 +15,8 @@
   --disable-enr-auto-update
 {{- if .Values.global.p2pNodePort.enabled }}
   --enr-address=$EXTERNAL_IP
-  --enr-tcp-port=$EXTERNAL_PORT
-  --enr-udp-port=$EXTERNAL_PORT
+  --enr-tcp-port=$EXTERNAL_CONSENSUS_PORT
+  --enr-udp-port=$EXTERNAL_CONSENSUS_PORT
 {{- else }}
   --enr-address=$(POD_IP)
   --enr-tcp-port={{ .Values.global.ethereum.consensus.config.ports.p2p_tcp }}

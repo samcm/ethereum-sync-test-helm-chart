@@ -12,7 +12,7 @@
   --datadir={{ .Values.global.ethereum.execution.dataDir }}
 {{- if .Values.global.p2pNodePort.enabled }}
   --nat=extip:$EXTERNAL_IP
-  --port=$EXTERNAL_PORT
+  --port=$EXTERNAL_EXECUTION_PORT
 {{- else }}
   --nat=extip:$(POD_IP)
   --port={{ .Values.global.ethereum.execution.config.ports.p2p_tcp }}
