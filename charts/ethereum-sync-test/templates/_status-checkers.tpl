@@ -9,5 +9,8 @@
 {{- if eq .Values.global.ethereum.consensus.client.name "lighthouse" }}
 {{ include "lighthouse.sync-status-check-command" .Subcharts.lighthouse }}
 {{- end }}
+{{- if eq .Values.global.ethereum.consensus.client.name "prysm" }}
+{{ include "prysm.sync-status-check-command" .Subcharts.prysm }}
+{{- end }}
 
 {{- end }}

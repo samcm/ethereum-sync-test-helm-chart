@@ -19,7 +19,7 @@
   --enr-udp-port=$EXTERNAL_PORT
 {{- else }}
   --enr-address=$(POD_IP)
-  --enr-tcp-port={{ .Values.global.ethereum.conesnsus.config.ports.p2p_tcp }}
+  --enr-tcp-port={{ .Values.global.ethereum.consensus.config.ports.p2p_tcp }}
   --enr-udp-port={{ .Values.global.ethereum.consensus.config.ports.p2p_udp }}
 {{- end }}
   --listen-address=0.0.0.0

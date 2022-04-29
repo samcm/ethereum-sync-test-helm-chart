@@ -33,6 +33,7 @@
           echo "Shutting down...";
           pkill geth;
           pkill lighthouse;
+          pkill beacon-chain;
           exit 0;
         fi
 

@@ -45,7 +45,7 @@
 */}}
 {{- define "geth.sync-status-check-command" -}}
 #!/bin/sh
-syncing=$(curl -s -X POST --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' -H 'Content-Type: application/json' -H 'Accept: application/json' $POD_IP:8545 | jq -e '. | if type == "object" and has ("result") then true else false end') 2> /dev/null
+syncing=$(curl -s -X POST --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' -H 'Content-Type: application/json' -H 'Accept: application/json' $POD_IP:8545 | jq -e '.result') 2> /dev/null
 if [ "$syncing" == "false" ]; then
   echo "100"
 else

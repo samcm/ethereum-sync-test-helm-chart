@@ -46,6 +46,10 @@ spec:
       targetPort: con-http-api
       protocol: TCP
       name: con-http-api
+    - port: {{ get .Values.global.ethereum.consensus.config.ports "rpc" }}
+      targetPort: con-rpc
+      protocol: TCP
+      name: con-rpc
     - port: {{ get .Values.global.ethereum.consensus.config.ports "metrics" }}
       targetPort: con-metrics
       protocol: TCP

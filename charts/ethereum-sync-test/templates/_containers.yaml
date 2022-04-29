@@ -6,4 +6,7 @@
 {{- if eq .Values.global.ethereum.consensus.client.name "lighthouse" }}
 {{ include "lighthouse.containers" .Subcharts.lighthouse }}
 {{- end }}
+{{- if eq .Values.global.ethereum.consensus.client.name "prysm" }}
+{{ include "prysm.containers" .Subcharts.prysm }}
+{{- end }}
 {{- end }}
