@@ -57,8 +57,10 @@
       {{- else }}
       export EXTERNAL_IP=$(kubectl get nodes "${NODE_NAME}" -o jsonpath='{.status.addresses[?(@.type=="ExternalIP")].address}');
       {{- end }}
-      export EXTERNAL_PORT={{ .Values.global.ethereum.execution.config.ports.p2p_tcp }};
-      echo "EXTERNAL_PORT=$EXTERNAL_PORT" >  /env/init-nodeport;
+      export EXTERNAL_EXECUTION_PORT={{ .Values.global.ethereum.execution.config.ports.p2p_tcp }};
+      export EXTERNAL_CONSENSUS_PORT={{ .Values.global.ethereum.consensus.config.ports.p2p_tcp }};
+      echo "EXTERNAL_EXECUTION_PORT=$EXTERNAL_EXECUTION_PORT" >  /env/init-nodeport;
+      echo "EXTERNAL_CONSENSUS_PORT=$EXTERNAL_CONSENSUS_PORT" >  /env/init-nodeport;
       echo "EXTERNAL_IP=$EXTERNAL_IP"     >> /env/init-nodeport;
       cat /env/init-nodeport;
   volumeMounts:
