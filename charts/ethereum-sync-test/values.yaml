@@ -9,6 +9,7 @@ cronjob:
 
   job:
     backoffLimit: 0
+    ttlSecondsAfterFinished: 120
 
 tolerations: []
 
