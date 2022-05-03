@@ -24,6 +24,9 @@ spec:
       {{- if .Values.cronjob.activeDeadlineSeconds }}
       activeDeadlineSeconds: {{ .Values.cronjob.activeDeadlineSeconds }}
       {{- end }}
+      {{- if .Values.cronjob.job.ttlSecondsAfterFinished }}
+      ttlSecondsAfterFinished: {{ .Values.cronjob.job.ttlSecondsAfterFinished }}
+      {{- end }}
 
       template:
         metadata:
@@ -53,7 +56,4 @@ spec:
           shareProcessNamespace: true
           {{- if .Values.rbac.create }}
           serviceAccountName: {{ include "ethereum-sync-tests.serviceAccountName" . }}
-          {{- end }}
-          {{- if .Values.cronjob.job.ttlSecondsAfterFinished }}
-          ttlSecondsAfterFinished: {{ .Values.cronjob.job.ttlSecondsAfterFinished }}
           {{- end }}
