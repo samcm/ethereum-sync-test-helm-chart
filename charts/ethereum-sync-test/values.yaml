@@ -36,6 +36,11 @@ persistence:
   selector: {}
   #   matchLabels:
   #     app.kubernetes.io/name: something
+  # -- Host path configuration
+  hostPath:
+    enabled: false
+    path: /opt/ethereum-sync-tests
+    type: DirectoryOrCreate
 
 global:
   initContainers:

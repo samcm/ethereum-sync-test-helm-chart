@@ -17,12 +17,17 @@
   persistentVolumeClaim:
     claimName: {{ include "ethereum-sync-tests.fullname" . }}
 {{- end }}
-{{- if not .Values.persistence.enabled }}
+{{- if and (not .Values.persistence.enabled) (not .Values.persistence.hostPath.enabled) }}
 - name: storage
   emptyDir: {}
 {{- else if .Values.persistence.existingClaim }}
 - name: storage
   persistentVolumeClaim:
     claimName: {{ .Values.persistence.existingClaim }}
+{{- else if .Values.persistence.hostPath.enabled }}
+- name: storage
+  hostPath:
+    path: {{ .Values.persistence.hostPath.path | quote }}
+    type: {{ .Values.persistence.hostPath.type | quote }}
 {{- end }}
 {{- end }}
