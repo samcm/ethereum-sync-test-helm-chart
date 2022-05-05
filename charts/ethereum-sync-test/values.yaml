@@ -8,7 +8,7 @@ cronjob:
 
   job:
     backoffLimit: 0
-    # restartPolicy: Never
+    restartPolicy: OnFailure
     ttlSecondsAfterFinished: 120
 
 tolerations: []
