@@ -3,12 +3,12 @@ cronjob:
   suspend: false
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
-  restartPolicy: Never
   concurrencyPolicy: Forbid
   # activeDeadlineSeconds: 60000
 
   job:
     backoffLimit: 0
+    # restartPolicy: Never
     ttlSecondsAfterFinished: 120
 
 tolerations: []

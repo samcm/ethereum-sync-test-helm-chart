@@ -52,7 +52,7 @@ spec:
           {{- toYaml .Values.affinity | nindent 12 }}
           tolerations:
           {{- toYaml .Values.tolerations | nindent 12 }}
-          restartPolicy: {{ .Values.cronjob.restartPolicy | quote }}
+          restartPolicy: {{ .Values.cronjob.job.restartPolicy | quote }}
           shareProcessNamespace: true
           {{- if .Values.rbac.create }}
           serviceAccountName: {{ include "ethereum-sync-tests.serviceAccountName" . }}

@@ -34,6 +34,7 @@
           pkill geth;
           pkill lighthouse;
           pkill beacon-chain;
+          pkill app;
           exit 0;
         fi
 
