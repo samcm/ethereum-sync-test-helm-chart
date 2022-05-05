@@ -187,6 +187,16 @@ global:
     runAsNonRoot: true
     runAsUser: 10001
 
+## Metrics-Exporter
+common:
+  metricsExporter:
+    enabled: true
+    # image:
+    #   repository: samcm/ethereum-metrics-exporter
+    #   tag: latest
+    #   pullPolicy: IfNotPresent
+    port: 9090
+
 ## Client-specific config
 geth:
   image:
@@ -206,6 +216,7 @@ prysm:
     # repository: gcr.io/prysmaticlabs/prysm/beacon-chain
     tag: latest
     pullPolicy: Always
+
 
 rbac:
   # -- Specifies whether RBAC resources are to be created

@@ -46,5 +46,25 @@
       mountPath: /data
     - name: status-checks
       mountPath: /status
+{{- if .Values.metricsExporter.enabled }}
+- name: metrics-exporter
+  image: {{ .Values.metricsExporter.image.repository }}:{{ .Values.metricsExporter.image.tag }}
+  imagePullPolicy: {{ .Values.metricsExporter.image.pullPolicy }}
+  env:
+  - name: POD_IP
+    valueFrom:
+      fieldRef:
+        fieldPath: status.podIP
+  args:
+    - --consensus-url=http://localhost:{{ .Values.global.ethereum.consensus.config.ports.http_api }}
+    - --execution-url=http://localhost:{{ .Values.global.ethereum.execution.config.ports.http_rpc }}
+    - --metrics-port={{ .Values.metricsExporter.port }}
+  ports:
+    - containerPort: {{ .Values.metricsExporter.port }}
+      name: eth-metrics
+      protocol: TCP
+  resources:
+{{- toYaml .Values.metricsExporter.resources | nindent 4 }}
+{{- end }}
 {{- end }}
 

@@ -9,3 +9,16 @@ statusChecker:
   # requests:
   #   cpu: 16m
   #   memory: 32Mi
+
+metricsExporter:
+  enabled: true
+  image:
+    repository: samcm/ethereum-metrics-exporter
+    tag: main
+    pullPolicy: Always
+
+  resources:
+    {}
+  # requests:
+  #   cpu: 16m
+  #   memory: 32Mi
