@@ -11,5 +11,8 @@ dependencies:
 - name: prysm
   repository: file://charts/prysm
   version: 0.1.0
-digest: sha256:c5f5bd44c2cc516d0d193587c3e90b146ba80bd6d3308481423ca9249ab4a825
-generated: "2022-04-29T14:07:25.74813+10:00"
+- name: nethermind
+  repository: file://charts/nethermind
+  version: 0.1.0
+digest: sha256:66fab615927d7d88356fc4013f74e7241875fe35088d8502a56a864390476e15
+generated: "2022-05-06T17:41:25.01547+10:00"
