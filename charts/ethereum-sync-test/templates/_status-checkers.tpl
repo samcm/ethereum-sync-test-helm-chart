@@ -2,6 +2,9 @@
 {{- if eq .Values.global.ethereum.execution.client.name "geth" }}
 {{ include "geth.sync-status-check-command" .Subcharts.geth }}
 {{- end }}
+{{- if eq .Values.global.ethereum.execution.client.name "nethermind" }}
+{{ include "nethermind.sync-status-check-command" .Subcharts.nethermind }}
+{{- end }}
 
 {{- end }}
 

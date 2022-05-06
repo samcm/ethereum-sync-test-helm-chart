@@ -64,3 +64,13 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Helpers to grab the consensus network configs
+*/}}
+{{- define "ethereum-sync-tests.consensusConfig" -}}https://raw.githubusercontent.com/eth-clients/merge-testnets/main/{{ .Values.global.ethereum.network }}{{- end }}
+
+{{/*
+Helpers to grab the execution network configs
+*/}}
+{{- define "ethereum-sync-tests.executionConfig" -}}https://raw.githubusercontent.com/eth-clients/merge-testnets/main/{{ .Values.global.ethereum.network }}{{- end }}

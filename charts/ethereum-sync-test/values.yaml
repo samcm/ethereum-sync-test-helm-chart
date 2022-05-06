@@ -7,7 +7,7 @@ cronjob:
   # activeDeadlineSeconds: 60000
 
   job:
-    backoffLimit: 0
+    backoffLimit: 5
     restartPolicy: OnFailure
     ttlSecondsAfterFinished: 120
 
@@ -125,6 +125,7 @@ global:
       execution:
         bootnodes: https://config.kiln.themerge.dev/el/bootnodes
         genesis_geth: https://config.kiln.themerge.dev/el/genesis/geth.json
+        nethermind_genesis.json: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/nethermind_genesis.json
       consensus:
         bootnodes: https://config.kiln.themerge.dev/cl/bootnodes
         config.yaml: https://config.kiln.themerge.dev/cl/genesis/config.yaml
@@ -136,6 +137,7 @@ global:
       execution:
         bootnodes: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/el_bootnode.txt
         genesis_geth: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/genesis.json
+        nethermind_genesis.json: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/nethermind_genesis.json
       consensus:
         bootnodes: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/bootstrap_nodes.txt
         config.yaml: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/config.yaml
