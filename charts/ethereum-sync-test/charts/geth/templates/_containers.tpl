@@ -13,6 +13,8 @@
     valueFrom:
       fieldRef:
         fieldPath: status.podIP
+  - name: DATADIR
+    value: {{ .Values.global.ethereum.execution.dataDir }}
   volumeMounts:
   {{- if .Values.extraVolumeMounts }}
     {{ toYaml .Values.extraVolumeMounts | nindent 8}}

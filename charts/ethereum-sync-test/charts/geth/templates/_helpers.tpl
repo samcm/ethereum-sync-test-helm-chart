@@ -9,7 +9,7 @@
   . /env/init-nodeport;
 {{- end }}
   exec geth
-  --datadir={{ .Values.global.ethereum.execution.dataDir }}
+  --datadir=$(DATADIR)
 {{- if .Values.global.p2pNodePort.enabled }}
   --nat=extip:$EXTERNAL_IP
   --port=$EXTERNAL_EXECUTION_PORT

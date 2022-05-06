@@ -6,9 +6,8 @@
   securityContext:
     runAsNonRoot: false
     runAsUser: 0
-  envFrom:
-  - configMapRef:
-      name: "{{ include "ethereum-sync-tests.fullname" . }}-exe"
+  env:
+  {{- include "ethereum-sync-tests.execution-config-env" . | nindent 4 }}
     
   command:
     - sh

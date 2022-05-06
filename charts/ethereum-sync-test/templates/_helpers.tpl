@@ -66,6 +66,28 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
+Execution Config Environment Variables
+*/}}
+{{- define "ethereum-sync-tests.execution-config-env" -}}
+{{- $exe := (get (get .Values.global.networkConfigs .Values.global.ethereum.network) "execution").config }}
+{{- range $key, $value := $exe }}
+- name: {{ upper $key }}
+  value: {{ $value | quote }}
+{{- end }}
+{{- end }}
+
+{{/*
+Consensus Config Environment Variables
+*/}}
+{{- define "ethereum-sync-tests.consensus-config-env" -}}
+{{- $con := (get (get .Values.global.networkConfigs .Values.global.ethereum.network) "consensus").config }}
+{{- range $key, $value := $con }}
+- name: {{ upper $key }}
+  value: {{ $value | quote }}
+{{- end }}
+{{- end }}
+
+{{/*
 Helpers to grab the consensus network configs
 */}}
 {{- define "ethereum-sync-tests.consensusConfig" -}}https://raw.githubusercontent.com/eth-clients/merge-testnets/main/{{ .Values.global.ethereum.network }}{{- end }}
