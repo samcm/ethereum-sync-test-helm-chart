@@ -35,6 +35,10 @@
   --authrpc.port={{ .Values.global.ethereum.execution.config.ports.engine_api  }}
   --authrpc.vhosts=*
   --authrpc.addr=0.0.0.0
+{{- $networkArgs := ((get (get .Values.global.networkConfigs .Values.global.ethereum.network) "execution").args).geth }}
+{{- range $networkArgs }}
+  {{ . }}
+{{- end }}
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}

@@ -10,6 +10,12 @@
   configMap:
     name: {{ include "ethereum-sync-tests.fullname" . }}-checks
     defaultMode: 0777
+- name: exe-config
+  configMap:
+    name: {{ include "ethereum-sync-tests.fullname" . }}-exe
+- name: con-config
+  configMap:
+    name: {{ include "ethereum-sync-tests.fullname" . }}-con
 - name: config
   emptyDir: {}
 {{- if .Values.persistence.enabled }}

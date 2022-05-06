@@ -32,6 +32,10 @@
   --Metrics.ExposePort={{ .Values.global.ethereum.execution.config.ports.metrics }}
   --JsonRpc.AdditionalRpcUrls="o-auth,http://localhost:{{ .Values.global.ethereum.execution.config.ports.engine_api }}|http;ws|net;eth;subscribe;engine;web3;client"
   --JsonRpc.JwtSecretFile="/data/jwtsecret"
+{{- $networkArgs := ((get (get .Values.global.networkConfigs .Values.global.ethereum.network) "execution").args).nethermind }}
+{{- range $networkArgs }}
+  {{ . }}
+{{- end }}
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}

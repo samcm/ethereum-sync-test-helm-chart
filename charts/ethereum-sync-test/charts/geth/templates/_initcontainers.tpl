@@ -6,11 +6,9 @@
   securityContext:
     runAsNonRoot: false
     runAsUser: 0
-  env:
-  - name: "ETH_BOOTNODE_URL"
-    value: "{{  get (get (get .Values.global.networkConfigs .Values.global.ethereum.network) "execution") "bootnodes"  }}"
-  - name: "ETH_GETH_GENESIS_URL"
-    value: "{{ get (get (get .Values.global.networkConfigs .Values.global.ethereum.network) "execution") "genesis_geth"  }}"
+  envFrom:
+  - configMapRef:
+      name: "{{ include "ethereum-sync-tests.fullname" . }}-exe"
     
   command:
     - sh
@@ -20,8 +18,8 @@
       then
         mkdir -p {{ .Values.global.ethereum.execution.dataDir }};
         ls /data;
-        wget -O {{ .Values.global.ethereum.execution.dataDir }}/bootnode.txt $ETH_BOOTNODE_URL;
-        wget -O {{ .Values.global.ethereum.execution.dataDir }}/genesis.json $ETH_GETH_GENESIS_URL;
+        wget -O {{ .Values.global.ethereum.execution.dataDir }}/bootnode.txt $BOOTNODES;
+        wget -O {{ .Values.global.ethereum.execution.dataDir }}/genesis.json $GENESIS_GETH;
         apk update && apk add jq;
         cat {{ .Values.global.ethereum.execution.dataDir }}/genesis.json | jq -r '.config.chainId' > {{ .Values.global.ethereum.execution.dataDir }}/chainid.txt;
         geth init --datadir {{ .Values.global.ethereum.execution.dataDir }} {{ .Values.global.ethereum.execution.dataDir }}/genesis.json;
