@@ -129,8 +129,8 @@ global:
           nethermind_genesis_json: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/kiln/nethermind_genesis.json
         args:
           geth:
-            - --bootnodes="$(tr '\n' ',' < $DATADIR/bootnode.txt)"
-            - --networkid=$(cat $DATADIR/chainid.txt)
+            - --bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)"
+            - --networkid=$(cat /data/execution/chainid.txt)
             - --override.terminaltotaldifficulty=20000000000000
 
       consensus:
@@ -160,8 +160,8 @@ global:
           nethermind_genesis_json: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/nethermind_genesis.json
         args:
           geth:
-            - --bootnodes="$(tr '\n' ',' < $DATADIR/bootnode.txt)"
-            - --networkid=$(cat $DATADIR/chainid.txt)
+            - --bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)"
+            - --networkid=$(cat /data/execution/chainid.txt)
             - --override.terminaltotaldifficulty=9895202
           nethermind:
             - --config=goerli_shadowfork
