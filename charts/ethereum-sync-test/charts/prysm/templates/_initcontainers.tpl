@@ -7,12 +7,7 @@
     runAsNonRoot: false
     runAsUser: 0
   env:
-  - name: "ETH_BOOTNODE_URI"
-    value: "{{  get (get (get .Values.global.networkConfigs .Values.global.ethereum.network) "consensus") "bootnodes"  }}"
-  - name: "GENESIS_CONFIG_URI"
-    value: "{{ get (get (get .Values.global.networkConfigs .Values.global.ethereum.network) "consensus") "config.yaml"  }}"
-  - name: "GENESIS_SSZ_URI"
-    value: "{{ get (get (get .Values.global.networkConfigs .Values.global.ethereum.network) "consensus") "genesis.ssz"  }}"
+  {{- include "ethereum-sync-tests.consensus-config-env" . | nindent 4 }}
   command:
     - sh
     - -ace
@@ -20,9 +15,9 @@
       mkdir -p {{ .Values.global.ethereum.consensus.dataDir }}/testnet_spec;
       if ! [ -f {{ .Values.global.ethereum.consensus.dataDir }}/testnet_spec/genesis.ssz ];
       then
-        wget -O {{ .Values.global.ethereum.consensus.dataDir }}/testnet_spec/config.yaml $GENESIS_CONFIG_URI;
-        wget -O {{ .Values.global.ethereum.consensus.dataDir }}/testnet_spec/genesis.ssz $GENESIS_SSZ_URI;
-        wget -O {{ .Values.global.ethereum.consensus.dataDir }}/testnet_spec/bootstrap_nodes.txt $ETH_BOOTNODE_URI;
+        wget -O {{ .Values.global.ethereum.consensus.dataDir }}/testnet_spec/config.yaml $CONFIG_YAML;
+        wget -O {{ .Values.global.ethereum.consensus.dataDir }}/testnet_spec/genesis.ssz $GENESIS_SSZ;
+        wget -O {{ .Values.global.ethereum.consensus.dataDir }}/testnet_spec/bootstrap_nodes.txt $BOOTNODES;
         echo "genesis init done";
       else
         echo "genesis exists. skipping...";

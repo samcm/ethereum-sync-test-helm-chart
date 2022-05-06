@@ -9,3 +9,27 @@ data:
 {{- include "ethereum-sync-tests.status-checking-execution" . | nindent 8 }}
   "consensus.sh": |-
 {{- include "ethereum-sync-tests.status-checking-consensus" . | nindent 8 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "ethereum-sync-tests.fullname" . }}-con
+  labels:
+    {{- include "ethereum-sync-tests.labels" . | nindent 4 }}
+data:
+{{- $con := (get (get .Values.global.networkConfigs .Values.global.ethereum.network) "consensus").config }}
+{{- range $key, $value := $con }}
+  {{ upper $key }}: {{ $value }} 
+{{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "ethereum-sync-tests.fullname" . }}-exe
+  labels:
+    {{- include "ethereum-sync-tests.labels" . | nindent 4 }}
+data:
+{{- $exe := (get (get .Values.global.networkConfigs .Values.global.ethereum.network) "execution").config }}
+{{- range $key, $value := $exe }}
+  {{ upper $key }}: {{ $value }} 
+{{- end }}

@@ -7,8 +7,7 @@
     runAsNonRoot: false
     runAsUser: 0
   env:
-  - name: "ETH_NETHERMIND"
-    value: "{{ include "ethereum-sync-tests.executionConfig" . }}/nethermind_genesis.json"
+  {{- include "ethereum-sync-tests.execution-config-env" . | nindent 4}}
     
   command:
     - sh
@@ -18,7 +17,7 @@
       then
         mkdir -p {{ .Values.global.ethereum.execution.dataDir }};
         ls /data;
-        wget -O {{ .Values.global.ethereum.execution.dataDir }}/nethermind_genesis.json $ETH_NETHERMIND;
+        wget -O {{ .Values.global.ethereum.execution.dataDir }}/nethermind_genesis.json $NETHERMIND_GENESIS_JSON;
         touch {{ .Values.global.ethereum.execution.dataDir }}/genesis_init_done;
         echo "genesis init done";
       else

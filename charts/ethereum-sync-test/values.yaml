@@ -123,28 +123,71 @@ global:
   networkConfigs:
     kiln:
       execution:
-        bootnodes: https://config.kiln.themerge.dev/el/bootnodes
-        genesis_geth: https://config.kiln.themerge.dev/el/genesis/geth.json
-        nethermind_genesis.json: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/nethermind_genesis.json
+        config:
+          bootnodes: https://config.kiln.themerge.dev/el/bootnodes
+          genesis_geth: https://config.kiln.themerge.dev/el/genesis/geth.json
+          nethermind_genesis_json: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/kiln/nethermind_genesis.json
+        args:
+          geth:
+            - --bootnodes="$(tr '\n' ',' < $DATADIR/bootnode.txt)"
+            - --networkid=$(cat $DATADIR/chainid.txt)
+            - --override.terminaltotaldifficulty=20000000000000
+
       consensus:
-        bootnodes: https://config.kiln.themerge.dev/cl/bootnodes
-        config.yaml: https://config.kiln.themerge.dev/cl/genesis/config.yaml
-        genesis.ssz: https://config.kiln.themerge.dev/cl/genesis/genesis.ssz
-        deploy_block.txt: https://config.kiln.themerge.dev/cl/genesis/deposit_contract_block.txt
-        deposit_contract.txt: https://config.kiln.themerge.dev/cl/genesis/deposit_contract.txt
-        deposit_contract_block.txt: https://config.kiln.themerge.dev/cl/genesis/deposit_contract_block.txt
+        config:
+          bootnodes: https://config.kiln.themerge.dev/cl/bootnodes
+          config_yaml: https://config.kiln.themerge.dev/cl/genesis/config.yaml
+          genesis_ssz: https://config.kiln.themerge.dev/cl/genesis/genesis.ssz
+          deploy_block_txt: https://config.kiln.themerge.dev/cl/genesis/deploy_block.txt
+          deposit_contract_txt: https://config.kiln.themerge.dev/cl/genesis/deposit_contract.txt
+          deposit_contract_block_txt: https://config.kiln.themerge.dev/cl/genesis/deposit_contract_block.txt
+        args:
+          lighthouse:
+            - --testnet-dir=/data/consensus/testnet_spec
+            - --boot-nodes="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)"
+            - --merge
+            - --terminal-total-difficulty-override=20000000000000
+          prysm:
+            - --bootstrap-node="$(head -n 1 /data/consensus/testnet_spec/bootstrap_nodes.txt)"
+            - --genesis-state /data/consensus/testnet_spec/genesis.ssz
+            - --chain-config-file=/data/consensus/testnet_spec/config.yaml
+
     goerli-shadow-fork-4:
       execution:
-        bootnodes: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/el_bootnode.txt
-        genesis_geth: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/genesis.json
-        nethermind_genesis.json: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/nethermind_genesis.json
+        config:
+          bootnodes: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/el_bootnode.txt
+          genesis_geth: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/genesis.json
+          nethermind_genesis_json: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/nethermind_genesis.json
+        args:
+          geth:
+            - --bootnodes="$(tr '\n' ',' < $DATADIR/bootnode.txt)"
+            - --networkid=$(cat $DATADIR/chainid.txt)
+            - --override.terminaltotaldifficulty=9895202
+          nethermind:
+            - --config=goerli_shadowfork
+            - --Init.ChainSpecPath="/data/execution/nethermind_genesis.json"
+            - --Merge.Enabled=true
+            - --Merge.FeeRecipient=0x579Ece400030a1b9C04b8AD9764380859618E77d
+            - --Merge.TerminalTotalDifficulty=9895202
       consensus:
-        bootnodes: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/bootstrap_nodes.txt
-        config.yaml: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/config.yaml
-        genesis.ssz: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/genesis.ssz
-        deploy_block.txt: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/deploy_block.txt
-        deposit_contract.txt: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/deposit_contract.txt
-        deposit_contract_block.txt: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/deposit_contract_block.txt
+        config:
+          bootnodes: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/bootstrap_nodes.txt
+          config_yaml: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/config.yaml
+          genesis_ssz: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/genesis.ssz
+          deploy_block_txt: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/deploy_block.txt
+          deposit_contract_txt: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/deposit_contract.txt
+          deposit_contract_block_txt: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/deposit_contract_block.txt
+        args:
+          lighthouse:
+            - --testnet-dir=/data/consensus/testnet_spec
+            - --boot-nodes="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)"
+            - --merge
+            - --terminal-total-difficulty-override=9895202
+
+          prysm:
+            - --bootstrap-node="$(head -n 1 /data/consensus/testnet_spec/bootstrap_nodes.txt)"
+            - --genesis-state /data/consensus/testnet_spec/genesis.ssz
+            - --chain-config-file=/data/consensus/testnet_spec/config.yaml
 
   ethereum:
     network: kiln
