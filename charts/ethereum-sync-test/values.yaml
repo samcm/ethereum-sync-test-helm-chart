@@ -132,7 +132,12 @@ global:
             - --bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)"
             - --networkid=$(cat /data/execution/chainid.txt)
             - --override.terminaltotaldifficulty=20000000000000
-
+        nethermind:
+            - --config=kiln
+            - --Init.ChainSpecPath="/data/execution/nethermind_genesis.json"
+            - --Merge.Enabled=true
+            - --Merge.FeeRecipient=0x579Ece400030a1b9C04b8AD9764380859618E77d
+            - --Merge.TerminalTotalDifficulty=20000000000000
       consensus:
         config:
           bootnodes: https://config.kiln.themerge.dev/cl/bootnodes
