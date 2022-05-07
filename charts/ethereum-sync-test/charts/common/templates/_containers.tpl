@@ -34,7 +34,12 @@
           pkill geth;
           pkill lighthouse;
           pkill beacon-chain;
-          pkill /bin/app
+          pkill prysm;
+          pkill /bin/app;
+          pkill consensus;
+          pkill execution;
+          ps ax | grep -v pause | grep -v "ps ax" | awk '{ if (NR!=1) print $1 }' |  cut -d " " -f 1  | xargs kill -SIGTERM;
+
           exit 0;
         fi
 
