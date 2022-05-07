@@ -262,6 +262,13 @@ prysm:
     tag: latest
     pullPolicy: Always
 
+nethermind:
+  image:
+    nethermindeth/nethermind
+    tag: latest
+    pullPolicy: Always
+
+
 
 rbac:
   # -- Specifies whether RBAC resources are to be created
