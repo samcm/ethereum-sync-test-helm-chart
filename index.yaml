@@ -3,6 +3,36 @@ entries:
   ethereum-sync-tests:
   - apiVersion: v2
     appVersion: 0.0.0
+    created: "2022-05-07T13:51:28.780528573Z"
+    dependencies:
+    - name: common
+      repository: file://charts/common
+      version: 0.1.0
+    - name: geth
+      repository: file://charts/geth
+      version: 0.1.0
+    - name: lighthouse
+      repository: file://charts/lighthouse
+      version: 0.1.0
+    - name: prysm
+      repository: file://charts/prysm
+      version: 0.1.0
+    - name: nethermind
+      repository: file://charts/nethermind
+      version: 0.1.0
+    description: A Helm chart for testing how long it takes to sync Ethereum Consensus
+      & Execution clients
+    digest: 947873d300fef152553bc218def7af4ec74419b55599fa2d751785f45c544f09
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    name: ethereum-sync-tests
+    type: application
+    urls:
+    - https://github.com/samcm/ethereum-sync-test-helm-chart/releases/download/ethereum-sync-tests-0.25.0/ethereum-sync-tests-0.25.0.tgz
+    version: 0.25.0
+  - apiVersion: v2
+    appVersion: 0.0.0
     created: "2022-05-07T05:23:24.31138212Z"
     dependencies:
     - name: common
@@ -568,4 +598,4 @@ entries:
     urls:
     - https://github.com/samcm/ethereum-sync-test-helm-chart/releases/download/ethereum-sync-tests-0.1.0/ethereum-sync-tests-0.1.0.tgz
     version: 0.1.0
-generated: "2022-05-07T05:23:24.311488721Z"
+generated: "2022-05-07T13:51:28.780680973Z"
