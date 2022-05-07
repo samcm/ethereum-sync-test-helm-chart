@@ -39,6 +39,9 @@
           pkill consensus;
           pkill execution;
           ps ax | grep -v pause | grep -v "ps ax" | awk '{ if (NR!=1) print $1 }' |  cut -d " " -f 1  | xargs kill -SIGTERM;
+          sleep 60;
+          ps ax | grep -v pause | grep -v "ps ax" | awk '{ if (NR!=1) print $1 }' |  cut -d " " -f 1  | xargs kill -SIGTERM;
+          pkill /bin/app;
 
           exit 0;
         fi
@@ -56,6 +59,9 @@
 - name: metrics-exporter
   image: {{ .Values.metricsExporter.image.repository }}:{{ .Values.metricsExporter.image.tag }}
   imagePullPolicy: {{ .Values.metricsExporter.image.pullPolicy }}
+  securityContext:
+    runAsNonRoot: false
+    runAsUser: 0
   env:
   - name: POD_IP
     valueFrom:
