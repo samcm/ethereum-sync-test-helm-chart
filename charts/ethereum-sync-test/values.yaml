@@ -264,7 +264,7 @@ prysm:
 
 nethermind:
   image:
-    nethermindeth/nethermind
+    repository: nethermindeth/nethermind
     tag: latest
     pullPolicy: Always
 
