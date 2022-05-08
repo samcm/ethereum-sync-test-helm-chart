@@ -1,8 +1,8 @@
 cronjob:
   schedule: '0 0 * * 0'
   suspend: false
-  successfulJobsHistoryLimit: 1
-  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
   concurrencyPolicy: Forbid
   # activeDeadlineSeconds: 60000
 

@@ -39,8 +39,6 @@
           pkill consensus;
           pkill execution;
           ps ax | grep -v pause | grep -v "ps ax" | awk '{ if (NR!=1) print $1 }' |  cut -d " " -f 1  | xargs kill -SIGTERM;
-          sleep 60;
-          ps ax | grep -v pause | grep -v "ps ax" | awk '{ if (NR!=1) print $1 }' |  cut -d " " -f 1  | xargs kill -SIGTERM;
           pkill /bin/app;
           pkill app;
           pkill ethereum-metrics-exporter;
