@@ -7,7 +7,7 @@ cronjob:
   # activeDeadlineSeconds: 60000
 
   job:
-    backoffLimit: 5
+    backoffLimit: 0
     restartPolicy: Never
     ttlSecondsAfterFinished: 120
 
