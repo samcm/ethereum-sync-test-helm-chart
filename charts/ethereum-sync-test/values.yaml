@@ -91,7 +91,9 @@ global:
         - /bin/sh
         - -c
         - apk add openssl;
+        - sleep 5;
         - openssl rand -hex 32 > /data/jwtsecret;
+        - echo /data/jwtsecret;
       resources: {}
       #  limits:
       #    cpu: 100m
