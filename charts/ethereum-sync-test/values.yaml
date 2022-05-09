@@ -156,6 +156,12 @@ global:
             - --bootstrap-node="$(head -n 1 /data/consensus/testnet_spec/bootstrap_nodes.txt)"
             - --genesis-state /data/consensus/testnet_spec/genesis.ssz
             - --chain-config-file=/data/consensus/testnet_spec/config.yaml
+          teku:
+            - --p2p-discovery-bootnodes="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)"
+            - --network=/data/consensus/testnet_spec/config.yaml
+            - --initial-state=/data/consensus/testnet_spec/genesis.ssz
+            - --Xee-version=kilnv2
+            - --Xnetwork-total-terminal-difficulty-override="20000000000000"
 
     goerli-shadow-fork-4:
       execution:
@@ -188,11 +194,16 @@ global:
             - --boot-nodes="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)"
             - --merge
             - --terminal-total-difficulty-override=9895202
-
           prysm:
             - --bootstrap-node="$(head -n 1 /data/consensus/testnet_spec/bootstrap_nodes.txt)"
             - --genesis-state /data/consensus/testnet_spec/genesis.ssz
             - --chain-config-file=/data/consensus/testnet_spec/config.yaml
+          teku:
+            - --p2p-discovery-bootnodes="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)"
+            - --network=/data/consensus/testnet_spec/config.yaml
+            - --initial-state=/data/consensus/testnet_spec/genesis.ssz
+            - --Xee-version=kilnv2
+            - --Xnetwork-terminal-total-difficulty-override="9895202"
 
   ethereum:
     network: kiln

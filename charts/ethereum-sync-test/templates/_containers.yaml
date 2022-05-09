@@ -12,4 +12,7 @@
 {{- if eq .Values.global.ethereum.consensus.client.name "prysm" }}
 {{ include "prysm.containers" .Subcharts.prysm }}
 {{- end }}
+{{- if eq .Values.global.ethereum.consensus.client.name "teku" }}
+{{ include "teku.containers" .Subcharts.teku }}
+{{- end }}
 {{- end }}
