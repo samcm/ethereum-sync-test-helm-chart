@@ -27,9 +27,8 @@
         CONSENSUS_STATUS=$(/status/consensus.sh);
 
         echo "EXECUTION: $EXECUTION_STATUS%, CONSENSUS: $CONSENSUS_STATUS%"
-        
 
-        if [[ "$CONSENSUS_STATUS" == "100" && "$EXECUTION_STATUS" == "100" ]]; then
+        if [[ "$CONSENSUS_STATUS" == "100" && "$EXECUTION_STATUS" == "100" ]] || [[  -f "/data/kill-pod"  ]]; then
           echo "Shutting down...";
           pkill geth;
           pkill lighthouse;
