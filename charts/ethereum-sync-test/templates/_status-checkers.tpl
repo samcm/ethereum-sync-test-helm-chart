@@ -15,5 +15,8 @@
 {{- if eq .Values.global.ethereum.consensus.client.name "prysm" }}
 {{ include "prysm.sync-status-check-command" .Subcharts.prysm }}
 {{- end }}
+{{- if eq .Values.global.ethereum.consensus.client.name "teku" }}
+{{ include "teku.sync-status-check-command" .Subcharts.teku }}
+{{- end }}
 
 {{- end }}

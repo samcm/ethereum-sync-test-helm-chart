@@ -14,5 +14,8 @@ dependencies:
 - name: nethermind
   repository: file://charts/nethermind
   version: 0.1.0
-digest: sha256:66fab615927d7d88356fc4013f74e7241875fe35088d8502a56a864390476e15
-generated: "2022-05-06T17:41:25.01547+10:00"
+- name: teku
+  repository: file://charts/teku
+  version: 0.1.0
+digest: sha256:0fd9ea6dd7c5cefbb48970aa8e0e4eeaf495ad39a059465f28f9b2c55552a147
+generated: "2022-05-09T15:13:28.637795+10:00"

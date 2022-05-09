@@ -31,3 +31,6 @@ dependencies:
 - name: "nethermind"
   version: "0.1.0"
   repository: "file://charts/nethermind"
+- name: "teku"
+  version: "0.1.0"
+  repository: "file://charts/teku"
