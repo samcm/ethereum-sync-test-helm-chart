@@ -131,6 +131,7 @@ global:
           bootnodes: https://config.kiln.themerge.dev/el/bootnodes
           genesis_geth: https://config.kiln.themerge.dev/el/genesis/geth.json
           nethermind_genesis_json: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/kiln/nethermind_genesis.json
+          besu_genesis_json: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/kiln/besu_genesis.json
         args:
           geth:
             - --bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)"
@@ -142,6 +143,11 @@ global:
             - --Merge.Enabled=true
             - --Merge.FeeRecipient=0x579Ece400030a1b9C04b8AD9764380859618E77d
             - --Merge.TerminalTotalDifficulty=20000000000000
+          besu:
+            - --network-id=$(cat /data/execution/chainid.txt)
+            - --genesis-file="/data/execution/besu_genesis.json"
+            - --bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)"
+            - --Xmerge-support=true
       consensus:
         config:
           bootnodes: https://config.kiln.themerge.dev/cl/bootnodes
@@ -173,6 +179,7 @@ global:
           bootnodes: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/el_bootnode.txt
           genesis_geth: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/genesis.json
           nethermind_genesis_json: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/nethermind_genesis.json
+          besu_genesis_json: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/besu_genesis.json
         args:
           geth:
             - --bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)"
@@ -184,6 +191,11 @@ global:
             - --Merge.Enabled=true
             - --Merge.FeeRecipient=0x579Ece400030a1b9C04b8AD9764380859618E77d
             - --Merge.TerminalTotalDifficulty=9895202
+          besu:
+            - --network-id=$(cat /data/execution/chainid.txt)
+            - --genesis-file="/data/execution/besu_genesis.json"
+            - --bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)"
+            - --Xmerge-support=true
       consensus:
         config:
           bootnodes: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/bootstrap_nodes.txt
@@ -221,6 +233,7 @@ global:
       config:
         ports:
           engine_api: 8551
+          engine_ws: 8555
           p2p_tcp: 30141
           p2p_udp: 30141
           http_rpc: 8545
