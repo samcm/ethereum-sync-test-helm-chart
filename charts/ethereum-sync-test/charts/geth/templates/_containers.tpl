@@ -15,6 +15,9 @@
         fieldPath: status.podIP
   - name: DATADIR
     value: {{ .Values.global.ethereum.execution.dataDir }}
+  {{- if .Values.extraEnv }}
+  {{- toYaml .Values.extraEnv | nindent 2 }}
+  {{- end }}
   volumeMounts:
   {{- if .Values.extraVolumeMounts }}
     {{ toYaml .Values.extraVolumeMounts | nindent 8}}

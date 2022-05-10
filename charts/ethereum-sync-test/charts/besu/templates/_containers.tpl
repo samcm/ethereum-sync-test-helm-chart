@@ -16,6 +16,9 @@
     valueFrom:
       fieldRef:
         fieldPath: status.podIP
+  {{- if .Values.extraEnv }}
+  {{- toYaml .Values.extraEnv | nindent 2 }}
+  {{- end }}
   volumeMounts:
   {{- if .Values.extraVolumeMounts }}
     {{ toYaml .Values.extraVolumeMounts | nindent 8}}

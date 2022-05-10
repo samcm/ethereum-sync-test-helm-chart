@@ -16,6 +16,8 @@ extraArgs: []
 
 extraContainerPorts: []
 
+extraEnv: []
+
 customCommand: []
 
 resources:
