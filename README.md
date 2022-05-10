@@ -3,10 +3,15 @@ Creates a Kubernetes cronjob to test how fast a pair of Execution & Consensus cl
 
 ## Supported Networks
 - Kiln
+- Goerli Shadow Fork 4
 
 ## Supported Clients
 Execution:
 - Geth
+- Nethermind
+- Besu
 
 Consensus:
 - Lighthouse
+- Prysm
+- Teku

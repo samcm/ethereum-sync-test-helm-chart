@@ -5,6 +5,9 @@
 {{- if eq .Values.global.ethereum.execution.client.name "nethermind" }}
 {{ include "nethermind.sync-status-check-command" .Subcharts.nethermind }}
 {{- end }}
+{{- if eq .Values.global.ethereum.execution.client.name "besu" }}
+{{ include "besu.sync-status-check-command" .Subcharts.besu }}
+{{- end }}
 
 {{- end }}
 

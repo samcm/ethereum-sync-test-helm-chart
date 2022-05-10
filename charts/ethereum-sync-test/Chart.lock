@@ -17,5 +17,8 @@ dependencies:
 - name: teku
   repository: file://charts/teku
   version: 0.1.0
-digest: sha256:0fd9ea6dd7c5cefbb48970aa8e0e4eeaf495ad39a059465f28f9b2c55552a147
-generated: "2022-05-09T15:13:28.637795+10:00"
+- name: besu
+  repository: file://charts/besu
+  version: 0.1.0
+digest: sha256:de23561ce1f7b8fc416c4a31e6ca1771a11480dcb1f86fa2d2e1d97840a3d081
+generated: "2022-05-10T14:59:59.718342+10:00"

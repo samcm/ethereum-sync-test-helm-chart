@@ -6,6 +6,9 @@
 {{- if eq .Values.global.ethereum.execution.client.name "nethermind" }}
 {{ include "nethermind.initContainers" .Subcharts.nethermind }}
 {{- end }}
+{{- if eq .Values.global.ethereum.execution.client.name "besu" }}
+{{ include "besu.initContainers" .Subcharts.besu }}
+{{- end }}
 {{- if eq .Values.global.ethereum.consensus.client.name "lighthouse" }}
 {{ include "lighthouse.initContainers" .Subcharts.lighthouse }}
 {{- end }}
