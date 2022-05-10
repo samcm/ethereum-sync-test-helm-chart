@@ -8,7 +8,8 @@
 {{- if .Values.global.p2pNodePort.enabled }}
   . /env/init-nodeport;
 {{- end }}
-  exec /nethermind/Nethermind.Runner
+  trap 'exit 0' INT TERM;
+  /nethermind/Nethermind.Runner
   --datadir={{ .Values.global.ethereum.execution.dataDir }}
   --KeyStore.KeyStoreDirectory={{ .Values.global.ethereum.execution.dataDir }}/keystore
   --Network.LocalIp=$(POD_IP)

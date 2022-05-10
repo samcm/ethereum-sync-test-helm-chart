@@ -30,18 +30,16 @@
 
         if [[ "$CONSENSUS_STATUS" == "100" && "$EXECUTION_STATUS" == "100" ]] || [[  -f "/data/kill-pod"  ]]; then
           echo "Shutting down...";
-          pkill geth;
-          pkill lighthouse;
-          pkill beacon-chain;
-          pkill prysm;
-          pkill /bin/app;
-          pkill consensus;
-          pkill execution;
-          ps ax | grep -v pause | grep -v "ps ax" | awk '{ if (NR!=1) print $1 }' |  cut -d " " -f 1  | xargs kill -SIGTERM;
-          pkill /bin/app;
-          pkill app;
-          pkill ethereum-metrics-exporter;
-          pkill ethereum;
+          pkill -INT geth;
+          pkill -INT lighthouse;
+          pkill -INT beacon-chain;
+          pkill -INT prysm;
+          pkill -INT /bin/app;
+          pkill -INT consensus;
+          pkill -INT execution;
+          pkill -INT java;
+          pkill -INT teku;
+          ps ax | grep -v pause | grep -v "ps ax" | awk '{ if (NR!=1) print $1 }' |  cut -d " " -f 1  | xargs kill -SIGINT;
 
           exit 0;
         fi

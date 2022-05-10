@@ -8,7 +8,8 @@
 {{- if .Values.global.p2pNodePort.enabled }}
   . /env/init-nodeport;
 {{- end }}
-  exec lighthouse
+  trap 'exit 0' INT TERM;
+  lighthouse
   beacon_node
   --datadir={{ .Values.global.ethereum.consensus.dataDir }}
   --disable-upnp

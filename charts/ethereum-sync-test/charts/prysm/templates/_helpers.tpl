@@ -8,7 +8,8 @@
 {{- if .Values.global.p2pNodePort.enabled }}
   . /env/init-nodeport;
 {{- end }}
-  exec /app/cmd/beacon-chain/beacon-chain
+  trap 'exit 0' INT TERM;
+  /app/cmd/beacon-chain/beacon-chain
   --accept-terms-of-use=true
   --datadir={{ .Values.global.ethereum.consensus.dataDir }}
 {{- if .Values.global.p2pNodePort.enabled }}

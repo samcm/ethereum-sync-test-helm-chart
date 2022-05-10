@@ -8,7 +8,8 @@
 {{- if .Values.global.p2pNodePort.enabled }}
   . /env/init-nodeport;
 {{- end }}
-  exec geth
+  trap 'exit 0' INT TERM;
+  geth
   --datadir=$(DATADIR)
 {{- if .Values.global.p2pNodePort.enabled }}
   --nat=extip:$EXTERNAL_IP

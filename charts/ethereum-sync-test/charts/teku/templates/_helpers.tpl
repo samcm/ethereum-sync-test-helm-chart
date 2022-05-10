@@ -8,7 +8,8 @@
 {{- if .Values.global.p2pNodePort.enabled }}
   . /env/init-nodeport;
 {{- end }}
-  exec /opt/teku/bin/teku
+  trap 'exit 0' INT TERM;
+  /opt/teku/bin/teku
   --log-destination=CONSOLE
   --data-path={{ .Values.global.ethereum.consensus.dataDir }}
   --p2p-enabled=true

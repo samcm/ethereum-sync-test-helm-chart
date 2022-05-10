@@ -7,9 +7,10 @@ cronjob:
   # activeDeadlineSeconds: 60000
 
   job:
-    backoffLimit: 0
-    restartPolicy: Never
+    backoffLimit: 3
+    restartPolicy: OnFailure
     ttlSecondsAfterFinished: 120
+    terminationGracePeriodSeconds: 120
 
 tolerations: []
 
@@ -56,6 +57,7 @@ global:
       args:
         - -c
         - rm -rf /data/*
+        - rm -rf /data/kill-pod
         - mkdir -p /data/execution
         - mkdir -p /data/consensus
         - touch /data/execution/test.txt
