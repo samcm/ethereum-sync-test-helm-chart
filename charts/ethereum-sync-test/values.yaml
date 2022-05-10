@@ -207,7 +207,7 @@ global:
             - --network=/data/consensus/testnet_spec/config.yaml
             - --initial-state=/data/consensus/testnet_spec/genesis.ssz
             - --Xee-version=kilnv2
-            - --Xnetwork-terminal-total-difficulty-override="9895202"
+            - --Xnetwork-total-terminal-difficulty-override="9895202"
 
   ethereum:
     network: kiln
