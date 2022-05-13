@@ -28,7 +28,7 @@
   --ws.addr=0.0.0.0
   --ws.port={{ .Values.global.ethereum.execution.config.ports.ws_rpc  }}
   --ws.origins=*
-  --ws.api="engine,net,eth"
+  --ws.api="engine,net,eth,admin"
   --metrics
   --metrics.addr=0.0.0.0
   --metrics.port={{ .Values.global.ethereum.execution.config.ports.metrics  }}

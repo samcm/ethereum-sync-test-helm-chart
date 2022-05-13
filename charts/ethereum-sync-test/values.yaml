@@ -10,7 +10,7 @@ cronjob:
     backoffLimit: 3
     restartPolicy: OnFailure
     ttlSecondsAfterFinished: 120
-    terminationGracePeriodSeconds: 120
+    terminationGracePeriodSeconds: 15
 
 tolerations: []
 

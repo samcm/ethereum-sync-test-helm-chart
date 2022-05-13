@@ -21,7 +21,7 @@
 {{- end }}
   --rpc-http-enabled
   --rpc-http-enabled=true
-  --rpc-http-api=ENGINE,NET,ETH
+  --rpc-http-api=ENGINE,NET,ETH,ADMIN
   --rpc-http-host=0.0.0.0
   --rpc-http-port={{ .Values.global.ethereum.execution.config.ports.http_rpc }}
   --rpc-http-cors-origins=*
