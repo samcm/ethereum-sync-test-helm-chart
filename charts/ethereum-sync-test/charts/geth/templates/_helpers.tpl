@@ -21,7 +21,7 @@
   --http
   --http.addr=0.0.0.0
   --http.port={{ .Values.global.ethereum.execution.config.ports.http_rpc  }}
-  --http.api="engine,net,eth"
+  --http.api="engine,net,eth,admin"
   --http.vhosts=*
   --http.corsdomain=*
   --ws
