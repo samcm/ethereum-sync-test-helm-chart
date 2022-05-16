@@ -21,14 +21,14 @@
   --http
   --http.addr=0.0.0.0
   --http.port={{ .Values.global.ethereum.execution.config.ports.http_rpc  }}
-  --http.api="engine,net,eth,admin"
+  --http.api="engine,net,eth,admin,txpool"
   --http.vhosts=*
   --http.corsdomain=*
   --ws
   --ws.addr=0.0.0.0
   --ws.port={{ .Values.global.ethereum.execution.config.ports.ws_rpc  }}
   --ws.origins=*
-  --ws.api="engine,net,eth,admin"
+  --ws.api="engine,net,eth,admin,txpool"
   --metrics
   --metrics.addr=0.0.0.0
   --metrics.port={{ .Values.global.ethereum.execution.config.ports.metrics  }}

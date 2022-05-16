@@ -23,7 +23,7 @@
   --Network.DiscoveryPort={{ .Values.global.ethereum.execution.config.ports.p2p_tcp }}
 {{- end }}
   --JsonRpc.Enabled=true
-  --JsonRpc.EnabledModules="net,eth,consensus,subscribe,web3,admin"
+  --JsonRpc.EnabledModules="net,eth,consensus,subscribe,web3,admin,txpool"
   --JsonRpc.Host=0.0.0.0
   --JsonRpc.Port={{ .Values.global.ethereum.execution.config.ports.http_rpc }}
   --Init.WebSocketsEnabled=true
