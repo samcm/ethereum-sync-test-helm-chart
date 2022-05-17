@@ -96,6 +96,7 @@ global:
         - sleep 5;
         - openssl rand -hex 32 > /data/jwtsecret;
         - echo /data/jwtsecret;
+        - sleep 5;
       resources: {}
       #  limits:
       #    cpu: 100m
@@ -329,7 +330,6 @@ nimbus:
     repository: statusim/nimbus-eth2
     tag: amd64-latest
     pullPolicy: Always
-
 
 rbac:
   # -- Specifies whether RBAC resources are to be created
