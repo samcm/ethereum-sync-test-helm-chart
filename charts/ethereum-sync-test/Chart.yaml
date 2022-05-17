@@ -12,8 +12,8 @@ version: 0.41.0
 appVersion: "0.0.0"
 
 maintainers:
-  - name: "samcm"
-    email: "sam.calder-mason@ethereum.org"
+- name: "samcm"
+  email: "sam.calder-mason@ethereum.org"
 
 dependencies:
 - name: "common"
@@ -40,3 +40,6 @@ dependencies:
 - name: "nimbus"
   version: "0.1.0"
   repository: "file://charts/nimbus"
+- name: "lodestar"
+  version: "0.1.0"
+  repository: "file://charts/lodestar"

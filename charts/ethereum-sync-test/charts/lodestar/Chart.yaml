@@ -1,0 +1,12 @@
+apiVersion: v2
+name: lodestar
+description: A library-type helm chart that exposes raw Lodestar containers/helpers
+
+type: library
+
+# This is the chart version. This version number should be incremented each time you make changes to the chart.
+version: 0.1.0
+
+# This is the version number of the application being deployed. Doesn't really apply to us, we are deploying multiple 
+# downstream applications, each with their own versions.
+appVersion: "0.0.0"

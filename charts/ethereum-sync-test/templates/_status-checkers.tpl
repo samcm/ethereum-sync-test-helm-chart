@@ -24,5 +24,7 @@
 {{- if eq .Values.global.ethereum.consensus.client.name "nimbus" }}
 {{ include "nimbus.sync-status-check-command" .Subcharts.nimbus }}
 {{- end }}
-
+{{- if eq .Values.global.ethereum.consensus.client.name "lodestar" }}
+{{ include "lodestar.sync-status-check-command" .Subcharts.lodestar }}
+{{- end }}
 {{- end }}

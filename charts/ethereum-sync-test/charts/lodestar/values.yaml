@@ -1,0 +1,27 @@
+image:
+  repository: chainsafe/lodestar
+  tag: next
+  pullPolicy: Always
+
+initContainers:
+  initGenesis:
+    image: 
+      repository: alpine
+      tag: latest
+      pullPolicy: IfNotPresent
+
+    enabled: true
+
+extraArgs: []
+
+extraContainerPorts: []
+
+extraEnv: []
+
+customCommand: []
+
+resources:
+  {}
+  # requests:
+  #   cpu: 2000m
+  #   memory: 4000Mi
