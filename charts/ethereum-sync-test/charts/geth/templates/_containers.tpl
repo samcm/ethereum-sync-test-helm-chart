@@ -8,6 +8,9 @@
   {{- else }}
     {{- include "geth.defaultCommand" . | nindent 2 }}
   {{- end }}
+  securityContext:
+    runAsNonRoot: false
+    runAsUser: 0
   env:
   - name: POD_IP
     valueFrom:

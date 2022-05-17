@@ -27,3 +27,22 @@ resources:
   # requests:
   #   cpu: 2000m
   #   memory: 4000Mi
+
+
+# -- Readiness probe
+# @default -- See `values.yaml`
+livenessProbe:
+  tcpSocket:
+    port: con-http-api
+  initialDelaySeconds: 180
+  periodSeconds: 60
+  failureThreshold: 5
+
+# -- Readiness probe
+# @default -- See `values.yaml`
+readinessProbe:
+  tcpSocket:
+    port: con-http-api
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  failureThreshold: 3
