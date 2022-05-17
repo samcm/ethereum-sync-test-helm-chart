@@ -172,6 +172,10 @@ global:
             - --initial-state=/data/consensus/testnet_spec/genesis.ssz
             - --Xee-version=kilnv2
             - --Xnetwork-total-terminal-difficulty-override="20000000000000"
+          nimbus:
+            - --network="/data/consensus/testnet_spec"
+            - --terminal-total-difficulty-override=20000000000000
+            - --bootstrap-node="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)"
 
     goerli-shadow-fork-4:
       execution:
@@ -220,6 +224,10 @@ global:
             - --initial-state=/data/consensus/testnet_spec/genesis.ssz
             - --Xee-version=kilnv2
             - --Xnetwork-total-terminal-difficulty-override="9895202"
+          nimbus:
+            - --network="/data/consensus/testnet_spec"
+            - --terminal-total-difficulty-override=9895202
+            - --bootstrap-node="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)"
 
   ethereum:
     network: kiln
@@ -227,6 +235,8 @@ global:
     execution:
       client:
         name: geth
+
+      logLevel: info
 
       dataDir: /data/execution
 
@@ -245,6 +255,7 @@ global:
       client:
         name: prysm
 
+      logLevel: info
       dataDir: /data/consensus
 
       config:
@@ -282,6 +293,18 @@ geth:
     tag: latest
     pullPolicy: Always
 
+nethermind:
+  image:
+    repository: nethermindeth/nethermind
+    tag: latest
+    pullPolicy: Always
+
+besu:
+  image:
+    repository: hyperledger/besu
+    tag: develop
+    pullPolicy: Always
+
 lighthouse:
   image:
     repository: sigp/lighthouse
@@ -295,12 +318,17 @@ prysm:
     tag: latest
     pullPolicy: Always
 
-nethermind:
+teku:
   image:
-    repository: nethermindeth/nethermind
-    tag: latest
+    repository: consensys/teku
+    tag: develop
     pullPolicy: Always
 
+nimbus:
+  image:
+    repository: statusim/nimbus-eth2
+    tag: amd64-latest
+    pullPolicy: Always
 
 
 rbac:

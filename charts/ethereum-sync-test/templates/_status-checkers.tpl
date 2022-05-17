@@ -21,5 +21,8 @@
 {{- if eq .Values.global.ethereum.consensus.client.name "teku" }}
 {{ include "teku.sync-status-check-command" .Subcharts.teku }}
 {{- end }}
+{{- if eq .Values.global.ethereum.consensus.client.name "nimbus" }}
+{{ include "nimbus.sync-status-check-command" .Subcharts.nimbus }}
+{{- end }}
 
 {{- end }}

@@ -40,6 +40,7 @@
           pkill -INT java;
           pkill -INT teku;
           pkill -INT besu;
+          pkill -INT nimbus;
           ps ax | grep -v pause | grep -v "ps ax" | awk '{ if (NR!=1) print $1 }' |  cut -d " " -f 1  | xargs kill -SIGINT;
 
           exit 0;

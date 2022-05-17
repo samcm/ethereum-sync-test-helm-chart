@@ -20,5 +20,8 @@ dependencies:
 - name: besu
   repository: file://charts/besu
   version: 0.1.0
-digest: sha256:de23561ce1f7b8fc416c4a31e6ca1771a11480dcb1f86fa2d2e1d97840a3d081
-generated: "2022-05-10T14:59:59.718342+10:00"
+- name: nimbus
+  repository: file://charts/nimbus
+  version: 0.1.0
+digest: sha256:e1f145d1c5916ac07318132a186d0dbcc7394a7d2ff4600ef088d4936a0db88e
+generated: "2022-05-17T10:53:18.5149+10:00"

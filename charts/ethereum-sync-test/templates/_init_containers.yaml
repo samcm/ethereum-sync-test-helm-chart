@@ -18,4 +18,7 @@
 {{- if eq .Values.global.ethereum.consensus.client.name "teku" }}
 {{ include "teku.initContainers" .Subcharts.teku }}
 {{- end }}
+{{- if eq .Values.global.ethereum.consensus.client.name "nimbus" }}
+{{ include "nimbus.initContainers" .Subcharts.nimbus }}
+{{- end }}
 {{- end }}
