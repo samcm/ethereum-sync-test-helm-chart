@@ -56,7 +56,7 @@ global:
         - /bin/sh
       args:
         - -c
-        # - rm -rf /data/*
+        - rm -rf /data/*
         - rm -rf /data/kill-pod
         - mkdir -p /data/execution
         - mkdir -p /data/consensus
