@@ -6,10 +6,9 @@
 {{- if .Values.extraVolumes }}
 {{ toYaml .Values.extraVolumes | nindent 8}}
 {{- end }}
-- name: status-checks
+- name: coordinator-config
   configMap:
-    name: {{ include "ethereum-sync-tests.fullname" . }}-checks
-    defaultMode: 0777
+    name: {{ include "ethereum-sync-tests.fullname" . }}-coord
 - name: exe-config
   configMap:
     name: {{ include "ethereum-sync-tests.fullname" . }}-exe

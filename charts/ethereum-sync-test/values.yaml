@@ -56,7 +56,7 @@ global:
         - /bin/sh
       args:
         - -c
-        - rm -rf /data/*
+        # - rm -rf /data/*
         - rm -rf /data/kill-pod
         - mkdir -p /data/execution
         - mkdir -p /data/consensus
@@ -277,8 +277,39 @@ global:
     runAsNonRoot: true
     runAsUser: 10001
 
-## Metrics-Exporter
+## Common values
 common:
+  coordinator:
+    enabled: true
+    image:
+      repository: samcm/sync-test-coordinator
+      tag: latest
+      pullPolicy: IfNotPresent
+    config_yaml:
+      test: both_synced
+      execution:
+        url: http://localhost:8545
+      consensus:
+        url: http://localhost:5052
+      task_config:
+        finish_job:
+          command:
+          - "sh"
+          - "-c"
+          - "pkill metric"
+
+        kill_execution:
+          command:
+          - "sh"
+          - "-c"
+          - "pkill $EXECUTION_CLIENT_NAME"
+
+        klll_consensus:
+          command:
+          - "sh"
+          - "-c"
+          - "pkill $CONSENSUS_CLIENT_NAME"
+
   metricsExporter:
     enabled: true
     # image:

@@ -33,3 +33,13 @@ data:
 {{- range $key, $value := $exe }}
   {{ upper $key }}: {{ $value }} 
 {{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "ethereum-sync-tests.fullname" . }}-coord
+  labels:
+    {{- include "ethereum-sync-tests.labels" . | nindent 4 }}
+data:
+  config.yaml: |-
+  {{- toYaml .Values.common.coordinator.config_yaml | nindent 4 }}

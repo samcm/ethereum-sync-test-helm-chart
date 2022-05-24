@@ -1,14 +1,10 @@
-statusChecker:
+coordinator:
+  enabled: true
+  port: 9095
   image:
-    repository: alpine
+    repository: samcm/sync-test-coordinator
     tag: latest
     pullPolicy: IfNotPresent
-
-  resources:
-    {}
-  # requests:
-  #   cpu: 16m
-  #   memory: 32Mi
 
 metricsExporter:
   enabled: true
