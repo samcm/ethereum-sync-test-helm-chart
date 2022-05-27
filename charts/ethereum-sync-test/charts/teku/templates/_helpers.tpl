@@ -40,20 +40,3 @@
   {{ . }}
 {{- end }}
 {{- end }}
-
-
-{{/*
-# Sync-status check command. Can be used to check when the sync is complete.
-*/}}
-{{- define "teku.sync-status-check-command" -}}
-#!/bin/sh
-head=$(curl -s $POD_IP:5052/eth/v1/node/syncing | jq -e '.data.head_slot|tonumber' || echo 0);
-distance=$(curl -s $POD_IP:5052/eth/v1/node/syncing | jq -e '.data.sync_distance|tonumber' || echo 100000);
-highest=$((head + distance));
-if [ $highest == 0 ]; then
-  echo -ne "0";
-else
-  percent=$((100 * head / highest)) || echo 0;
-  echo -ne "$percent";
-fi;
-{{- end }}
