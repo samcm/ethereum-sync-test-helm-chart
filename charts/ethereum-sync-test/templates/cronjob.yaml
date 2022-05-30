@@ -18,45 +18,6 @@ spec:
   {{- if .Values.cronjob.failedJobsHistoryLimit }}
   failedJobsHistoryLimit: {{ .Values.cronjob.failedJobsHistoryLimit }}
   {{- end }}
-  jobTemplate:
+  jobTemplate: 
     spec:
-      backoffLimit: {{ .Values.cronjob.job.backoffLimit }}
-      {{- if .Values.cronjob.activeDeadlineSeconds }}
-      activeDeadlineSeconds: {{ .Values.cronjob.activeDeadlineSeconds }}
-      {{- end }}
-      {{- if .Values.cronjob.job.ttlSecondsAfterFinished }}
-      ttlSecondsAfterFinished: {{ .Values.cronjob.job.ttlSecondsAfterFinished }}
-      {{- end }}
-
-      template:
-        metadata:
-          labels:
-          {{- include "ethereum-sync-tests.labels" . | nindent 12 }}
-          {{- with .Values.podLabels }}
-          {{- toYaml . | nindent 12 }}
-          {{- end }}
-          {{- with .Values.podAnnotations }}
-          annotations:
-          {{- toYaml . | nindent 12 }}
-          {{- end }}
-        spec:
-          initContainers:
-          {{ include "ethereum-sync-tests.initContainers" . | nindent 12 }}
-          containers:
-          {{ include "ethereum-sync-tests.containers" . | nindent 12 }}
-          volumes:
-          {{ include "ethereum-sync-tests.volumes" . | nindent 12 }}
-          nodeSelector:
-          {{- toYaml .Values.nodeSelector | nindent 12 }}
-          affinity:
-          {{- toYaml .Values.affinity | nindent 12 }}
-          tolerations:
-          {{- toYaml .Values.tolerations | nindent 12 }}
-          restartPolicy: {{ .Values.cronjob.job.restartPolicy | quote }}
-          shareProcessNamespace: true
-          {{- if .Values.rbac.create }}
-          serviceAccountName: {{ include "ethereum-sync-tests.serviceAccountName" . }}
-          {{- end }}
-          {{- if .Values.cronjob.job.terminationGracePeriodSeconds }}
-          terminationGracePeriodSeconds: {{ .Values.cronjob.job.terminationGracePeriodSeconds }}
-          {{- end }}
+     {{- include "ethereum-sync-tests.job-spec" . | nindent 6 }}

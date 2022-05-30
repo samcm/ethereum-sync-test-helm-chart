@@ -192,3 +192,48 @@ Full Consensus Command
     sleep 1;
   done
 {{- end }}
+
+{{/*
+Job Template
+*/}}
+{{- define "ethereum-sync-tests.job-spec" -}}
+backoffLimit: {{ .Values.cronjob.job.backoffLimit }}
+{{- if .Values.cronjob.activeDeadlineSeconds }}
+activeDeadlineSeconds: {{ .Values.cronjob.activeDeadlineSeconds }}
+{{- end }}
+{{- if .Values.cronjob.job.ttlSecondsAfterFinished }}
+ttlSecondsAfterFinished: {{ .Values.cronjob.job.ttlSecondsAfterFinished }}
+{{- end }}
+template:
+  metadata:
+    labels:
+    {{- include "ethereum-sync-tests.labels" . | nindent 8 }}
+    {{- with .Values.podLabels }}
+    {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.podAnnotations }}
+    annotations:
+    {{- toYaml . | nindent 8 }}
+    {{- end }}
+  spec:
+    initContainers:
+    {{ include "ethereum-sync-tests.initContainers" . | nindent 8 }}
+    containers:
+    {{ include "ethereum-sync-tests.containers" . | nindent 8 }}
+    volumes:
+    {{ include "ethereum-sync-tests.volumes" . | nindent 8 }}
+    nodeSelector:
+    {{- toYaml .Values.nodeSelector | nindent 8 }}
+    affinity:
+    {{- toYaml .Values.affinity | nindent 8 }}
+    tolerations:
+    {{- toYaml .Values.tolerations | nindent 8 }}
+    restartPolicy: {{ .Values.cronjob.job.restartPolicy | quote }}
+    shareProcessNamespace: true
+    {{- if .Values.rbac.create }}
+    serviceAccountName: {{ include "ethereum-sync-tests.serviceAccountName" . }}
+    {{- end }}
+    {{- if .Values.cronjob.job.terminationGracePeriodSeconds }}
+    terminationGracePeriodSeconds: {{ .Values.cronjob.job.terminationGracePeriodSeconds }}
+    {{- end }}
+{{- end }}

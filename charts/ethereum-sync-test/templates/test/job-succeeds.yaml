@@ -1,0 +1,10 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "ethereum-sync-tests.fullname" . }}-test
+  labels:
+    {{- include "ethereum-sync-tests.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+{{- include "ethereum-sync-tests.job-spec" . | nindent 2 }}
