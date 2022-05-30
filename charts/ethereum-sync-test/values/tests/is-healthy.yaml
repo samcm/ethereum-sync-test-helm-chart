@@ -1,7 +1,7 @@
 common:
   config_yaml:
     test:
-      name: "starts-syncing"
+      name: "is-healthy"
       tasks:
         - name: execution_is_healthy
         - name: consensus_is_healthy

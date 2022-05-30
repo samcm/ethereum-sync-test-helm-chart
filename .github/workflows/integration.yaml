@@ -11,7 +11,7 @@ on:
   pull_request:
 
 jobs:
-  starts-syncing:
+  is-healthy:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -40,7 +40,7 @@ jobs:
         run: >
           helm template ethereum-sync-test ./charts/ethereum-sync-test \
             -f ./charts/ethereum-sync-test/values.yaml \
-            -f ./charts/ethereum-sync-test/values/tests/starts-syncing.yaml \
+            -f ./charts/ethereum-sync-test/values/tests/is-healthy.yaml \
             -f ./charts/ethereum-sync-test/values/networks/${{ matrix.network }}.yaml \
             -f ./charts/ethereum-sync-test/values/clients/execution/${{ matrix.execution }}.yaml \
             -f ./charts/ethereum-sync-test/values/clients/consensus/${{ matrix.consensus }}.yaml
@@ -49,10 +49,21 @@ jobs:
         run: >
           helm install ethereum-sync-test ./charts/ethereum-sync-test \
             -f ./charts/ethereum-sync-test/values.yaml \
-            -f ./charts/ethereum-sync-test/values/tests/starts-syncing.yaml \
+            -f ./charts/ethereum-sync-test/values/tests/is-healthy.yaml \
             -f ./charts/ethereum-sync-test/values/networks/${{ matrix.network }}.yaml \
             -f ./charts/ethereum-sync-test/values/clients/execution/${{ matrix.execution }}.yaml \
             -f ./charts/ethereum-sync-test/values/clients/consensus/${{ matrix.consensus }}.yaml
+
       - name: Run test
         run: >
           helm test ethereum-sync-test --timeout=5m --logs --debug
+
+      - name: Coordinator Pod Logs
+        run: >
+          kubectl logs pod/$(kubectl get pods -o name | grep ethereum-sync-test | cut -d/ -f2) -c coordinator
+      - name: Execution Pod Logs
+        run: >
+          kubectl logs pod/$(kubectl get pods -o name | grep ethereum-sync-test | cut -d/ -f2) -c ${{ matrix.execution }}
+      - name: Consensus Pod Logs
+        run: >
+          kubectl logs pod/$(kubectl get pods -o name | grep ethereum-sync-test | cut -d/ -f2) -c ${{ matrix.consensus }}-beacon
