@@ -1,0 +1,47 @@
+common:
+  coordinator:
+    config_yaml:
+      test:
+        name: "is-healthy"
+        tasks:
+          - name: execution_is_healthy
+          - name: consensus_is_healthy
+
+          - name: both_are_syncing
+
+          - name: run_command
+            config:
+              command:
+                - "sh"
+                - "-c"
+                - "touch /data/execution/finished"
+
+          - name: run_command
+            config:
+              command:
+                - "sh"
+                - "-c"
+                - "touch /data/consensus/finished"
+          - name: run_command
+            config:
+              command:
+                - "sh"
+                - "-c"
+                - "pkill -INT -f /data/execution"
+              allowed_to_fail: true
+
+          - name: run_command
+            config:
+              command:
+                - "sh"
+                - "-c"
+                - "pkill -INT -f /data/consensus"
+              allowed_to_fail: true
+
+          - name: run_command
+            config:
+              command:
+                - "sh"
+                - "-c"
+                - "pkill -INT -f exporter"
+              allowed_to_fail: true
