@@ -29,14 +29,14 @@ resources:
   #   memory: 4000Mi
 
 
-# -- Readiness probe
+# -- Liveness probe
 # @default -- See `values.yaml`
-livenessProbe:
-  tcpSocket:
-    port: con-http-api
-  initialDelaySeconds: 180
-  periodSeconds: 60
-  failureThreshold: 5
+# livenessProbe:
+#   tcpSocket:
+#     port: con-http-api
+#   initialDelaySeconds: 180
+#   periodSeconds: 60
+#   failureThreshold: 5
 
 # -- Readiness probe
 # @default -- See `values.yaml`

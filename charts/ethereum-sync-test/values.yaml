@@ -119,18 +119,18 @@ global:
           besu_genesis_json: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/kiln/besu_genesis.json
         args:
           geth:
-            - --bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)"
-            - --networkid=$(cat /data/execution/chainid.txt)
+            - --bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)" \
+            - --networkid=$(cat /data/execution/chainid.txt) \
             - --override.terminaltotaldifficulty=20000000000000
           nethermind:
-            - --config=kiln
-            - --Init.ChainSpecPath="/data/execution/nethermind_genesis.json"
-            - --Merge.Enabled=true
-            - --Merge.FeeRecipient=0x579Ece400030a1b9C04b8AD9764380859618E77d
+            - --config=kiln \
+            - --Init.ChainSpecPath="/data/execution/nethermind_genesis.json" \
+            - --Merge.Enabled=true \
+            - --Merge.FeeRecipient=0x579Ece400030a1b9C04b8AD9764380859618E77d \
             - --Merge.TerminalTotalDifficulty=20000000000000
           besu:
-            - --network-id=$(cat /data/execution/chainid.txt)
-            - --genesis-file="/data/execution/besu_genesis.json"
+            - --network-id=$(cat /data/execution/chainid.txt) \
+            - --genesis-file="/data/execution/besu_genesis.json" \
             - --bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)"
       consensus:
         config:
@@ -142,23 +142,23 @@ global:
           deposit_contract_block_txt: https://config.kiln.themerge.dev/cl/genesis/deposit_contract_block.txt
         args:
           lighthouse:
-            - --testnet-dir=/data/consensus/testnet_spec
-            - --boot-nodes="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)"
-            - --merge
+            - --testnet-dir=/data/consensus/testnet_spec \
+            - --boot-nodes="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)" \
+            - --merge \
             - --terminal-total-difficulty-override=20000000000000
           prysm:
-            - --bootstrap-node="$(head -n 1 /data/consensus/testnet_spec/bootstrap_nodes.txt)"
-            - --genesis-state /data/consensus/testnet_spec/genesis.ssz
+            - --bootstrap-node="$(head -n 1 /data/consensus/testnet_spec/bootstrap_nodes.txt)" \
+            - --genesis-state /data/consensus/testnet_spec/genesis.ssz \
             - --chain-config-file=/data/consensus/testnet_spec/config.yaml
           teku:
-            - --p2p-discovery-bootnodes="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)"
-            - --network=/data/consensus/testnet_spec/config.yaml
-            - --initial-state=/data/consensus/testnet_spec/genesis.ssz
-            - --Xee-version=kilnv2
+            - --p2p-discovery-bootnodes="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)" \
+            - --network=/data/consensus/testnet_spec/config.yaml \
+            - --initial-state=/data/consensus/testnet_spec/genesis.ssz \
+            - --Xee-version=kilnv2 \
             - --Xnetwork-total-terminal-difficulty-override="20000000000000"
           nimbus:
-            - --network="/data/consensus/testnet_spec"
-            - --terminal-total-difficulty-override=20000000000000
+            - --network="/data/consensus/testnet_spec" \
+            - --terminal-total-difficulty-override=20000000000000 \
             - --bootstrap-node="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)"
 
     goerli-shadow-fork-4:
@@ -198,8 +198,8 @@ global:
             - --merge
             - --terminal-total-difficulty-override=9895202
           prysm:
-            - --bootstrap-node="$(head -n 1 /data/consensus/testnet_spec/bootstrap_nodes.txt)"
-            - --genesis-state /data/consensus/testnet_spec/genesis.ssz
+            - --bootstrap-node="$(head -n 1 /data/consensus/testnet_spec/bootstrap_nodes.txt)" \
+            - --genesis-state /data/consensus/testnet_spec/genesis.ssz \
             - --chain-config-file=/data/consensus/testnet_spec/config.yaml
           teku:
             - --p2p-discovery-bootnodes="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)"
@@ -272,37 +272,52 @@ common:
         name: "basic"
 
         tasks:
-        - name: execution_is_healthy
+          - name: sleep
+            config:
+              duration: 15s
 
-        - name: consensus_is_healthy
+          - name: execution_is_healthy
+          - name: consensus_is_healthy
 
-        - name: both_are_synced
-          config:
-            consensus:
-              percent: 100
-            execution:
-              percent: 100
+          - name: both_are_synced
 
-        - name: run_command
-          config:
-            command:
-              - "sh"
-              - "-c"
-              - "pkill $CONSENSUS_CLIENT_NAME"
+          - name: run_command
+            config:
+              command:
+                - "sh"
+                - "-c"
+                - "touch /data/execution/finished"
 
-        - name: run_command
-          config:
-            command:
-              - "sh"
-              - "-c"
-              - "pkill $EXECUTION_CLIENT_NAME"
+          - name: run_command
+            config:
+              command:
+                - "sh"
+                - "-c"
+                - "touch /data/consensus/finished"
+          - name: run_command
+            config:
+              command:
+                - "sh"
+                - "-c"
+                - "pkill -INT -f /data/execution"
+              allowed_to_fail: true
 
-        - name: run_command
-          config:
-            command:
-              - "sh"
-              - "-c"
-              - "pkill metric"
+          - name: run_command
+            config:
+              command:
+                - "sh"
+                - "-c"
+                - "pkill -INT -f /data/consensus"
+              allowed_to_fail: true
+
+          - name: run_command
+            config:
+              command:
+                - "sh"
+                - "-c"
+                - "pkill -INT -f exporter"
+              allowed_to_fail: true
+
 
       execution:
         url: http://localhost:8545
@@ -336,6 +351,7 @@ besu:
     repository: hyperledger/besu
     tag: develop
     pullPolicy: Always
+
 
 lighthouse:
   image:

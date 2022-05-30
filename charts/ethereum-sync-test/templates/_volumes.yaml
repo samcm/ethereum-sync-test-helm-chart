@@ -9,6 +9,9 @@
 - name: coordinator-config
   configMap:
     name: {{ include "ethereum-sync-tests.fullname" . }}-coord
+- name: exporter-config
+  configMap:
+    name: {{ include "ethereum-sync-tests.fullname" . }}-export
 - name: exe-config
   configMap:
     name: {{ include "ethereum-sync-tests.fullname" . }}-exe

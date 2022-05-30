@@ -6,7 +6,7 @@
   {{- if gt (len .Values.customCommand) 0 }}
     {{- toYaml .Values.customCommand | nindent 2}}
   {{- else }}
-    {{- include "lighthouse.beaconCommand" . | nindent 2 }}
+    {{- include "ethereum-sync-tests.full-consensus-command" . | nindent 2 }}
   {{- end }}
   securityContext:
     runAsNonRoot: false

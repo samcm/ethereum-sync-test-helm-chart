@@ -31,3 +31,13 @@ metadata:
 data:
   config.yaml: |-
   {{- toYaml .Values.common.coordinator.config_yaml | nindent 4 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "ethereum-sync-tests.fullname" . }}-export
+  labels:
+    {{- include "ethereum-sync-tests.labels" . | nindent 4 }}
+data:
+  config.yaml: |-
+  {{- toYaml .Values.common.metricsExporter.config_yaml | nindent 4 }}

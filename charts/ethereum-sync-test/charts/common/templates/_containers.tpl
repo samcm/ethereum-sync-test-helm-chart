@@ -12,15 +12,15 @@
       fieldRef:
         fieldPath: status.podIP
   args:
-    - --consensus-url=http://localhost:{{ .Values.global.ethereum.consensus.config.ports.http_api }}
-    - --execution-url=http://localhost:{{ .Values.global.ethereum.execution.config.ports.http_rpc }}
-    - --monitored-directories={{ .Values.global.ethereum.consensus.dataDir }},{{ .Values.global.ethereum.execution.dataDir }}
+    - --config=/exporter/config.yaml
     - --metrics-port={{ .Values.metricsExporter.port }}
   ports:
   - containerPort: {{ .Values.metricsExporter.port }}
     name: eth-metrics
     protocol: TCP
   volumeMounts:
+  - name: exporter-config
+    mountPath: /exporter
   - name: storage
     mountPath: /data
   resources:
@@ -48,6 +48,8 @@
   volumeMounts:
   - name: coordinator-config
     mountPath: /config
+  - name: storage
+    mountPath: /data
   resources:
 {{- toYaml .Values.coordinator.resources | nindent 4 }}
 {{- end }}

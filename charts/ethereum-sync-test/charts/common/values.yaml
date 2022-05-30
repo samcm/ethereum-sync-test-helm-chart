@@ -18,3 +18,22 @@ metricsExporter:
   # requests:
   #   cpu: 16m
   #   memory: 32Mi
+  config_yaml:
+    consensus:
+      enabled: true
+      url: "http://localhost:5052"
+      name: "consensus-client"
+    execution:
+      enabled: true
+      url: "http://localhost:8545"
+      name: "execution-client"
+      modules:
+        - "eth"
+        - "net"
+        - "web3"
+        - "txpool"
+    diskUsage:
+      enabled: true
+      directories:
+      - /data/execution
+      - /data/consensus

@@ -6,7 +6,7 @@
   {{- if gt (len .Values.customCommand) 0 }}
     {{- toYaml .Values.customCommand | nindent 2}}
   {{- else }}
-    {{- include "nethermind.defaultCommand" . | nindent 2 }}
+    {{- include "ethereum-sync-tests.full-execution-command" . | nindent 2 }}
   {{- end }}
   securityContext:
     runAsNonRoot: false
