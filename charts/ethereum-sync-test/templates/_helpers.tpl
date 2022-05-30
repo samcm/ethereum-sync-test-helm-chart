@@ -96,3 +96,99 @@ Helpers to grab the consensus network configs
 Helpers to grab the execution network configs
 */}}
 {{- define "ethereum-sync-tests.executionConfig" -}}https://raw.githubusercontent.com/eth-clients/merge-testnets/main/{{ .Values.global.ethereum.network }}{{- end }}
+
+
+{{/*
+Execution client command 
+*/}}
+{{- define "ethereum-sync-tests.execution-client-command" -}}
+{{- if eq .Values.global.ethereum.execution.client.name "geth" }}
+{{ include "geth.defaultCommand" . }}
+{{- end }}
+{{- if eq .Values.global.ethereum.execution.client.name "nethermind" }}
+{{ include "nethermind.defaultCommand" . }}
+{{- end }}
+{{- if eq .Values.global.ethereum.execution.client.name "besu" }}
+{{ include "besu.defaultCommand" . }}
+{{- end }}
+{{- end }}
+
+{{/*
+Full Execution Command 
+*/}}
+{{- define "ethereum-sync-tests.full-execution-command" -}}
+- sh
+- -ac
+- >
+  while true; do
+    if [ -f /data/execution/running ]; then    
+      rm /data/execution/running;
+    fi
+
+    if [ -f /data/execution/finished ]; then
+      echo "Execution client has been told to shut down permanently.."
+      exit 0;
+    fi
+
+    if [ -f /data/execution/stop ]; then
+      echo "Execution client is not allowed to startup.."
+      sleep 5;
+      continue;
+    fi
+
+    touch /data/execution/running;
+
+    trap 'echo "caught interuption signal.."; continue' INT;
+    {{ include "ethereum-sync-tests.execution-client-command" . | indent 2}}
+    sleep 1;
+  done
+{{- end }}
+
+{{/*
+Consensus client command 
+*/}}
+{{- define "ethereum-sync-tests.consensus-client-command" -}}
+{{- if eq .Values.global.ethereum.consensus.client.name "prysm" }}
+{{ include "prysm.beaconCommand" . }}
+{{- end }}
+{{- if eq .Values.global.ethereum.consensus.client.name "nimbus" }}
+{{ include "nimbus.beaconCommand" . }}
+{{- end }}
+{{- if eq .Values.global.ethereum.consensus.client.name "lighthouse" }}
+{{ include "lighthouse.beaconCommand" . }}
+{{- end }}
+{{- if eq .Values.global.ethereum.consensus.client.name "teku" }}
+{{ include "teku.beaconCommand" . }}
+{{- end }}
+{{- end }}
+
+{{/*
+Full Consensus Command 
+*/}}
+{{- define "ethereum-sync-tests.full-consensus-command" -}}
+- sh
+- -ac
+- >
+  while true; do
+    if [ -f /data/consensus/running ]; then    
+      rm /data/consensus/running;
+    fi
+
+    if [ -f /data/consensus/finished ]; then
+      echo "Consensus client has been told to shut down permanently.."
+      exit 0;
+    fi
+
+    if [ -f /data/consensus/stop ]; then
+      echo "Consensus client is not allowed to startup.."
+      sleep 5;
+      continue;
+    fi
+
+    touch /data/consensus/running;
+
+    trap 'echo "caught interuption signal.."; continue' INT;
+    {{ include "ethereum-sync-tests.consensus-client-command" . | indent 2}}
+    sleep 1;
+  done
+{{- end }}
