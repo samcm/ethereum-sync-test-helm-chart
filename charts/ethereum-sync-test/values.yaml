@@ -280,6 +280,16 @@ common:
           - name: consensus_is_healthy
 
           - name: both_are_synced
+            config:
+              consensus:
+                percent: 100
+                wait_for_chain_progression: true
+                min_slot_height: 10
+              execution:
+                percent: 100
+                wait_for_chain_progression: true
+                min_block_height: 10
+                
 
           - name: run_command
             config:
