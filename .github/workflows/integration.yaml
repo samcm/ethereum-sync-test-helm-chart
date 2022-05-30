@@ -56,7 +56,7 @@ jobs:
 
       - name: Run test
         run: >
-          helm test ethereum-sync-test --timeout=2m --logs --debug
+          helm test ethereum-sync-test --timeout=5m --debug
 
       - name: Coordinator Pod Logs
         if: always()
