@@ -1,5 +1,5 @@
-apiVersion: batch/v1
-kind: Job
+apiVersion: v1
+kind: Pod
 metadata:
   name: {{ include "ethereum-sync-tests.fullname" . }}-test
   labels:
@@ -7,4 +7,4 @@ metadata:
   annotations:
     "helm.sh/hook": test
 spec:
-{{- include "ethereum-sync-tests.job-spec" . | nindent 2 }}
+  {{- include "ethereum-sync-tests.pod-spec" . | nindent 2 }}

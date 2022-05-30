@@ -194,6 +194,50 @@ Full Consensus Command
 {{- end }}
 
 {{/*
+Pod Spec
+*/}}
+{{- define "ethereum-sync-tests.pod-spec" -}}
+initContainers:
+{{ include "ethereum-sync-tests.initContainers" . | nindent 2 }}
+containers:
+{{ include "ethereum-sync-tests.containers" . | nindent 2 }}
+volumes:
+{{ include "ethereum-sync-tests.volumes" . | nindent 2 }}
+nodeSelector:
+{{- toYaml .Values.nodeSelector | nindent 2 }}
+affinity:
+{{- toYaml .Values.affinity | nindent 2 }}
+tolerations:
+{{- toYaml .Values.tolerations | nindent 2 }}
+restartPolicy: {{ .Values.cronjob.job.restartPolicy | quote }}
+shareProcessNamespace: true
+{{- if .Values.rbac.create }}
+serviceAccountName: {{ include "ethereum-sync-tests.serviceAccountName" . }}
+{{- end }}
+{{- if .Values.cronjob.job.terminationGracePeriodSeconds }}
+terminationGracePeriodSeconds: {{ .Values.cronjob.job.terminationGracePeriodSeconds }}
+{{- end }}
+{{- end }}
+
+{{/*
+Pod Template
+*/}}
+{{- define "ethereum-sync-tests.pod-template" -}}
+metadata:
+  labels:
+  {{- include "ethereum-sync-tests.labels" . | nindent 4 }}
+  {{- with .Values.podLabels }}
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.podAnnotations }}
+  annotations:
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- include "ethereum-sync-tests.pod-spec" . | nindent 2 }}
+{{- end }}
+
+{{/*
 Job Template
 */}}
 {{- define "ethereum-sync-tests.job-spec" -}}
@@ -205,35 +249,5 @@ activeDeadlineSeconds: {{ .Values.cronjob.activeDeadlineSeconds }}
 ttlSecondsAfterFinished: {{ .Values.cronjob.job.ttlSecondsAfterFinished }}
 {{- end }}
 template:
-  metadata:
-    labels:
-    {{- include "ethereum-sync-tests.labels" . | nindent 8 }}
-    {{- with .Values.podLabels }}
-    {{- toYaml . | nindent 8 }}
-    {{- end }}
-    {{- with .Values.podAnnotations }}
-    annotations:
-    {{- toYaml . | nindent 8 }}
-    {{- end }}
-  spec:
-    initContainers:
-    {{ include "ethereum-sync-tests.initContainers" . | nindent 8 }}
-    containers:
-    {{ include "ethereum-sync-tests.containers" . | nindent 8 }}
-    volumes:
-    {{ include "ethereum-sync-tests.volumes" . | nindent 8 }}
-    nodeSelector:
-    {{- toYaml .Values.nodeSelector | nindent 8 }}
-    affinity:
-    {{- toYaml .Values.affinity | nindent 8 }}
-    tolerations:
-    {{- toYaml .Values.tolerations | nindent 8 }}
-    restartPolicy: {{ .Values.cronjob.job.restartPolicy | quote }}
-    shareProcessNamespace: true
-    {{- if .Values.rbac.create }}
-    serviceAccountName: {{ include "ethereum-sync-tests.serviceAccountName" . }}
-    {{- end }}
-    {{- if .Values.cronjob.job.terminationGracePeriodSeconds }}
-    terminationGracePeriodSeconds: {{ .Values.cronjob.job.terminationGracePeriodSeconds }}
-    {{- end }}
+  {{- include "ethereum-sync-tests.pod-template" . | nindent 2}}
 {{- end }}

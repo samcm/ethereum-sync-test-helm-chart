@@ -11,7 +11,7 @@ on:
   pull_request:
 
 jobs:
-  lint-test:
+  starts-syncing:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -41,4 +41,4 @@ jobs:
             -f ./charts/ethereum-sync-test/values/clients/consensus/lighthouse.yaml
       - name: Run test
         run: >
-          helm test ethereum-sync-test --timeout=10m
+          helm test ethereum-sync-test --timeout=5m --logs --debug
