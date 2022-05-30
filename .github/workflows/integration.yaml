@@ -56,14 +56,17 @@ jobs:
 
       - name: Run test
         run: >
-          helm test ethereum-sync-test --timeout=5m --logs --debug
+          helm test ethereum-sync-test --timeout=2m --logs --debug
 
       - name: Coordinator Pod Logs
+        if: always()
         run: >
-          kubectl logs pod/$(kubectl get pods -o name | grep ethereum-sync-test | cut -d/ -f2) -c coordinator
+          kubectl logs pod/$(kubectl get pods -o name | grep ethereum-sync-test | cut -d/ -f2) -c coordinator --tail 250
       - name: Execution Pod Logs
+        if: always()
         run: >
-          kubectl logs pod/$(kubectl get pods -o name | grep ethereum-sync-test | cut -d/ -f2) -c ${{ matrix.execution }}
+          kubectl logs pod/$(kubectl get pods -o name | grep ethereum-sync-test | cut -d/ -f2) -c ${{ matrix.execution }} --tail 250
       - name: Consensus Pod Logs
+        if: always()
         run: >
-          kubectl logs pod/$(kubectl get pods -o name | grep ethereum-sync-test | cut -d/ -f2) -c ${{ matrix.consensus }}-beacon
+          kubectl logs pod/$(kubectl get pods -o name | grep ethereum-sync-test | cut -d/ -f2) -c ${{ matrix.consensus }}-beacon --tail 250
