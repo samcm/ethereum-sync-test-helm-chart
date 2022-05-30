@@ -2,7 +2,7 @@ common:
   coordinator:
     config_yaml:
       test:
-        name: "is-healthy"
+        name: "starts-syncing"
         tasks:
           - name: execution_is_healthy
           - name: consensus_is_healthy

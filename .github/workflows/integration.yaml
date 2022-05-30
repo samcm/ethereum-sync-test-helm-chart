@@ -36,14 +36,14 @@ jobs:
       - name: Create kind cluster
         uses: helm/kind-action@v1.2.0
 
-      - name: Template chart
-        run: >
-          helm template ethereum-sync-test ./charts/ethereum-sync-test \
-            -f ./charts/ethereum-sync-test/values.yaml \
-            -f ./charts/ethereum-sync-test/values/tests/is-healthy.yaml \
-            -f ./charts/ethereum-sync-test/values/networks/${{ matrix.network }}.yaml \
-            -f ./charts/ethereum-sync-test/values/clients/execution/${{ matrix.execution }}.yaml \
-            -f ./charts/ethereum-sync-test/values/clients/consensus/${{ matrix.consensus }}.yaml
+      # - name: Template chart
+      #   run: >
+      #     helm template ethereum-sync-test ./charts/ethereum-sync-test \
+      #       -f ./charts/ethereum-sync-test/values.yaml \
+      #       -f ./charts/ethereum-sync-test/values/tests/is-healthy.yaml \
+      #       -f ./charts/ethereum-sync-test/values/networks/${{ matrix.network }}.yaml \
+      #       -f ./charts/ethereum-sync-test/values/clients/execution/${{ matrix.execution }}.yaml \
+      #       -f ./charts/ethereum-sync-test/values/clients/consensus/${{ matrix.consensus }}.yaml
 
       - name: Install chart
         run: >
@@ -56,7 +56,7 @@ jobs:
 
       - name: Run test
         run: >
-          helm test ethereum-sync-test --timeout=5m --debug
+          helm test ethereum-sync-test --timeout=5m
 
       - name: Coordinator Pod Logs
         if: always()
@@ -76,7 +76,7 @@ jobs:
     strategy:
       matrix:
         consensus: [teku, prysm, lighthouse]
-        execution: [geth, besu, nethermind]
+        execution: [geth]
         network: [kiln] 
     steps:
       - name: Checkout
@@ -96,14 +96,14 @@ jobs:
       - name: Create kind cluster
         uses: helm/kind-action@v1.2.0
 
-      - name: Template chart
-        run: >
-          helm template ethereum-sync-test ./charts/ethereum-sync-test \
-            -f ./charts/ethereum-sync-test/values.yaml \
-            -f ./charts/ethereum-sync-test/values/tests/starts-syncing.yaml \
-            -f ./charts/ethereum-sync-test/values/networks/${{ matrix.network }}.yaml \
-            -f ./charts/ethereum-sync-test/values/clients/execution/${{ matrix.execution }}.yaml \
-            -f ./charts/ethereum-sync-test/values/clients/consensus/${{ matrix.consensus }}.yaml
+      # - name: Template chart
+      #   run: >
+      #     helm template ethereum-sync-test ./charts/ethereum-sync-test \
+      #       -f ./charts/ethereum-sync-test/values.yaml \
+      #       -f ./charts/ethereum-sync-test/values/tests/starts-syncing.yaml \
+      #       -f ./charts/ethereum-sync-test/values/networks/${{ matrix.network }}.yaml \
+      #       -f ./charts/ethereum-sync-test/values/clients/execution/${{ matrix.execution }}.yaml \
+      #       -f ./charts/ethereum-sync-test/values/clients/consensus/${{ matrix.consensus }}.yaml
 
       - name: Install chart
         run: >
@@ -116,7 +116,7 @@ jobs:
 
       - name: Run test
         run: >
-          helm test ethereum-sync-test --timeout=5m --debug
+          helm test ethereum-sync-test --timeout=5m
 
       - name: Coordinator Pod Logs
         if: always()
