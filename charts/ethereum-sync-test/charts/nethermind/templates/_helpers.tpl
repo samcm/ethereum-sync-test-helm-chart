@@ -23,8 +23,10 @@
   --JsonRpc.Host=0.0.0.0 \
   --JsonRpc.Port={{ .Values.global.ethereum.execution.config.ports.http_rpc }} \
   --Init.WebSocketsEnabled=true \
+  --Init.DiagnosticMode="None" \
   --JsonRpc.WebSocketsPort={{ .Values.global.ethereum.execution.config.ports.ws_rpc }} \
   --Metrics.Enabled=true \
+  --log=ERROR \
   --Metrics.ExposePort={{ .Values.global.ethereum.execution.config.ports.metrics }} \
   --JsonRpc.AdditionalRpcUrls="o-auth,http://0.0.0.0:{{ .Values.global.ethereum.execution.config.ports.engine_api }}|http;ws|net;eth;subscribe;engine;web3;client" \
   --JsonRpc.JwtSecretFile="/data/jwtsecret" \
