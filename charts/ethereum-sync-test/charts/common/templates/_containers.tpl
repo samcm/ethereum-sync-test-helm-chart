@@ -41,6 +41,7 @@
     value: {{ .Values.global.ethereum.consensus.client.name }}
   args:
     - --config=/config/config.yaml
+    - --metrics-port={{ .Values.coordinator.port }}
   ports:
   - containerPort: {{ .Values.coordinator.port }}
     name: coord-metrics
