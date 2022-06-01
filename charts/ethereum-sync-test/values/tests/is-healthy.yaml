@@ -6,7 +6,11 @@ common:
         tasks:
           - name: execution_is_healthy
           - name: consensus_is_healthy
-
+          - name: sleep
+            config:
+              duration: 60s
+          - name: execution_is_healthy
+          - name: consensus_is_healthy
           - name: run_command
             config:
               command:

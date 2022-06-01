@@ -25,7 +25,6 @@
   --Init.WebSocketsEnabled=true \
   --JsonRpc.WebSocketsPort={{ .Values.global.ethereum.execution.config.ports.ws_rpc }} \
   --Metrics.Enabled=true \
-  --Metrics.NodeName=$(POD_NAME) \
   --Metrics.ExposePort={{ .Values.global.ethereum.execution.config.ports.metrics }} \
   --JsonRpc.AdditionalRpcUrls="o-auth,http://0.0.0.0:{{ .Values.global.ethereum.execution.config.ports.engine_api }}|http;ws|net;eth;subscribe;engine;web3;client" \
   --JsonRpc.JwtSecretFile="/data/jwtsecret" \
