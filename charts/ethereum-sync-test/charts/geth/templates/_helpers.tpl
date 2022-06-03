@@ -2,6 +2,11 @@
 # Default command
 */}}
 {{- define "geth.defaultCommand" -}}
+{{- $staticPeers :=  (get (get .Values.global.networkConfigs .Values.global.ethereum.network) "execution").static_peers }}
+{{- if $staticPeers }}
+  echo '{{ toJson $staticPeers }}' > $(DATADIR)/geth/trusted-nodes.json; \
+  echo '{{ toJson $staticPeers }}' > $(DATADIR)/geth/static-nodes.json; \
+{{- end }}
 {{- if .Values.global.p2pNodePort.enabled }}
   . /env/init-nodeport; \
 {{- end }}

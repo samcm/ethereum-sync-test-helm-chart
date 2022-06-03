@@ -76,7 +76,7 @@ jobs:
     strategy:
       matrix:
         consensus: [teku, prysm, lighthouse]
-        execution: [geth]
+        execution: [geth, besu, nethermind]
         network: [kiln] 
     steps:
       - name: Checkout
