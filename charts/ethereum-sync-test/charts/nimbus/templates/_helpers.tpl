@@ -18,7 +18,7 @@
   --tcp-port={{ .Values.global.ethereum.consensus.config.ports.p2p_tcp }} \
   --udp-port={{ .Values.global.ethereum.consensus.config.ports.p2p_udp }} \
 {{- end }}
-  --web3-url="ws://${POD_IP}:{{ .Values.global.ethereum.execution.config.ports.engine_api }}" \
+  --web3-url="http://${POD_IP}:{{ .Values.global.ethereum.execution.config.ports.engine_api }}" \
   --rest=true \
   --rest-address=0.0.0.0 \
   --rest-port={{ .Values.global.ethereum.consensus.config.ports.http_api }} \
