@@ -15,11 +15,11 @@ common:
 
           # Stop the CL from restarting
           - name: run_command
-              config:
-                command:
-                  - "sh"
-                  - "-c"
-                  - "touch /data/consensus/stop"
+            config:
+              command:
+                - "sh"
+                - "-c"
+                - "touch /data/consensus/stop"
 
           # Kill the CL
           - name: run_command
