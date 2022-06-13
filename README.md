@@ -3,7 +3,7 @@ Creates a Kubernetes cronjob to test how fast a pair of Execution & Consensus cl
 
 ## Supported Networks
 - Kiln
-- Goerli Shadow Fork 4
+- Ropsten
 
 ## Supported Clients
 Execution:

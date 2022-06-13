@@ -161,64 +161,47 @@ global:
             - --network="/data/consensus/testnet_spec" \
             - --terminal-total-difficulty-override=20000000000000 \
             - --bootstrap-node="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)"
-
-    goerli-shadow-fork-4:
+    ropsten:
       execution:
-        static_peers:
-        - enode://86396fd3a6984da2a31f2ae727132d9c364dd97dd7c6d80849c85dfdf086404c8d81cbf9fdad6b03f7f337c7c69ff36369a6fa4136e8f900e0353f0ff7a06811@167.172.183.95:30303
-        - enode://b2673c4a42a0b6e78808c29f8adfc035ed0b957fe6d8c88197127f7bfcb5daee315c9bfab90e2b66cee4cf352ec0cd198e40517bb9805892253c871faf575d88@159.89.104.254:30303
-        - enode://5428ff96491471de025697aa35038cd998c6569efc49c608483b268599a4708fd89dd91c62def7b260032b9d5206344fdb758aa5be10cba80bf535ca6117f1e2@167.172.187.230:30303
-        - enode://ab3b7a85e1002dee09c3082d87f4e65083f1ef2baca0e3af5c7243fcc18e058da5633eed77325714ded3ce222f2a0d3aee4f172750dd71e3c7fce42691c9bebe@167.172.160.72:30303
-        - enode://2c3f7cbbf6a26112682307a8c69ff2d8c4f8585b627b42557ec436350c30d9bb1a2a5a0e0e800f3153342903c4d1a6256987bd1e0e52b4214bb027199ce0383b@167.172.179.141:30303
-        - enode://15647f46d521a8e60dd9d9a84ccc4d9e562d4874abaa980e935e1fddcc36da328fb13884e3976e00991b131106ae5c86ee389fdc9a115253c045908562e7750f@167.172.170.24:30303
-        config:
-          bootnodes: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/el_bootnode.txt
-          genesis_geth: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/genesis.json
-          nethermind_genesis_json: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/nethermind_genesis.json
-          besu_genesis_json: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/besu_genesis.json
+        static_peers: []
+        config: {}
         args:
           geth:
-            - --bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)" \
-            - --networkid=$(cat /data/execution/chainid.txt) \
-            - --override.terminaltotaldifficulty=9895202
+            - --ropsten \
+            - --override.terminaltotaldifficulty=50000000000000000
           nethermind:
-            - --config=goerli_shadowfork \
-            - --Init.ChainSpecPath="/data/execution/nethermind_genesis.json" \
+            - --config=ropsten \
             - --Merge.Enabled=true \
             - --Merge.FeeRecipient=0x579Ece400030a1b9C04b8AD9764380859618E77d \
-            - --Merge.TerminalTotalDifficulty=9895202
+            - --Merge.TerminalTotalDifficulty=50000000000000000
           besu:
-            - --network-id=$(cat /data/execution/chainid.txt) \
-            - --genesis-file="/data/execution/besu_genesis.json" \
-            - --bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)"
+            - --network=ropsten \
+            - --Xmerge-support=true \
+            - --override-genesis-config="terminalTotalDifficulty=50000000000000000"
       consensus:
         config:
-          bootnodes: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/bootstrap_nodes.txt
-          config_yaml: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/config.yaml
-          genesis_ssz: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/genesis.ssz
-          deploy_block_txt: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/deploy_block.txt
-          deposit_contract_txt: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/deposit_contract.txt
-          deposit_contract_block_txt: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/goerli-shadow-fork-4/deposit_contract_block.txt
+          bootnodes: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/ropsten-beacon-chain/bootstrap_nodes.txt
+          config_yaml: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/ropsten-beacon-chain/config.yaml
+          genesis_ssz: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/ropsten-beacon-chain/genesis.ssz
+          deploy_block_txt: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/ropsten-beacon-chain/deploy_block.txt
+          deposit_contract_txt: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/ropsten-beacon-chain/deposit_contract.txt
+          deposit_contract_block_txt: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/ropsten-beacon-chain/deposit_contract_block.txt
         args:
           lighthouse:
-            - --testnet-dir=/data/consensus/testnet_spec \
-            - --boot-nodes="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)" \
             - --merge \
-            - --terminal-total-difficulty-override=9895202
+            - --network=ropsten \
+            - --terminal-total-difficulty-override=50000000000000000
           prysm:
             - --bootstrap-node="$(head -n 1 /data/consensus/testnet_spec/bootstrap_nodes.txt)" \
             - --genesis-state /data/consensus/testnet_spec/genesis.ssz \
-            - --chain-config-file=/data/consensus/testnet_spec/config.yaml
+            - --chain-config-file=/data/consensus/testnet_spec/config.yaml \
+            - --terminal-total-difficulty-override=50000000000000000
           teku:
-            - --p2p-discovery-bootnodes="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)" \
-            - --network=/data/consensus/testnet_spec/config.yaml \
-            - --initial-state=/data/consensus/testnet_spec/genesis.ssz \
-            - --Xee-version=kilnv2 \
-            - --Xnetwork-total-terminal-difficulty-override="9895202"
+            - --network=ropsten \
+            - --Xnetwork-total-terminal-difficulty-override=50000000000000000
           nimbus:
-            - --network="/data/consensus/testnet_spec" \
-            - --terminal-total-difficulty-override=9895202 \
-            - --bootstrap-node="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)"
+            - --network=ropsten \
+            - --terminal-total-difficulty-override=50000000000000000
 
   ethereum:
     network: kiln

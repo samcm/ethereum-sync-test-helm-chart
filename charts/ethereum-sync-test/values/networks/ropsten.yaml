@@ -1,0 +1,32 @@
+global:
+  ethereum:
+    network: ropsten
+
+besu:
+  initContainers:
+    initGenesis:
+      enabled: false
+geth:
+  initContainers:
+    initGenesis:
+      enabled: false
+
+lighthouse:
+  initContainers:
+    initGenesis:
+      enabled: false
+
+nethermind:
+  initContainers:
+    initGenesis:
+      enabled: false
+
+nimbus:
+  initContainers:
+    initGenesis:
+      enabled: false
+
+prysm:
+  initContainers:
+    initGenesis:
+      enabled: true
