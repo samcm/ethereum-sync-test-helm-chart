@@ -178,20 +178,28 @@ global:
             - --network=ropsten \
             - --override-genesis-config="terminalTotalDifficulty=50000000000000000"
       consensus:
-        config: {}
+        config:
+          bootnodes: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/ropsten-beacon-chain/bootstrap_nodes.txt
+          config_yaml: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/ropsten-beacon-chain/config.yaml
+          genesis_ssz: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/ropsten-beacon-chain/genesis.ssz
+          deploy_block_txt: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/ropsten-beacon-chain/deploy_block.txt
+          deposit_contract_txt: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/ropsten-beacon-chain/deposit_contract.txt
+          deposit_contract_block_txt: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/ropsten-beacon-chain/deposit_contract_block.txt
         args:
           lighthouse:
             - --merge \
             - --network=ropsten \
             - --terminal-total-difficulty-override=50000000000000000
           prysm:
-            - --ropsten \
+            - --bootstrap-node="$(head -n 1 /data/consensus/testnet_spec/bootstrap_nodes.txt)" \
+            - --genesis-state /data/consensus/testnet_spec/genesis.ssz \
+            - --chain-config-file=/data/consensus/testnet_spec/config.yaml \
             - --terminal-total-difficulty-override=50000000000000000
           teku:
-            - --network ropsten \
+            - --network=ropsten \
             - --Xnetwork-total-terminal-difficulty-override=50000000000000000
           nimbus:
-            - --network ropsten \
+            - --network=ropsten \
             - --terminal-total-difficulty-override=50000000000000000
 
   ethereum:
