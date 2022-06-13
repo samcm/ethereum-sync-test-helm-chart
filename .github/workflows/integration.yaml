@@ -1,5 +1,4 @@
 name: Integration test
-concurrency: 10
 
 on:
   push:
@@ -115,7 +114,7 @@ jobs:
 
       - name: Run test
         run: >
-          helm test ethereum-sync-test --timeout=5m
+          helm test ethereum-sync-test --timeout=10m
 
       - name: Coordinator Pod Logs
         if: always()
