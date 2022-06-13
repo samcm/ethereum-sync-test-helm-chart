@@ -78,7 +78,7 @@ jobs:
       matrix:
         consensus: [teku, prysm, lighthouse, nimbus]
         execution: [geth, nethermind]
-        network: [ropsten, kiln]
+        network: [ropsten]
         exclude:
         - network: kiln
           consensus: nimbus
