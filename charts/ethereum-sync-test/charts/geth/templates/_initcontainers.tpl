@@ -1,5 +1,6 @@
 {{- define "geth.initContainers" }}
 {{- $initGenesis := .Values.initContainers.initGenesis }}
+{{- if .Values.initContainers.initGenesis.enabled }}
 - name: exe-init-genesis
   image:  {{ .Values.image.repository }}:{{ .Values.image.tag }}
   imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -31,4 +32,5 @@
   volumeMounts:
   - name: storage
     mountPath: "/data"
+{{- end }}
 {{- end }}

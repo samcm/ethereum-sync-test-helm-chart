@@ -1,5 +1,6 @@
 {{- define "prysm.initContainers" }}
 {{- $initGenesis := .Values.initContainers.initGenesis }}
+{{- if .Values.initContainers.initGenesis.enabled }}
 - name: con-init-genesis
   image:  {{ .Values.initContainers.initGenesis.image.repository }}:{{ .Values.initContainers.initGenesis.image.tag }}
   imagePullPolicy: {{ .Values.initContainers.initGenesis.image.pullPolicy }}
@@ -26,4 +27,5 @@
   volumeMounts:
   - name: storage
     mountPath: "/data"
+{{- end }}
 {{- end }}
