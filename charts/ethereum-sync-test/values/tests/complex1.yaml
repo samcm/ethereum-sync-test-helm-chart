@@ -2,7 +2,7 @@ common:
   coordinator:
     config_yaml:
       test:
-        name: "complex-1"
+        name: "complex1"
         description: "Fully sync EL + CL, stop el for < 1 epoch and then restart"
         tasks:
           - name: sleep

@@ -2,7 +2,7 @@ common:
   coordinator:
     config_yaml:
       test:
-        name: "complex-3"
+        name: "complex3"
 
         description: "Fully sync EL, then start genesis syncing CL and then stop EL for a few epochs"
 
