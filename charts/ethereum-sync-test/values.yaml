@@ -176,6 +176,7 @@ global:
             - --Merge.TerminalTotalDifficulty=50000000000000000
           besu:
             - --network=ropsten \
+            - --Xmerge-support=true \
             - --override-genesis-config="terminalTotalDifficulty=50000000000000000"
       consensus:
         config:
