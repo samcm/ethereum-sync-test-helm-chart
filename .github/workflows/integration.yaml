@@ -1,6 +1,5 @@
-
-   
 name: Integration test
+concurrency: 10
 
 on:
   push:
@@ -17,7 +16,7 @@ jobs:
       matrix:
         consensus: [teku, prysm, lighthouse]
         execution: [geth, besu, nethermind]
-        network: [kiln, ropsten] 
+        network: [ropsten] 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -77,7 +76,7 @@ jobs:
       matrix:
         consensus: [teku, prysm, lighthouse]
         execution: [geth]
-        network: [kiln, ropsten] 
+        network: [ropsten] 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
