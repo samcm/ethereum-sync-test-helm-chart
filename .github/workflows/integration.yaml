@@ -13,9 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        consensus: [teku, prysm, lighthouse]
+        consensus: [teku, prysm, lighthouse, nimbus]
         execution: [geth, besu, nethermind]
-        network: [ropsten] 
+        network: [ropsten, kiln]
+        exclude:
+        - network: kiln
+          consensus: nimbus
     steps:
       - name: Checkout
         uses: actions/checkout@v2
