@@ -1,0 +1,62 @@
+common:
+  coordinator:
+    config_yaml:
+      test:
+        name: "basic"
+
+        tasks:
+          - name: sleep
+            config:
+              duration: 15s
+
+          - name: execution_is_healthy
+          - name: consensus_is_healthy
+
+          - name: both_are_synced
+            config:
+              consensus:
+                percent: 100
+                wait_for_chain_progression: true
+                min_slot_height: 10
+              execution:
+                percent: 100
+                wait_for_chain_progression: true
+                min_block_height: 10
+                
+
+          - name: run_command
+            config:
+              command:
+                - "sh"
+                - "-c"
+                - "touch /data/execution/finished"
+
+          - name: run_command
+            config:
+              command:
+                - "sh"
+                - "-c"
+                - "touch /data/consensus/finished"
+          - name: run_command
+            config:
+              command:
+                - "sh"
+                - "-c"
+                - "pkill -INT -f /data/execution"
+              allowed_to_fail: true
+
+          - name: run_command
+            config:
+              command:
+                - "sh"
+                - "-c"
+                - "pkill -INT -f /data/consensus"
+              allowed_to_fail: true
+
+          - name: run_command
+            config:
+              command:
+                - "sh"
+                - "-c"
+                - "pkill -INT -f exporter"
+              allowed_to_fail: true
