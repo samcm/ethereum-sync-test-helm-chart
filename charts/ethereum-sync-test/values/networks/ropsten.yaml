@@ -34,4 +34,4 @@ prysm:
 lodestar:
   initContainers:
     initGenesis:
-      enabled: false     
+      enabled: false
