@@ -161,6 +161,10 @@ global:
             - --network="/data/consensus/testnet_spec" \
             - --terminal-total-difficulty-override=20000000000000 \
             - --bootstrap-node="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)"
+          lodestar:
+            - --network=kiln \
+            - --terminal-total-difficulty-override=20000000000000 \
+            - --network.connectToDiscv5Bootnodes
     ropsten:
       execution:
         static_peers: []
@@ -202,6 +206,10 @@ global:
           nimbus:
             - --network=ropsten \
             - --terminal-total-difficulty-override=50000000000000000
+          lodestar:
+            - --network=ropsten \
+            - --terminal-total-difficulty-override=50000000000000000 \
+            - --network.connectToDiscv5Bootnodes
 
   ethereum:
     network: kiln
@@ -377,6 +385,12 @@ nimbus:
   image:
     repository: statusim/nimbus-eth2
     tag: amd64-latest
+    pullPolicy: Always
+
+lodestar:
+  image:
+    repository: chainsafe/lodestar
+    tag: next
     pullPolicy: Always
 
 rbac:

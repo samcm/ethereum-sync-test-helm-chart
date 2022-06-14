@@ -160,6 +160,9 @@ Consensus client command
 {{- if eq .Values.global.ethereum.consensus.client.name "teku" }}
 {{ include "teku.beaconCommand" . }}
 {{- end }}
+{{- if eq .Values.global.ethereum.consensus.client.name "lodestar" }}
+{{ include "lodestar.beaconCommand" . }}
+{{- end }}
 {{- end }}
 
 {{/*

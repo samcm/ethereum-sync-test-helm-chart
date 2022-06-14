@@ -12,8 +12,9 @@ jobs:
   is-healthy:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        consensus: [teku, prysm, lighthouse, nimbus]
+        consensus: [teku, prysm, lighthouse, nimbus, lodestar]
         execution: [geth, besu, nethermind]
         network: [ropsten, kiln]
         exclude:
@@ -76,7 +77,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        consensus: [teku, prysm, lighthouse, nimbus]
+        consensus: [teku, prysm, lighthouse, nimbus, lodestar]
         execution: [geth, nethermind]
         network: [ropsten]
         exclude:
