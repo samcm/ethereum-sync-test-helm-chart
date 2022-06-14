@@ -30,3 +30,8 @@ prysm:
   initContainers:
     initGenesis:
       enabled: true
+
+lodestar:
+  initContainers:
+    initGenesis:
+      enabled: false     

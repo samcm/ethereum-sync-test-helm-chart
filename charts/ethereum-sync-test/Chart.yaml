@@ -40,3 +40,6 @@ dependencies:
 - name: "nimbus"
   version: "0.1.0"
   repository: "file://charts/nimbus"
+- name: "lodestar"
+  version: "0.1.0"
+  repository: "file://charts/lodestar"

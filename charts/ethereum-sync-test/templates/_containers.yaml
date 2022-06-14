@@ -21,4 +21,7 @@
 {{- if eq .Values.global.ethereum.consensus.client.name "nimbus" }}
 {{ include "nimbus.containers" .Subcharts.nimbus }}
 {{- end }}
+{{- if eq .Values.global.ethereum.consensus.client.name "lodestar" }}
+{{ include "lodestar.containers" .Subcharts.lodestar }}
+{{- end }}
 {{- end }}
