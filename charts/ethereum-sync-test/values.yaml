@@ -165,7 +165,7 @@ global:
             - --paramsFile=/data/consensus/testnet_spec/config.yaml \
             - --genesisStateFile=/data/consensus/testnet_spec/genesis.ssz \
             - --network.discv5.bootEnrs="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)" \
-            - --terminal-total-difficulty-override=20000000000000
+            - --terminal-total-difficulty-override=20000000000000 \
             - --network.connectToDiscv5Bootnodes
     ropsten:
       execution:
