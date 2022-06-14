@@ -387,7 +387,7 @@ nimbus:
     tag: amd64-latest
     pullPolicy: Always
 
-nimbus:
+lodestar:
   image:
     repository: chainsafe/lodestar
     tag: next
