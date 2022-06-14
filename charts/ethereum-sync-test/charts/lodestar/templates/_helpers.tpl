@@ -11,7 +11,7 @@
   --network.discv5.enabled=true \
   --network.discv5.bindAddr=/ip4/0.0.0.0/udp/{{ .Values.global.ethereum.consensus.config.ports.p2p_tcp }} \
   --network.localMultiaddrs=/ip4/0.0.0.0/tcp/{{ .Values.global.ethereum.consensus.config.ports.p2p_tcp }} \
-{{- if .Values.global.p2pNodePort.enabled }} \
+{{- if .Values.global.p2pNodePort.enabled }}
   --enr.ip=$EXTERNAL_IP \
   --enr.tcp=$EXTERNAL_CONSENSUS_PORT \
   --enr.udp=$EXTERNAL_CONSENSUS_PORT \
@@ -20,16 +20,16 @@
   --enr.tcp=$EXTERNAL_CONSENSUS_PORT \
   --enr.udp=$EXTERNAL_CONSENSUS_PORT \
 {{- end }}
-   --api.rest.enabled=true \
+  --jwt-secret=/data/jwtsecret \
+  --api.rest.enabled=true \
   --api.rest.host=0.0.0.0 \
   --api.rest.port={{ .Values.global.ethereum.consensus.config.ports.http_api }} \
   --metrics.enabled=true \
   --metrics.listenAddr=0.0.0.0 \
   --metrics.serverPort={{ .Values.global.ethereum.consensus.config.ports.metrics }} \
   --eth1.enabled=true \
-  --eth1.providerUrls="http://${POD_IP}:{{ .Values.global.ethereum.execution.config.ports.engine_api }}" \
+  --execution.urls="http://${POD_IP}:{{ .Values.global.ethereum.execution.config.ports.engine_api }}" \
   --logLevel={{ .Values.global.ethereum.consensus.logLevel }} \
-  --jwt-secret="/data/jwtsecret" \
 {{- $networkArgs := ((get (get .Values.global.networkConfigs .Values.global.ethereum.network) "consensus").args).lodestar }}
 {{- range $networkArgs }}
   {{ . }}

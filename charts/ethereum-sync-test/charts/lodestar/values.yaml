@@ -1,6 +1,6 @@
 image:
   repository: chainsafe/lodestar
-  tag: next
+  tag: latest
   pullPolicy: Always
 
 initContainers:
