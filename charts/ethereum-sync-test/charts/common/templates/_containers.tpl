@@ -42,6 +42,7 @@
   args:
     - --config=/config/config.yaml
     - --metrics-port={{ .Values.coordinator.port }}
+    - --lame-duck-seconds={{ .Values.coordinator.lameduckSeconds }}
   ports:
   - containerPort: {{ .Values.coordinator.port }}
     name: coord-metrics

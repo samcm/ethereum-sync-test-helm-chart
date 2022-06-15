@@ -1,6 +1,7 @@
 coordinator:
   enabled: true
   port: 9095
+  lameduckSeconds: 30
   image:
     repository: samcm/sync-test-coordinator
     tag: latest
@@ -10,7 +11,7 @@ metricsExporter:
   enabled: true
   image:
     repository: samcm/ethereum-metrics-exporter
-    tag: 0.12.0
+    tag: latest
     pullPolicy: Always
 
   resources:
