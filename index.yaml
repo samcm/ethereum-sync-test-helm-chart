@@ -3,6 +3,48 @@ entries:
   ethereum-sync-tests:
   - apiVersion: v2
     appVersion: 0.0.0
+    created: "2022-06-16T03:13:41.376283991Z"
+    dependencies:
+    - name: common
+      repository: file://charts/common
+      version: 0.1.0
+    - name: geth
+      repository: file://charts/geth
+      version: 0.1.0
+    - name: lighthouse
+      repository: file://charts/lighthouse
+      version: 0.1.0
+    - name: prysm
+      repository: file://charts/prysm
+      version: 0.1.0
+    - name: nethermind
+      repository: file://charts/nethermind
+      version: 0.1.0
+    - name: teku
+      repository: file://charts/teku
+      version: 0.1.0
+    - name: besu
+      repository: file://charts/besu
+      version: 0.1.0
+    - name: nimbus
+      repository: file://charts/nimbus
+      version: 0.1.0
+    - name: lodestar
+      repository: file://charts/lodestar
+      version: 0.1.0
+    description: A Helm chart for testing how long it takes to sync Ethereum Consensus
+      & Execution clients
+    digest: 244e858555e6ab47ef01e4873d31ba8a5762b097c33ac46f651c4e1addcbf32b
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    name: ethereum-sync-tests
+    type: application
+    urls:
+    - https://github.com/samcm/ethereum-sync-test-helm-chart/releases/download/ethereum-sync-tests-0.59.0/ethereum-sync-tests-0.59.0.tgz
+    version: 0.59.0
+  - apiVersion: v2
+    appVersion: 0.0.0
     created: "2022-06-15T01:16:01.587918733Z"
     dependencies:
     - name: common
@@ -1807,4 +1849,4 @@ entries:
     urls:
     - https://github.com/samcm/ethereum-sync-test-helm-chart/releases/download/ethereum-sync-tests-0.1.0/ethereum-sync-tests-0.1.0.tgz
     version: 0.1.0
-generated: "2022-06-15T01:16:01.588378836Z"
+generated: "2022-06-16T03:13:41.377200797Z"
