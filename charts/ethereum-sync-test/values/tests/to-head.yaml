@@ -2,7 +2,7 @@ common:
   coordinator:
     config_yaml:
       test:
-        name: "basic"
+        name: "to-head"
 
         tasks:
           - name: sleep
