@@ -9,7 +9,7 @@
   --data-path={{ .Values.global.ethereum.execution.dataDir }} \
   --p2p-enabled=true \
 {{- if .Values.global.p2pNodePort.enabled }}
-  --p2p-host="EXTERNAL_IP" \
+  --p2p-host="$EXTERNAL_IP" \
 {{- else }}
   --p2p-host=$(POD_IP) \
 {{- end }}
