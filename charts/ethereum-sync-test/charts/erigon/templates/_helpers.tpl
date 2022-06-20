@@ -24,6 +24,7 @@
   --http.port={{ .Values.global.ethereum.execution.config.ports.http_rpc }} \
   --http.addr 0.0.0.0 \
   --http.corsdomain "*" \
+  --private.api.addr=0.0.0.0:8088 \
   --authrpc.jwtsecret="/data/jwtsecret" \
   --verbosity=5 \
   --engine.addr=0.0.0.0 \
