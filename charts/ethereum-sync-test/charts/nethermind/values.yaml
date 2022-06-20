@@ -1,6 +1,6 @@
 image:
   repository: nethermind/nethermind
-  tag: latest
+  tag: sync_test
   pullPolicy: Always
 
 initContainers:

@@ -19,6 +19,9 @@
         wget -O {{ .Values.global.ethereum.consensus.dataDir }}/testnet_spec/config.yaml $CONFIG_YAML;
         wget -O {{ .Values.global.ethereum.consensus.dataDir }}/testnet_spec/genesis.ssz $GENESIS_SSZ;
         wget -O {{ .Values.global.ethereum.consensus.dataDir }}/testnet_spec/bootstrap_nodes.txt $BOOTNODES;
+        wget -O {{ .Values.global.ethereum.consensus.dataDir }}/testnet_spec/deploy_block.txt $DEPLOY_BLOCK_TXT;
+        wget -O {{ .Values.global.ethereum.consensus.dataDir }}/testnet_spec/deposit_contract.txt $DEPOSIT_CONTRACT_TXT;
+        wget -O {{ .Values.global.ethereum.consensus.dataDir }}/testnet_spec/deposit_contract_block.txt $DEPOSIT_CONTRACT_BLOCK_TXT;
         echo "genesis init done";
       else
         echo "genesis exists. skipping...";
