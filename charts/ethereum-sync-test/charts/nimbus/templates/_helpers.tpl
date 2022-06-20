@@ -7,8 +7,9 @@
 {{- end }}
   {{ .Values.defaultBinaryPath }} \
   --data-dir={{ .Values.global.ethereum.consensus.dataDir }} \
-  --enr-auto-update=false \
+  --enr-auto-update=true \
   --non-interactive=true \
+  --status-bar=false \
 {{- if .Values.global.p2pNodePort.enabled }}
   --nat=extip:$EXTERNAL_IP \
   --tcp-port=$EXTERNAL_CONSENSUS_PORT \

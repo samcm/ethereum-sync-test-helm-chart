@@ -43,3 +43,6 @@ dependencies:
 - name: "lodestar"
   version: "0.1.0"
   repository: "file://charts/lodestar"
+- name: "erigon"
+  version: "0.1.0"
+  repository: "file://charts/erigon"

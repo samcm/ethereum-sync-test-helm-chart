@@ -133,6 +133,9 @@ global:
             - --network-id=$(cat /data/execution/chainid.txt) \
             - --genesis-file="/data/execution/besu_genesis.json" \
             - --bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)"
+          erigon:
+            - --networkid=$(cat /data/execution/chainid.txt) \
+            - --override.terminaltotaldifficulty=50000000000000000
       consensus:
         config:
           bootnodes: https://config.kiln.themerge.dev/cl/bootnodes
@@ -182,6 +185,9 @@ global:
             - --network=ropsten \
             - --Xmerge-support=true \
             - --override-genesis-config="terminalTotalDifficulty=50000000000000000"
+          erigon:
+            - --chain=ropsten \
+            - --override.terminaltotaldifficulty=50000000000000000
       consensus:
         config:
           bootnodes: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/ropsten-beacon-chain/bootstrap_nodes.txt
@@ -391,6 +397,12 @@ lodestar:
   image:
     repository: chainsafe/lodestar
     tag: next
+    pullPolicy: Always
+
+erigon:
+  image:
+    repository: thorax/erigon
+    tag: v2022.05.08
     pullPolicy: Always
 
 rbac:

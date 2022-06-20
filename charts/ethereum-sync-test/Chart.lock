@@ -26,5 +26,8 @@ dependencies:
 - name: lodestar
   repository: file://charts/lodestar
   version: 0.1.0
-digest: sha256:db8ff6abc2d9c20487ad882c6216261218e6794db28cef4e55ec831bacb82ab5
-generated: "2022-06-14T17:08:44.007362+10:00"
+- name: erigon
+  repository: file://charts/erigon
+  version: 0.1.0
+digest: sha256:ed436ce06ed702eb66a1d1b8115b941a63b5006c5a7a8528610e7276cc02ea05
+generated: "2022-06-20T11:23:21.488632+10:00"
