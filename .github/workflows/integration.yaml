@@ -22,8 +22,6 @@ jobs:
         network: [ropsten, kiln]
         test: [starts-syncing, is-healthy]
         exclude:
-        - network: kiln
-          consensus: nimbus
         - execution: nethermind
           test: starts-syncing
     steps:
