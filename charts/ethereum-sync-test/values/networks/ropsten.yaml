@@ -35,3 +35,8 @@ lodestar:
   initContainers:
     initGenesis:
       enabled: false
+
+erigon:
+  initContainers:
+    initGenesis:
+      enabled: false

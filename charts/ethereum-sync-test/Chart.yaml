@@ -5,7 +5,7 @@ description: A Helm chart for testing how long it takes to sync Ethereum Consens
 type: application
 
 # This is the chart version. This version number should be incremented each time you make changes to the chart.
-version: 0.59.0
+version: 0.60.0
 
 # This is the version number of the application being deployed. Doesn't really apply to us, we are deploying multiple
 # downstream applications, each with their own versions.
@@ -43,3 +43,6 @@ dependencies:
 - name: "lodestar"
   version: "0.1.0"
   repository: "file://charts/lodestar"
+- name: "erigon"
+  version: "0.1.0"
+  repository: "file://charts/erigon"

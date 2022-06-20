@@ -9,6 +9,9 @@
 {{- if eq .Values.global.ethereum.execution.client.name "besu" }}
 {{ include "besu.containers" .Subcharts.besu }}
 {{- end }}
+{{- if eq .Values.global.ethereum.execution.client.name "erigon" }}
+{{ include "erigon.containers" .Subcharts.erigon }}
+{{- end }}
 {{- if eq .Values.global.ethereum.consensus.client.name "lighthouse" }}
 {{ include "lighthouse.containers" .Subcharts.lighthouse }}
 {{- end }}

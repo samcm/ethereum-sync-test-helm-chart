@@ -111,6 +111,9 @@ Execution client command
 {{- if eq .Values.global.ethereum.execution.client.name "besu" }}
 {{ include "besu.defaultCommand" . }}
 {{- end }}
+{{- if eq .Values.global.ethereum.execution.client.name "erigon" }}
+{{ include "erigon.defaultCommand" . }}
+{{- end }}
 {{- end }}
 
 {{/*
