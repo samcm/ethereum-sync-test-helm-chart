@@ -15,6 +15,7 @@ jobs:
       group: ${{ github.head_ref }}-${{ matrix.network }}-${{ matrix.consensus }}-${{ matrix.execution }}-${{ matrix.test }}
       cancel-in-progress: true
     strategy:
+      fail-fast: false
       matrix:
         consensus: [teku, prysm, lighthouse, nimbus, lodestar]
         execution: [geth, nethermind, erigon]
@@ -50,11 +51,12 @@ jobs:
             -f ./charts/ethereum-sync-test/values/tests/${{ matrix.test }}.yaml \
             -f ./charts/ethereum-sync-test/values/networks/${{ matrix.network }}.yaml \
             -f ./charts/ethereum-sync-test/values/clients/execution/${{ matrix.execution }}.yaml \
-            -f ./charts/ethereum-sync-test/values/clients/consensus/${{ matrix.consensus }}.yaml
+            -f ./charts/ethereum-sync-test/values/clients/consensus/${{ matrix.consensus }}.yaml \
+            --set common.coordinator.lameduckSeconds=1 \
 
       - name: Run test
         run: >
-          helm test ethereum-sync-test --timeout=10m
+          helm test ethereum-sync-test --timeout=5m
 
       - name: Coordinator Pod Logs
         if: always()

@@ -2,6 +2,9 @@
 - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
   name: erigon
   imagePullPolicy: {{ .Values.image.pullPolicy }}
+  securityContext:
+    runAsNonRoot: false
+    runAsUser: 0
   command:
   {{- if gt (len .Values.customCommand) 0 }}
     {{- toYaml .Values.customCommand | nindent 2}}
