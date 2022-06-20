@@ -134,6 +134,7 @@ global:
             - --genesis-file="/data/execution/besu_genesis.json" \
             - --bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)"
           erigon:
+            - --bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)" \
             - --networkid=$(cat /data/execution/chainid.txt) \
             - --override.terminaltotaldifficulty=50000000000000000
       consensus:
