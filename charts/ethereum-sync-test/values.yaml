@@ -403,7 +403,7 @@ lodestar:
 erigon:
   image:
     repository: thorax/erigon
-    tag: v2022.05.08
+    tag: devel
     pullPolicy: Always
 
 rbac:

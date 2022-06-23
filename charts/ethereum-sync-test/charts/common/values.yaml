@@ -32,7 +32,6 @@ metricsExporter:
         - "eth"
         - "net"
         - "web3"
-        - "txpool"
     diskUsage:
       enabled: true
       directories:
