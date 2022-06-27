@@ -3,14 +3,16 @@ common:
     config_yaml:
       test:
         name: "is-healthy"
+        timeout: 5m
         tasks:
           - name: execution_is_healthy
           - name: consensus_is_healthy
           - name: sleep
             config:
-              duration: 60s
+              duration: 30s
           - name: execution_is_healthy
           - name: consensus_is_healthy
+        cleanup_tasks:
           - name: run_command
             config:
               command:

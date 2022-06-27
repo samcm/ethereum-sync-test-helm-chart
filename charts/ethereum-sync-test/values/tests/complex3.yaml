@@ -3,7 +3,7 @@ common:
     config_yaml:
       test:
         name: "complex3"
-
+        timeout: 48h
         description: "Fully sync EL, then start genesis syncing CL and then stop EL for a few epochs"
 
         tasks:
@@ -84,7 +84,7 @@ common:
           # Wait a little while for the CL to progress
           - name: sleep
             config:
-              duration: 30m
+              duration: 20m
 
           # Allow the EL to restart
           - name: run_command
@@ -106,7 +106,7 @@ common:
                 wait_for_chain_progression: true
                 min_block_height: 10
 
-
+        cleanup_tasks:
           # Finish the test
           - name: run_command
             config:

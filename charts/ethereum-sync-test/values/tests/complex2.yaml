@@ -3,6 +3,7 @@ common:
     config_yaml:
       test:
         name: "complex2"
+        timeout: 36h
         description: "Fully sync EL + CL, stop el for > 1 epoch and then restart"
         tasks:
           - name: sleep
@@ -10,7 +11,9 @@ common:
               duration: 15s
 
           - name: execution_is_healthy
+            timeout: 10m
           - name: consensus_is_healthy
+            timeout: 10m
 
           - name: both_are_synced
             config:
@@ -65,7 +68,7 @@ common:
                 percent: 100
                 wait_for_chain_progression: true
                 min_block_height: 10
-
+        cleanup_tasks:
           # Finish the test
           - name: run_command
             config:

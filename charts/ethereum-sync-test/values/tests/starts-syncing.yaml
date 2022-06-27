@@ -3,12 +3,13 @@ common:
     config_yaml:
       test:
         name: "starts-syncing"
+        timeout: 10m
         tasks:
           - name: execution_is_healthy
           - name: consensus_is_healthy
 
           - name: both_are_syncing
-
+        cleanup_tasks:
           - name: run_command
             config:
               command:

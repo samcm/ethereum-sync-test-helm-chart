@@ -3,14 +3,16 @@ common:
     config_yaml:
       test:
         name: "to-head"
-
+        timeout: 36h
         tasks:
           - name: sleep
             config:
               duration: 15s
 
           - name: execution_is_healthy
+            timeout: 10m
           - name: consensus_is_healthy
+            timeout: 10m
 
           - name: both_are_synced
             config:
@@ -23,7 +25,7 @@ common:
                 wait_for_chain_progression: true
                 min_block_height: 10
                 
-
+        cleanup_tasks:
           - name: run_command
             config:
               command:
