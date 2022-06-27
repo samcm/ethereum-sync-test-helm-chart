@@ -7,15 +7,19 @@ common:
         description: "Fully sync EL + CL, stop el for > 1 epoch and then restart"
         tasks:
           - name: sleep
+            title: "Sleep for 15s"
             config:
               duration: 15s
 
           - name: execution_is_healthy
+            title: "Wait for EL to be healthy"
             timeout: 10m
           - name: consensus_is_healthy
+            title: "Wait for CL to be healthy"
             timeout: 10m
 
           - name: both_are_synced
+            title: "Both are synced"
             config:
               consensus:
                 percent: 100
@@ -28,6 +32,7 @@ common:
 
           # Stop the EL from restarting
           - name: run_command
+            title: "Stop EL from restarting"
             config:
               command:
                 - "sh"
@@ -36,6 +41,7 @@ common:
 
           # Kill the EL
           - name: run_command
+            title: "Kill EL"
             config:
               command:
                 - "sh"
@@ -46,11 +52,13 @@ common:
 
           # Wait a little while for the CL to progress
           - name: sleep
+            title: "Sleep for 5m"
             config:
               duration: 30m
 
           # Allow the EL to restart
           - name: run_command
+            title: "Allow EL to restart"
             config:
               command:
                 - "sh"
@@ -59,6 +67,7 @@ common:
 
           # Check for sync status
           - name: both_are_synced
+            title: "Both are synced"
             config:
               consensus:
                 percent: 100
@@ -71,6 +80,7 @@ common:
         cleanup_tasks:
           # Finish the test
           - name: run_command
+            title: "Cleanup"
             config:
               command:
                 - "sh"
@@ -78,12 +88,14 @@ common:
                 - "touch /data/execution/finished"
 
           - name: run_command
+            title: "Cleanup"
             config:
               command:
                 - "sh"
                 - "-c"
                 - "touch /data/consensus/finished"
           - name: run_command
+            title: "Cleanup"
             config:
               command:
                 - "sh"
@@ -92,6 +104,7 @@ common:
               allowed_to_fail: true
 
           - name: run_command
+            title: "Cleanup"
             config:
               command:
                 - "sh"
@@ -100,6 +113,7 @@ common:
               allowed_to_fail: true
 
           - name: run_command
+            title: "Cleanup"
             config:
               command:
                 - "sh"

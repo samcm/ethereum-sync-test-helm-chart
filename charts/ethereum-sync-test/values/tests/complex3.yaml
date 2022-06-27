@@ -8,13 +8,17 @@ common:
 
         tasks:
           - name: sleep
+            title: "Sleep for 15s"
             config:
               duration: 15s
 
           - name: execution_is_healthy
+            title: "Wait for EL to be healthy"
+            timeout: 10m
 
           # Stop the CL from restarting
           - name: run_command
+            title: "Stop the CL from restarting"
             config:
               command:
                 - "sh"
@@ -23,6 +27,7 @@ common:
 
           # Kill the CL
           - name: run_command
+            title: "Kill the CL"
             config:
               command:
                 - "sh"
@@ -30,14 +35,18 @@ common:
                 - "pkill -INT -f /data/consensus"
               allowed_to_fail: true
           - name: consensus_is_unhealthy
+            title: "Wait for CL to be unhealthy"
+            timeout: 5m
 
           # Wait a little while for the EL to find peers and start syncing etc
           - name: sleep
+            title: "Sleep for 5m"
             config:
               duration: 5m
 
           # Wait for the execution client to considers itself synced
           - name: execution_is_synced
+            title: "Wait for EL to be synced"
             config:
               percent: 100
               wait_for_chain_progression: false
@@ -45,6 +54,7 @@ common:
 
           # Allow the CL to restart
           - name: run_command
+            title: "Allow the CL to restart"
             config:
               command:
                 - "sh"
@@ -53,6 +63,7 @@ common:
 
           # Check for sync status
           - name: both_are_synced
+            title: "Both are synced"
             config:
               consensus:
                 percent: 100
@@ -65,6 +76,7 @@ common:
 
           # Stop the EL from restarting
           - name: run_command
+            title: "Stop the EL from restarting"
             config:
               command:
                 - "sh"
@@ -73,6 +85,7 @@ common:
 
           # Kill the EL
           - name: run_command
+            title: "Kill the EL"
             config:
               command:
                 - "sh"
@@ -80,14 +93,18 @@ common:
                 - "pkill -INT -f /data/execution"
               allowed_to_fail: true
           - name: execution_is_unhealthy
+            title: "Wait for EL to be unhealthy"
+            timeout: 5m
 
           # Wait a little while for the CL to progress
           - name: sleep
+            title: "Sleep for 20m"
             config:
               duration: 20m
 
           # Allow the EL to restart
           - name: run_command
+            title: "Allow EL to restart"
             config:
               command:
                 - "sh"
@@ -96,6 +113,7 @@ common:
 
           # Check for sync status
           - name: both_are_synced
+            title: "Wait for both to be synced"
             config:
               consensus:
                 percent: 100
@@ -109,6 +127,7 @@ common:
         cleanup_tasks:
           # Finish the test
           - name: run_command
+            title: "Cleanup"
             config:
               command:
                 - "sh"
@@ -116,12 +135,14 @@ common:
                 - "touch /data/execution/finished"
 
           - name: run_command
+            title: "Cleanup"
             config:
               command:
                 - "sh"
                 - "-c"
                 - "touch /data/consensus/finished"
           - name: run_command
+            title: "Cleanup"
             config:
               command:
                 - "sh"
@@ -130,6 +151,7 @@ common:
               allowed_to_fail: true
 
           - name: run_command
+            title: "Cleanup"
             config:
               command:
                 - "sh"
@@ -138,6 +160,7 @@ common:
               allowed_to_fail: true
 
           - name: run_command
+            title: "Cleanup"
             config:
               command:
                 - "sh"

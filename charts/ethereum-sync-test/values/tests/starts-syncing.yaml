@@ -6,11 +6,15 @@ common:
         timeout: 10m
         tasks:
           - name: execution_is_healthy
+            title: "EL is healthy"
           - name: consensus_is_healthy
+            title: "CL is healthy"
 
           - name: both_are_syncing
+            title: "Both are syncing"
         cleanup_tasks:
           - name: run_command
+            title: "Cleanup"
             config:
               command:
                 - "sh"
@@ -18,12 +22,14 @@ common:
                 - "touch /data/execution/finished"
 
           - name: run_command
+            title: "Cleanup"
             config:
               command:
                 - "sh"
                 - "-c"
                 - "touch /data/consensus/finished"
           - name: run_command
+            title: "Cleanup"
             config:
               command:
                 - "sh"
@@ -32,6 +38,7 @@ common:
               allowed_to_fail: true
 
           - name: run_command
+            title: "Cleanup"
             config:
               command:
                 - "sh"
@@ -40,6 +47,7 @@ common:
               allowed_to_fail: true
 
           - name: run_command
+            title: "Cleanup"
             config:
               command:
                 - "sh"
