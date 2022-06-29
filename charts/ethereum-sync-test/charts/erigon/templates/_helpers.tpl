@@ -27,7 +27,7 @@
   --private.api.addr=0.0.0.0:8088 \
   --authrpc.jwtsecret="/data/jwtsecret" \
   --verbosity=3 \
-  --batchSize=128m \
+  --batchSize=32m \
   --engine.addr=0.0.0.0 \
   --engine.port={{ .Values.global.ethereum.execution.config.ports.engine_api }} \
 {{- $networkArgs := ((get (get .Values.global.networkConfigs .Values.global.ethereum.network) "execution").args).erigon }}
