@@ -25,6 +25,10 @@
   --monitoring-port={{ .Values.global.ethereum.consensus.config.ports.metrics }} \
   --http-web3provider="http://${POD_IP}:{{ .Values.global.ethereum.execution.config.ports.engine_api }}" \
   --jwt-secret="/data/jwtsecret" \
+{{- if .Values.global.ethereum.consensus.checkpointSync.enabled }}
+  --checkpoint-sync-url={{ .Values.global.ethereum.consensus.checkpointSync.nodeUrl }} \
+  --genesis-beacon-api-url={{ .Values.global.ethereum.consensus.checkpointSync.nodeUrl }} \
+{{- end }}
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}

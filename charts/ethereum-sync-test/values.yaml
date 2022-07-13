@@ -247,6 +247,10 @@ global:
       logLevel: info
       dataDir: /data/consensus
 
+      checkpointSync:
+        enabled: false
+        nodeUrl: http://localhost:5052
+
       config:
         ports:
           p2p_tcp: 30241

@@ -28,6 +28,9 @@
   --eth1-endpoints="http://${POD_IP}:{{ .Values.global.ethereum.execution.config.ports.http_rpc }}" \
   --ee-endpoint="http://${POD_IP}:{{ .Values.global.ethereum.execution.config.ports.engine_api }}" \
   --data-storage-mode=PRUNE \
+{{- if .Values.global.ethereum.consensus.checkpointSync.enabled }}
+  --initial-state={{ .Values.global.ethereum.consensus.checkpointSync.nodeUrl }}/eth/v2/debug/beacon/states/finalized \
+{{- end }}
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}
