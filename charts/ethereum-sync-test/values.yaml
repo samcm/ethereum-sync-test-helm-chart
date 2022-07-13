@@ -219,7 +219,7 @@ global:
             - --network.connectToDiscv5Bootnodes
 
   ethereum:
-    network: kiln
+    network: ropsten
 
     execution:
       client:
@@ -246,6 +246,10 @@ global:
 
       logLevel: info
       dataDir: /data/consensus
+
+      checkpointSync:
+        enabled: false
+        nodeUrl: http://localhost:5052
 
       config:
         ports:

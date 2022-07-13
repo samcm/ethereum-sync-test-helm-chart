@@ -32,11 +32,14 @@
   --execution-endpoints="http://${POD_IP}:{{ .Values.global.ethereum.execution.config.ports.engine_api }}" \
   --eth1-endpoints="http://${POD_IP}:{{ .Values.global.ethereum.execution.config.ports.http_rpc }}" \
   --jwt-secrets="/data/jwtsecret" \
-{{- $networkArgs := ((get (get .Values.global.networkConfigs .Values.global.ethereum.network) "consensus").args).lighthouse }}
-{{- range $networkArgs }}
-  {{ . }}
+{{- if .Values.global.ethereum.consensus.checkpointSync.enabled }}
+  --checkpoint-sync-url={{ .Values.global.ethereum.consensus.checkpointSync.nodeUrl }} \
 {{- end }}
 {{- range .Values.extraArgs }}
+  {{ . }}
+{{- end }}
+{{- $networkArgs := ((get (get .Values.global.networkConfigs .Values.global.ethereum.network) "consensus").args).lighthouse }}
+{{- range $networkArgs }}
   {{ . }}
 {{- end }}
 {{- end }}

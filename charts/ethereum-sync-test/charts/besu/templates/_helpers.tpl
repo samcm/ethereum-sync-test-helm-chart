@@ -36,11 +36,11 @@
   --sync-mode=FAST \
   --fast-sync-min-peers=1 \
   --data-storage-format="BONSAI" \
-{{- $networkArgs := ((get (get .Values.global.networkConfigs .Values.global.ethereum.network) "execution").args).besu }}
-{{- range $networkArgs }}
+{{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}
-{{- range .Values.extraArgs }}
+{{- $networkArgs := ((get (get .Values.global.networkConfigs .Values.global.ethereum.network) "execution").args).besu }}
+{{- range $networkArgs }}
   {{ . }}
 {{- end }}
 {{- end }}

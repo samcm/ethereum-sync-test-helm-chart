@@ -30,12 +30,11 @@
   --batchSize=16m \
   --engine.addr=0.0.0.0 \
   --engine.port={{ .Values.global.ethereum.execution.config.ports.engine_api }} \
+{{- range .Values.extraArgs }}
+  {{ . }}
+{{- end }}
 {{- $networkArgs := ((get (get .Values.global.networkConfigs .Values.global.ethereum.network) "execution").args).erigon }}
 {{- range $networkArgs }}
   {{ . }}
 {{- end }}
-{{- range .Values.extraArgs }}
-  {{ . }}
-{{- end }}
-
 {{- end }}

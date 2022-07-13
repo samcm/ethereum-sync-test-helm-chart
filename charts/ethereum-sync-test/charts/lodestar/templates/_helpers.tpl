@@ -30,11 +30,15 @@
   --eth1.enabled=true \
   --execution.urls="http://${POD_IP}:{{ .Values.global.ethereum.execution.config.ports.engine_api }}" \
   --logLevel={{ .Values.global.ethereum.consensus.logLevel }} \
-{{- $networkArgs := ((get (get .Values.global.networkConfigs .Values.global.ethereum.network) "consensus").args).lodestar }}
-{{- range $networkArgs }}
-  {{ . }}
+{{- if .Values.global.ethereum.consensus.checkpointSync.enabled }}
+  --weakSubjectivitySyncLatest=true \
+  --weakSubjectivityServerUrl={{ .Values.global.ethereum.consensus.checkpointSync.nodeUrl }} \
 {{- end }}
 {{- range .Values.extraArgs }}
+  {{ . }}
+{{- end }}
+{{- $networkArgs := ((get (get .Values.global.networkConfigs .Values.global.ethereum.network) "consensus").args).lodestar }}
+{{- range $networkArgs }}
   {{ . }}
 {{- end }}
 {{- end }}
