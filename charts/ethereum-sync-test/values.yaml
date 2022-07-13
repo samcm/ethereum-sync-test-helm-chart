@@ -219,7 +219,7 @@ global:
             - --network.connectToDiscv5Bootnodes
 
   ethereum:
-    network: kiln
+    network: ropsten
 
     execution:
       client:

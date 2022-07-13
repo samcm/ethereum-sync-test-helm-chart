@@ -28,11 +28,11 @@
   --metrics-port={{ .Values.global.ethereum.consensus.config.ports.metrics }} \
   --log-level={{ upper .Values.global.ethereum.consensus.logLevel }} \
   --jwt-secret="/data/jwtsecret" \
-  {{- $networkArgs := ((get (get .Values.global.networkConfigs .Values.global.ethereum.network) "consensus").args).nimbus }}
-{{- range $networkArgs }}
+{{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}
-{{- range .Values.extraArgs }}
+  {{- $networkArgs := ((get (get .Values.global.networkConfigs .Values.global.ethereum.network) "consensus").args).nimbus }}
+{{- range $networkArgs }}
   {{ . }}
 {{- end }}
 {{- end }}
