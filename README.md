@@ -40,6 +40,7 @@ helm helm upgrade --install eth-sync-test-1 est/ethereum-sync-tests
   - Fully syncs EL, then starts genesis syncing CL. Then stops EL for a few epochs, starts EL and waits for both to be considered synced.
 
 ## Supported Networks
+- Mainnet
 - Kiln
 - Ropsten
 
