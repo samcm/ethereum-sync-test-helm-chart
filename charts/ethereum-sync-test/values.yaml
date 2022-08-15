@@ -220,18 +220,27 @@ global:
         static_peers: []
         config: {}
         args:
-          geth: []
-          nethermind: []
-          besu: []
-          erigon: []
+          geth:
+          - --http.addr=0.0.0.0
+          nethermind:
+          - --Metrics.Enabled=true
+          besu:
+          - --rpc-http-enabled=true
+          erigon:
+          - --batchSize=16m
       consensus:
         config: {}
         args:
-          lighthouse: []
-          prysm: []
-          teku: []
-          nimbus: []
-          lodestar: []
+          lighthouse:
+          - --metrics-address=0.0.0.0
+          prysm:
+          - --rpc-host=0.0.0.0
+          teku:
+          - --metrics-enabled=true
+          nimbus:
+          - --metrics=true
+          lodestar:
+          - --api.rest.enabled=true
 
   ethereum:
     network: ropsten
