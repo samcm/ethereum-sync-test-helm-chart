@@ -20,7 +20,7 @@ jobs:
         consensus: [teku, prysm, lighthouse, nimbus, lodestar]
         execution: [geth, nethermind, erigon, besu]
         network: [mainnet]
-        test: [starts-syncing, is-healthy]
+        test: [starts-syncing]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
