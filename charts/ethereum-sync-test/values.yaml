@@ -393,7 +393,7 @@ nethermind:
 besu:
   image:
     repository: hyperledger/besu
-    tag: develop
+    tag: latest
     pullPolicy: Always
 
 
@@ -413,7 +413,7 @@ prysm:
 teku:
   image:
     repository: consensys/teku
-    tag: develop
+    tag: latest
     pullPolicy: Always
 
 nimbus:
@@ -425,13 +425,13 @@ nimbus:
 lodestar:
   image:
     repository: chainsafe/lodestar
-    tag: next
+    tag: latest
     pullPolicy: Always
 
 erigon:
   image:
     repository: thorax/erigon
-    tag: devel
+    tag: latest
     pullPolicy: Always
 
 rbac:
