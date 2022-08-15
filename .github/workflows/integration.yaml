@@ -19,7 +19,7 @@ jobs:
       matrix:
         consensus: [teku, prysm, lighthouse, nimbus, lodestar]
         execution: [geth, nethermind, erigon]
-        network: [ropsten]
+        network: [ropsten, mainnet]
         test: [starts-syncing, is-healthy]
         exclude:
         - execution: nethermind

@@ -203,9 +203,7 @@ global:
             - --network=ropsten \
             - --terminal-total-difficulty-override=50000000000000000
           prysm:
-            - --bootstrap-node="$(head -n 1 /data/consensus/testnet_spec/bootstrap_nodes.txt)" \
-            - --genesis-state /data/consensus/testnet_spec/genesis.ssz \
-            - --chain-config-file=/data/consensus/testnet_spec/config.yaml \
+            - --ropsten \
             - --terminal-total-difficulty-override=50000000000000000
           teku:
             - --network=ropsten \
@@ -217,6 +215,23 @@ global:
             - --network=ropsten \
             - --terminal-total-difficulty-override=50000000000000000 \
             - --network.connectToDiscv5Bootnodes
+    mainnet:
+      execution:
+        static_peers: []
+        config: {}
+        args:
+          geth: []
+          nethermind: []
+          besu: []
+          erigon: []
+      consensus:
+        config: {}
+        args:
+          lighthouse: []
+          prysm: []
+          teku: []
+          nimbus: []
+          lodestar: []
 
   ethereum:
     network: ropsten
