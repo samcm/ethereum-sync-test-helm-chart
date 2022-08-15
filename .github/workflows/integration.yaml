@@ -18,12 +18,9 @@ jobs:
       fail-fast: false
       matrix:
         consensus: [teku, prysm, lighthouse, nimbus, lodestar]
-        execution: [geth, nethermind, erigon]
-        network: [ropsten]
-        test: [starts-syncing, is-healthy]
-        exclude:
-        - execution: nethermind
-          test: starts-syncing
+        execution: [geth, nethermind, erigon, besu]
+        network: [mainnet]
+        test: [starts-syncing]
     steps:
       - name: Checkout
         uses: actions/checkout@v2

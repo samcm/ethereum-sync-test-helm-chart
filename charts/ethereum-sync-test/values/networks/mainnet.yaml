@@ -1,11 +1,17 @@
 global:
   ethereum:
-    network: ropsten
+    network: mainnet
 
 besu:
   initContainers:
     initGenesis:
       enabled: false
+
+teku:
+  initContainers:
+    initGenesis:
+      enabled: false
+
 geth:
   initContainers:
     initGenesis:
