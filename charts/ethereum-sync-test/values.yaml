@@ -430,8 +430,8 @@ lodestar:
 
 erigon:
   image:
-    repository: thorax/erigon
-    tag: latest
+    repository: parithoshj/erigon
+    tag: devel-f560f37
     pullPolicy: Always
 
 rbac:

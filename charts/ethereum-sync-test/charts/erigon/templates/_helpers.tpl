@@ -28,8 +28,8 @@
   --authrpc.jwtsecret="/data/jwtsecret" \
   --verbosity=3 \
   --batchSize=16m \
-  --engine.addr=0.0.0.0 \
-  --engine.port={{ .Values.global.ethereum.execution.config.ports.engine_api }} \
+  --authrpc.addr=0.0.0.0 \
+  --authrpc.port={{ .Values.global.ethereum.execution.config.ports.engine_api }} \
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}
