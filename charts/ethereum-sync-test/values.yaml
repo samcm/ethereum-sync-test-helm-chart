@@ -215,6 +215,32 @@ global:
             - --network=ropsten \
             - --terminal-total-difficulty-override=50000000000000000 \
             - --network.connectToDiscv5Bootnodes
+    sepolia:
+      execution:
+        static_peers: []
+        config: {}
+        args:
+          geth:
+            - --sepolia
+          nethermind:
+            - --config=sepolia
+          besu:
+            - --network=sepolia
+          erigon:
+            - --chain=sepolia
+      consensus:
+        config: {}
+        args:
+          lighthouse:
+            - --network=sepolia
+          prysm:
+            - --sepolia
+          teku:
+            - --network=sepolia
+          nimbus:
+            - --network=sepolia
+          lodestar:
+            - --network=sepolia
     mainnet:
       execution:
         static_peers: []
