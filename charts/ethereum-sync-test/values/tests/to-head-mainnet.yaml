@@ -3,7 +3,7 @@ common:
     config_yaml:
       test:
         name: "to-head-mainnet"
-        timeout: 7d
+        timeout: 168h
         tasks:
           - name: sleep
             title: "Sleep for 15s"
