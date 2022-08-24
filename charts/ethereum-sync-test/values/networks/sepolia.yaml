@@ -1,0 +1,42 @@
+global:
+  ethereum:
+    network: sepolia
+
+besu:
+  initContainers:
+    initGenesis:
+      enabled: false
+geth:
+  initContainers:
+    initGenesis:
+      enabled: false
+
+lighthouse:
+  initContainers:
+    initGenesis:
+      enabled: false
+
+nethermind:
+  initContainers:
+    initGenesis:
+      enabled: false
+
+nimbus:
+  initContainers:
+    initGenesis:
+      enabled: false
+
+prysm:
+  initContainers:
+    initGenesis:
+      enabled: false
+
+lodestar:
+  initContainers:
+    initGenesis:
+      enabled: false
+
+erigon:
+  initContainers:
+    initGenesis:
+      enabled: false
