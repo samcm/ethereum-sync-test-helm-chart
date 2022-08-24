@@ -7,10 +7,9 @@
 {{- end }}
   node /usr/app/node_modules/.bin/lodestar \
   beacon \
-  --rootDir={{ .Values.global.ethereum.consensus.dataDir }} \
-  --network.discv5.enabled=true \
-  --network.discv5.bindAddr=/ip4/0.0.0.0/udp/{{ .Values.global.ethereum.consensus.config.ports.p2p_tcp }} \
-  --network.localMultiaddrs=/ip4/0.0.0.0/tcp/{{ .Values.global.ethereum.consensus.config.ports.p2p_tcp }} \
+  --dataDir={{ .Values.global.ethereum.consensus.dataDir }} \
+  --listenAddress=0.0.0.0 \
+  --port={{ .Values.global.ethereum.consensus.config.ports.p2p_tcp }} \
 {{- if .Values.global.p2pNodePort.enabled }}
   --enr.ip=$EXTERNAL_IP \
   --enr.tcp=$EXTERNAL_CONSENSUS_PORT \
@@ -21,13 +20,12 @@
   --enr.udp=$EXTERNAL_CONSENSUS_PORT \
 {{- end }}
   --jwt-secret=/data/jwtsecret \
-  --api.rest.enabled=true \
-  --api.rest.host=0.0.0.0 \
-  --api.rest.port={{ .Values.global.ethereum.consensus.config.ports.http_api }} \
-  --metrics.enabled=true \
-  --metrics.listenAddr=0.0.0.0 \
-  --metrics.serverPort={{ .Values.global.ethereum.consensus.config.ports.metrics }} \
-  --eth1.enabled=true \
+  --rest \
+  --rest.address=0.0.0.0 \
+  --rest.port={{ .Values.global.ethereum.consensus.config.ports.http_api }} \
+  --metrics \
+  --metrics.address=0.0.0.0 \
+  --metrics.port={{ .Values.global.ethereum.consensus.config.ports.metrics }} \
   --execution.urls="http://${POD_IP}:{{ .Values.global.ethereum.execution.config.ports.engine_api }}" \
   --logLevel={{ .Values.global.ethereum.consensus.logLevel }} \
 {{- if .Values.global.ethereum.consensus.checkpointSync.enabled }}
