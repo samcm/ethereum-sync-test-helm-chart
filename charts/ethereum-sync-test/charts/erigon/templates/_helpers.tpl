@@ -18,7 +18,7 @@
   --metrics.addr=0.0.0.0 \
   --metrics.port={{ .Values.global.ethereum.execution.config.ports.metrics  }} \
   --allow-insecure-unlock \
-  --prune=htrc \
+  --prune=htc \
   --http \
   --http.api "admin,engine,net,eth,web3" \
   --http.port={{ .Values.global.ethereum.execution.config.ports.http_rpc }} \
