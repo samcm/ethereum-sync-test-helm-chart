@@ -19,8 +19,8 @@ jobs:
       matrix:
         consensus: [teku, prysm, lighthouse, nimbus, lodestar]
         execution: [geth, nethermind, erigon, besu]
-        network: [mainnet]
-        test: [starts-syncing]
+        network: [mainnet, withdrawals-devnet-3]
+        test: [is-healthy]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -65,3 +65,7 @@ jobs:
         if: always()
         run: >
           kubectl logs pod/$(kubectl get pods -o name | grep ethereum-sync-test | cut -d/ -f2) -c ${{ matrix.consensus }}-beacon --tail 250
+      - name: Pod spec
+        if: always()
+        run: >
+          kubectl get -o yaml pod/$(kubectl get pods -o name | grep ethereum-sync-test | cut -d/ -f2)
