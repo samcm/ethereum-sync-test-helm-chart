@@ -68,4 +68,4 @@ jobs:
       - name: Pod spec
         if: always()
         run: >
-          kubectl get -o yaml/$(kubectl get pods -o name | grep ethereum-sync-test | cut -d/ -f2)
+          kubectl get -o yaml pod/$(kubectl get pods -o name | grep ethereum-sync-test | cut -d/ -f2)
