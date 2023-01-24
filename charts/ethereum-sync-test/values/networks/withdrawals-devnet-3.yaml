@@ -7,7 +7,7 @@ global:
         config:
           bootnodes: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/withdrawal-devnet-3/custom_config_data/bootnodes.txt
           genesis_geth: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/withdrawal-devnet-3/custom_config_data/genesis.json
-          nethermind_genesis_json: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/withdrawal-devnet-3/custom_config_data/genesis.json
+          nethermind_genesis_json: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/withdrawal-devnet-3/custom_config_data/chainspec.json
           besu_genesis_json: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/withdrawal-devnet-3/custom_config_data/besu.json
         args:
           geth:
@@ -30,6 +30,7 @@ global:
           deploy_block_txt: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/withdrawal-devnet-3/custom_config_data/deploy_block.txt
           deposit_contract_txt: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/withdrawal-devnet-3/custom_config_data/deposit_contract.txt
           deposit_contract_block_txt: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/withdrawal-devnet-3/custom_config_data/deposit_contract_block.txt
+          deposit_contract_block_hash_txt: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/withdrawal-devnet-3/custom_config_data/deposit_contract_block_hash.txt
         args:
           lighthouse:
             - --testnet-dir=/data/consensus/testnet_spec \
@@ -41,7 +42,7 @@ global:
           teku:
             - --p2p-discovery-bootnodes="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)" \
             - --network=/data/consensus/testnet_spec/config.yaml \
-            - --initial-state=/data/consensus/testnet_spec/genesis.ssz \
+            - --initial-state=/data/consensus/testnet_spec/genesis.ssz
           nimbus:
             - --network="/data/consensus/testnet_spec" \
             - --bootstrap-node="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)"
@@ -75,8 +76,8 @@ lighthouse:
 prysm:
   image:
     # repository: samcm/prysm-debian # Official prysm image doesnt have `sh` which is required for p2pnodeport
-    repository: gcr.io/prysmaticlabs/prysm/beacon-chain
-    tag: develop
+    repository: "gcr.io/prysmaticlabs/prysm/beacon-chain@sha256:"
+    tag: 21cdade7443414964eb9089bb9318d0db58940bdcc7e7167f6663277c7072186
     pullPolicy: Always
 
 teku:
