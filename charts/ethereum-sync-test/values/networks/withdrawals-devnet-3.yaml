@@ -75,9 +75,9 @@ lighthouse:
 
 prysm:
   image:
-    # repository: samcm/prysm-debian # Official prysm image doesnt have `sh` which is required for p2pnodeport
-    repository: gcr.io/prysmaticlabs/prysm
-    tag: develop
+    repository: samcm/prysm-debian # Official prysm image doesnt have `sh` which is required for p2pnodeport
+    # repository: gcr.io/prysmaticlabs/prysm
+    tag: capella
     pullPolicy: Always
 
 teku:
