@@ -26,7 +26,6 @@
   --http.corsdomain "*" \
   --private.api.addr=0.0.0.0:8088 \
   --authrpc.jwtsecret="/data/jwtsecret" \
-  --verbosity=3 \
   --batchSize=16m \
   --authrpc.addr=0.0.0.0 \
   --authrpc.port={{ .Values.global.ethereum.execution.config.ports.engine_api }} \
