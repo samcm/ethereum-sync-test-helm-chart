@@ -5,10 +5,10 @@ global:
     zhejiang:
       execution:
         config:
-          bootnodes: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang/custom_config_data/bootnodes.txt
-          genesis_geth: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang/custom_config_data/genesis.json
-          nethermind_genesis_json: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang/custom_config_data/chainspec.json
-          besu_genesis_json: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang/custom_config_data/besu.json
+          bootnodes: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang-testnet/custom_config_data/bootnodes.txt
+          genesis_geth: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang-testnet/custom_config_data/genesis.json
+          nethermind_genesis_json: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang-testnet/custom_config_data/chainspec.json
+          besu_genesis_json: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang-testnet/custom_config_data/besu.json
         args:
           geth:
             - --bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)" \
@@ -24,13 +24,13 @@ global:
             - --networkid=$(cat /data/execution/chainid.txt)
       consensus:
         config:
-          bootnodes: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang/custom_config_data/bootstrap_nodes.txt
-          config_yaml: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang/custom_config_data/config.yaml
-          genesis_ssz: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang/custom_config_data/genesis.ssz
-          deploy_block_txt: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang/custom_config_data/deploy_block.txt
-          deposit_contract_txt: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang/custom_config_data/deposit_contract.txt
-          deposit_contract_block_txt: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang/custom_config_data/deposit_contract_block.txt
-          deposit_contract_block_hash_txt: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang/custom_config_data/deposit_contract_block_hash.txt
+          bootnodes: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang-testnet/custom_config_data/bootstrap_nodes.txt
+          config_yaml: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang-testnet/custom_config_data/config.yaml
+          genesis_ssz: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang-testnet/custom_config_data/genesis.ssz
+          deploy_block_txt: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang-testnet/custom_config_data/deploy_block.txt
+          deposit_contract_txt: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang-testnet/custom_config_data/deposit_contract.txt
+          deposit_contract_block_txt: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang-testnet/custom_config_data/deposit_contract_block.txt
+          deposit_contract_block_hash_txt: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang-testnet/custom_config_data/deposit_contract_block_hash.txt
         args:
           lighthouse:
             - --testnet-dir=/data/consensus/testnet_spec \
@@ -51,19 +51,19 @@ global:
 geth:
   image:
     repository: ethpandaops/geth
-    tag: withdrawals-timestamp-6ab6d73
+    tag: master
     pullPolicy: Always
 
 nethermind:
   image:
     repository: nethermindeth/nethermind
-    tag: withdrawals_gwei
+    tag: withdrawals
     pullPolicy: Always
 
 besu:
   image:
-    repository: siladu/besu
-    tag: shanghaitime-forkid-withdrawals-evm-a7c96ca
+    repository: hyperledger/besu
+    tag: develop
     pullPolicy: Always
 
 
@@ -75,9 +75,9 @@ lighthouse:
 
 prysm:
   image:
-    repository: samcm/prysm-debian # Official prysm image doesnt have `sh` which is required for p2pnodeport
+    repository: ethpandaops/prysm # Official prysm image doesnt have `sh` which is required for p2pnodeport
     # repository: gcr.io/prysmaticlabs/prysm
-    tag: capella
+    tag: develop
     pullPolicy: Always
 
 teku:
@@ -89,7 +89,7 @@ teku:
 nimbus:
   image:
     repository: ethpandaops/nimbus
-    tag: 2nK-258aa95
+    tag: unstable
     pullPolicy: Always
 
 lodestar:
@@ -101,5 +101,5 @@ lodestar:
 erigon:
   image:
     repository: thorax/erigon
-    tag: alpha
+    tag: devel
     pullPolicy: Always
