@@ -269,7 +269,7 @@ global:
           - 
 
   ethereum:
-    network: ropsten
+    network: sepolia
 
     execution:
       client:

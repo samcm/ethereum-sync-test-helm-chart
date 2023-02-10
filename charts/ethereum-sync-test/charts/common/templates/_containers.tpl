@@ -12,7 +12,7 @@
       fieldRef:
         fieldPath: status.podIP
   args:
-    - --config=/exporter/config.yaml
+    - --config=/opt/exporter/config.yaml
     - --metrics-port={{ .Values.metricsExporter.port }}
   ports:
   - containerPort: {{ .Values.metricsExporter.port }}
@@ -20,7 +20,7 @@
     protocol: TCP
   volumeMounts:
   - name: exporter-config
-    mountPath: /exporter
+    mountPath: /opt/exporter
   - name: storage
     mountPath: /data
   resources:
