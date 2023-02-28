@@ -48,8 +48,8 @@ global:
             - --bootstrap-node="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)"
           lodestar:
             - --network.connectToDiscv5Bootnodes=true \
-            - --paramsFile=/data/consensus/testnet_specconfig.yaml \
-            - --genesisStateFile=/data/consensus/testnet_specgenesis.ssz \
+            - --paramsFile=/data/consensus/testnet_spec/config.yaml \
+            - --genesisStateFile=/data/consensus/testnet_spec/genesis.ssz \
             - --bootnodes="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)"
 geth:
   image:
