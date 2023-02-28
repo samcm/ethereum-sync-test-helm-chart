@@ -47,17 +47,17 @@ global:
             - --network="/data/consensus/testnet_spec" \
             - --bootstrap-node="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)"
           lodestar:
-            - --network.connectToDiscv5Bootnodes
+            - --network.connectToDiscv5Bootnodes=true \
             - --testnet-dir=/data/consensus/testnet_spec \
             - --boot-nodes="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)"
 geth:
   image:
-    tag: v0.11.2
+    tag: v1.11.2
     pullPolicy: IfNotPresent
 
 nethermind:
   image:
-    repository: nethermindeth/nethermind
+    repository: nethermind/nethermind
     tag: "1.17.0"
     pullPolicy: IfNotPresent
 
@@ -95,7 +95,7 @@ nimbus:
 lodestar:
   image:
     repository: chainsafe/lodestar
-    tag: v1.5.0-rc0
+    tag: v1.5.0
     pullPolicy: IfNotPresent
 
 erigon:
