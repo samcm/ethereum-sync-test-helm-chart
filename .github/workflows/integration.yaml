@@ -69,3 +69,7 @@ jobs:
         if: always()
         run: >
           kubectl get -o yaml pod/$(kubectl get pods -o name | grep ethereum-sync-test | cut -d/ -f2)
+      - name: Describe pod
+        if: always()
+        run: >
+          kubectl describe pod/$(kubectl get pods -o name | grep ethereum-sync-test | cut -d/ -f2)

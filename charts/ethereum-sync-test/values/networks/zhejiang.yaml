@@ -47,59 +47,60 @@ global:
             - --network="/data/consensus/testnet_spec" \
             - --bootstrap-node="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)"
           lodestar:
-            - --network.connectToDiscv5Bootnodes
+            - --network.connectToDiscv5Bootnodes=true \
+            - --paramsFile=/data/consensus/testnet_spec/config.yaml \
+            - --genesisStateFile=/data/consensus/testnet_spec/genesis.ssz \
+            - --bootnodes="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)"
 geth:
   image:
-    repository: ethpandaops/geth
-    tag: master
-    pullPolicy: Always
+    tag: v1.11.2
+    pullPolicy: IfNotPresent
 
 nethermind:
   image:
-    repository: nethermindeth/nethermind
-    tag: withdrawals
-    pullPolicy: Always
+    repository: nethermind/nethermind
+    tag: "1.17.0"
+    pullPolicy: IfNotPresent
 
 besu:
   image:
     repository: hyperledger/besu
-    tag: develop
-    pullPolicy: Always
+    tag: 23.1.1-RC1
+    pullPolicy: IfNotPresent
 
 
 lighthouse:
   image:
     repository: sigp/lighthouse
-    tag: capella
-    pullPolicy: Always
+    tag: v3.5.0
+    pullPolicy: IfNotPresent
 
 prysm:
   image:
     repository: ethpandaops/prysm # Official prysm image doesnt have `sh` which is required for p2pnodeport
-    # repository: gcr.io/prysmaticlabs/prysm
-    tag: develop
-    pullPolicy: Always
+    tag: v3.2.1
+    pullPolicy: IfNotPresent
 
 teku:
   image:
     repository: consensys/teku
-    tag: develop
-    pullPolicy: Always
+    tag: 23.2.0
+    pullPolicy: IfNotPresent
 
 nimbus:
   image:
-    repository: ethpandaops/nimbus
-    tag: unstable
-    pullPolicy: Always
+    repository: statusim/nimbus-eth2
+    tag: amd64-v23.2.0
+    pullPolicy: IfNotPresent
 
 lodestar:
   image:
     repository: chainsafe/lodestar
-    tag: next
-    pullPolicy: Always
+    tag: v1.5.0
+    pullPolicy: IfNotPresent
 
 erigon:
   image:
     repository: thorax/erigon
-    tag: devel
-    pullPolicy: Always
+    tag: v2.39.0
+    pullPolicy: IfNotPresent

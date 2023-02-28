@@ -412,7 +412,7 @@ geth:
 
 nethermind:
   image:
-    repository: nethermindeth/nethermind
+    repository: nethermind/nethermind
     tag: latest
     pullPolicy: Always
 
@@ -431,9 +431,9 @@ lighthouse:
 
 prysm:
   image:
-    repository: samcm/prysm-debian # Official prysm image doesnt have `sh` which is required for p2pnodeport
+    repository: ethpandaops/prysm # Official prysm image doesnt have `sh` which is required for p2pnodeport
     # repository: gcr.io/prysmaticlabs/prysm/beacon-chain
-    tag: latest
+    tag: master
     pullPolicy: Always
 
 teku:
@@ -456,8 +456,8 @@ lodestar:
 
 erigon:
   image:
-    repository: parithoshj/erigon
-    tag: devel-f560f37
+    repository: thorax/erigon
+    tag: stable
     pullPolicy: Always
 
 rbac:
