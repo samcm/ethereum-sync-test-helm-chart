@@ -50,56 +50,54 @@ global:
             - --network.connectToDiscv5Bootnodes
 geth:
   image:
-    repository: ethpandaops/geth
-    tag: master
+    tag: v0.11.2
     pullPolicy: Always
 
 nethermind:
   image:
     repository: nethermindeth/nethermind
-    tag: withdrawals
+    tag: "1.17.0"
     pullPolicy: Always
 
 besu:
   image:
     repository: hyperledger/besu
-    tag: develop
+    tag: 23.1.1-RC1
     pullPolicy: Always
 
 
 lighthouse:
   image:
     repository: sigp/lighthouse
-    tag: capella
+    tag: v3.5.0
     pullPolicy: Always
 
 prysm:
   image:
     repository: ethpandaops/prysm # Official prysm image doesnt have `sh` which is required for p2pnodeport
-    # repository: gcr.io/prysmaticlabs/prysm
-    tag: develop
+    tag: v3.2.1
     pullPolicy: Always
 
 teku:
   image:
     repository: consensys/teku
-    tag: develop
+    tag: 23.2.0
     pullPolicy: Always
 
 nimbus:
   image:
-    repository: ethpandaops/nimbus
-    tag: unstable
+    repository: statusim/nimbus-eth2
+    tag: amd64-v23.2.0
     pullPolicy: Always
 
 lodestar:
   image:
     repository: chainsafe/lodestar
-    tag: next
+    tag: v1.5.0-rc0
     pullPolicy: Always
 
 erigon:
   image:
     repository: thorax/erigon
-    tag: devel
+    tag: v2.39.0
     pullPolicy: Always
