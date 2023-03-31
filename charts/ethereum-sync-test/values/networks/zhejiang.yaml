@@ -14,6 +14,7 @@ global:
             - --bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)" \
             - --networkid=$(cat /data/execution/chainid.txt)
           nethermind:
+            - --config --config withdrawals_devnet \
             - --Init.ChainSpecPath="/data/execution/nethermind_genesis.json"
           besu:
             - --network-id=$(cat /data/execution/chainid.txt) \
