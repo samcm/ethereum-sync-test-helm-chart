@@ -19,7 +19,7 @@ jobs:
       matrix:
         consensus: [teku, prysm, lighthouse, nimbus, lodestar]
         execution: [geth, nethermind, erigon, besu]
-        network: [mainnet, withdrawals-devnet-3]
+        network: [mainnet, zhejiang]
         test: [is-healthy]
     steps:
       - name: Checkout
@@ -69,3 +69,7 @@ jobs:
         if: always()
         run: >
           kubectl get -o yaml pod/$(kubectl get pods -o name | grep ethereum-sync-test | cut -d/ -f2)
+      - name: Describe pod
+        if: always()
+        run: >
+          kubectl describe pod/$(kubectl get pods -o name | grep ethereum-sync-test | cut -d/ -f2)

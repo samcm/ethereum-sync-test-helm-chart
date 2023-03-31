@@ -5,10 +5,10 @@ global:
     zhejiang:
       execution:
         config:
-          bootnodes: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang/custom_config_data/bootnodes.txt
-          genesis_geth: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang/custom_config_data/genesis.json
-          nethermind_genesis_json: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang/custom_config_data/chainspec.json
-          besu_genesis_json: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang/custom_config_data/besu.json
+          bootnodes: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang-testnet/custom_config_data/bootnodes.txt
+          genesis_geth: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang-testnet/custom_config_data/genesis.json
+          nethermind_genesis_json: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang-testnet/custom_config_data/chainspec.json
+          besu_genesis_json: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang-testnet/custom_config_data/besu.json
         args:
           geth:
             - --bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)" \
@@ -24,13 +24,13 @@ global:
             - --networkid=$(cat /data/execution/chainid.txt)
       consensus:
         config:
-          bootnodes: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang/custom_config_data/bootstrap_nodes.txt
-          config_yaml: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang/custom_config_data/config.yaml
-          genesis_ssz: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang/custom_config_data/genesis.ssz
-          deploy_block_txt: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang/custom_config_data/deploy_block.txt
-          deposit_contract_txt: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang/custom_config_data/deposit_contract.txt
-          deposit_contract_block_txt: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang/custom_config_data/deposit_contract_block.txt
-          deposit_contract_block_hash_txt: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang/custom_config_data/deposit_contract_block_hash.txt
+          bootnodes: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang-testnet/custom_config_data/bootstrap_nodes.txt
+          config_yaml: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang-testnet/custom_config_data/config.yaml
+          genesis_ssz: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang-testnet/custom_config_data/genesis.ssz
+          deploy_block_txt: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang-testnet/custom_config_data/deploy_block.txt
+          deposit_contract_txt: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang-testnet/custom_config_data/deposit_contract.txt
+          deposit_contract_block_txt: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang-testnet/custom_config_data/deposit_contract_block.txt
+          deposit_contract_block_hash_txt: https://raw.githubusercontent.com/ethpandaops/withdrawals-testnet/master/zhejiang-testnet/custom_config_data/deposit_contract_block_hash.txt
         args:
           lighthouse:
             - --testnet-dir=/data/consensus/testnet_spec \
