@@ -19,6 +19,7 @@
         mkdir -p {{ .Values.global.ethereum.execution.dataDir }};
         ls /data;
         wget -O {{ .Values.global.ethereum.execution.dataDir }}/nethermind_genesis.json $NETHERMIND_GENESIS_JSON;
+        wget -O {{ .Values.global.ethereum.execution.dataDir }}/bootnode.txt $BOOTNODES;
         touch {{ .Values.global.ethereum.execution.dataDir }}/genesis_init_done;
         echo "genesis init done";
       else
