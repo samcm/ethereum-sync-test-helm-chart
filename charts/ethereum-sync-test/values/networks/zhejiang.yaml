@@ -14,7 +14,8 @@ global:
             - --bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)" \
             - --networkid=$(cat /data/execution/chainid.txt)
           nethermind:
-            - --Init.ChainSpecPath="/data/execution/nethermind_genesis.json"
+            - --Init.ChainSpecPath="/data/execution/nethermind_genesis.json" \
+            - --Discovery.Bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)"
           besu:
             - --network-id=$(cat /data/execution/chainid.txt) \
             - --genesis-file="/data/execution/besu_genesis.json" \
