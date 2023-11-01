@@ -1,3 +1,4 @@
+{{- if .Values.workflow.enabled }}
 apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
 metadata:
@@ -41,3 +42,4 @@ spec:
             {{- include "ethereum-sync-tests.labels" . | nindent 12 }}
         spec:
           {{ include "ethereum-sync-tests.job-spec" . | nindent 10 }}
+{{- end }}
