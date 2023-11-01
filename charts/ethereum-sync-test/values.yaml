@@ -168,6 +168,32 @@ global:
           - 
           lodestar:
           - 
+    holesky:
+      execution:
+        static_peers: []
+        config: {}
+        args:
+          geth:
+            - --holesky
+          nethermind:
+            - --config=holesky
+          besu:
+            - --network=holesky
+          erigon:
+            - --chain=holesky
+      consensus:
+        config: {}
+        args:
+          lighthouse:
+            - --network=holesky
+          prysm:
+            - --holesky
+          teku:
+            - --network=holesky
+          nimbus:
+            - --network=holesky
+          lodestar:
+            - --network=holesky
 
   ethereum:
     network: sepolia
@@ -298,10 +324,10 @@ common:
 
   metricsExporter:
     enabled: true
-    # image:
-    #   repository: samcm/ethereum-metrics-exporter
-    #   tag: latest
-    #   pullPolicy: IfNotPresent
+    image:
+      repository: ethpandaops/ethereum-metrics-exporter
+      tag: latest
+      pullPolicy: IfNotPresent
     port: 9090
 
 ## Client-specific config
