@@ -4,7 +4,7 @@ coordinator:
   lameduckSeconds: 30
   image:
     repository: ethpandaops/sync-test-coordinator
-    tag: latest
+    tag: latest-debian
     pullPolicy: IfNotPresent
 
 metricsExporter:
