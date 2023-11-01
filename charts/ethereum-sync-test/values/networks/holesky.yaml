@@ -1,6 +1,6 @@
 global:
   ethereum:
-    network: ropsten
+    network: holesky
 
 besu:
   initContainers:

@@ -9,7 +9,7 @@ cronjob:
 
 workflow:
   # Create an ArgoCD Workflow Template
-  enabled: true
+  enabled: false
 
 job:
   backoffLimit: 3
