@@ -252,7 +252,7 @@ common:
     enabled: true
     image:
       repository: ethpandaops/sync-test-coordinator
-      tag: latest
+      tag: debian-latest
       pullPolicy: IfNotPresent
     config_yaml:
       test:
