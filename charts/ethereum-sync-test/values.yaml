@@ -1,4 +1,5 @@
 cronjob:
+  enabled: true
   schedule: '0 0 * * 0'
   suspend: false
   successfulJobsHistoryLimit: 2
@@ -6,11 +7,16 @@ cronjob:
   concurrencyPolicy: Forbid
   # activeDeadlineSeconds: 60000
 
-  job:
-    backoffLimit: 3
-    restartPolicy: OnFailure
-    ttlSecondsAfterFinished: 120
-    terminationGracePeriodSeconds: 15
+workflow:
+  # Create an ArgoCD Workflow Template
+  enabled: true
+
+job:
+  backoffLimit: 3
+  restartPolicy: OnFailure
+  ttlSecondsAfterFinished: 120
+  terminationGracePeriodSeconds: 15
+
 
 tolerations: []
 
@@ -407,7 +413,7 @@ common:
 geth:
   image:
     repository: ethereum/client-go
-    tag: latest
+    tag: "{{inputs.parameters.tag}}"
     pullPolicy: Always
 
 nethermind:
