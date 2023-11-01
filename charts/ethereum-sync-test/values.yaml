@@ -225,7 +225,7 @@ common:
   coordinator:
     enabled: true
     image:
-      repository: samcm/sync-test-coordinator
+      repository: ethpandaops/sync-test-coordinator
       tag: latest
       pullPolicy: IfNotPresent
     config_yaml:
@@ -308,7 +308,7 @@ common:
 geth:
   image:
     repository: ethereum/client-go
-    tag: "{{inputs.parameters.tag}}"
+    tag: latest
     pullPolicy: Always
 
 nethermind:
