@@ -360,7 +360,7 @@ prysm:
   image:
     repository: ethpandaops/prysm # Official prysm image doesnt have `sh` which is required for p2pnodeport
     # repository: gcr.io/prysmaticlabs/prysm/beacon-chain
-    tag: master
+    tag: develop
     pullPolicy: Always
 
 teku:
