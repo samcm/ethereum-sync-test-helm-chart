@@ -135,6 +135,7 @@ global:
           lighthouse:
             - --network=sepolia
           prysm:
+            - --genesis-beacon-api-url=https://checkpoint-sync.sepolia.ethpandaops.io \
             - --sepolia
           teku:
             - --network=sepolia
@@ -187,6 +188,7 @@ global:
           lighthouse:
             - --network=holesky
           prysm:
+            - --genesis-beacon-api-url=https://checkpoint-sync.holesky.ethpandaops.io \
             - --holesky
           teku:
             - --network=holesky
