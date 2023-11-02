@@ -3,14 +3,14 @@ coordinator:
   port: 9095
   lameduckSeconds: 30
   image:
-    repository: samcm/sync-test-coordinator
-    tag: latest
+    repository: ethpandaops/sync-test-coordinator
+    tag: latest-debian
     pullPolicy: IfNotPresent
 
 metricsExporter:
   enabled: true
   image:
-    repository: samcm/ethereum-metrics-exporter
+    repository: ethpandaops/ethereum-metrics-exporter
     tag: latest
     pullPolicy: Always
 

@@ -1,8 +1,0 @@
-global:
-  ethereum:
-    network: kiln
-
-lodestar:
-  initContainers:
-    initGenesis:
-      enabled: false

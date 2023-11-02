@@ -1,4 +1,5 @@
 cronjob:
+  enabled: true
   schedule: '0 0 * * 0'
   suspend: false
   successfulJobsHistoryLimit: 2
@@ -6,11 +7,16 @@ cronjob:
   concurrencyPolicy: Forbid
   # activeDeadlineSeconds: 60000
 
-  job:
-    backoffLimit: 3
-    restartPolicy: OnFailure
-    ttlSecondsAfterFinished: 120
-    terminationGracePeriodSeconds: 15
+workflow:
+  # Create an ArgoCD Workflow Template
+  enabled: false
+
+job:
+  backoffLimit: 3
+  restartPolicy: OnFailure
+  ttlSecondsAfterFinished: 120
+  terminationGracePeriodSeconds: 15
+
 
 tolerations: []
 
@@ -110,111 +116,6 @@ global:
         pullPolicy: IfNotPresent
 
   networkConfigs:
-    kiln:
-      execution:
-        static_peers: []
-        config:
-          bootnodes: https://config.kiln.themerge.dev/el/bootnodes
-          genesis_geth: https://config.kiln.themerge.dev/el/genesis/geth.json
-          nethermind_genesis_json: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/kiln/nethermind_genesis.json
-          besu_genesis_json: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/kiln/besu_genesis.json
-        args:
-          geth:
-            - --bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)" \
-            - --networkid=$(cat /data/execution/chainid.txt) \
-            - --override.terminaltotaldifficulty=20000000000000
-          nethermind:
-            - --config=kiln \
-            - --Init.ChainSpecPath="/data/execution/nethermind_genesis.json" \
-            - --Merge.Enabled=true \
-            - --Merge.FeeRecipient=0x579Ece400030a1b9C04b8AD9764380859618E77d \
-            - --Merge.TerminalTotalDifficulty=20000000000000
-          besu:
-            - --network-id=$(cat /data/execution/chainid.txt) \
-            - --genesis-file="/data/execution/besu_genesis.json" \
-            - --bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)"
-          erigon:
-            - --bootnodes="$(tr '\n' ',' < /data/execution/bootnode.txt)" \
-            - --networkid=$(cat /data/execution/chainid.txt) \
-            - --override.terminaltotaldifficulty=50000000000000000
-      consensus:
-        config:
-          bootnodes: https://config.kiln.themerge.dev/cl/bootnodes
-          config_yaml: https://config.kiln.themerge.dev/cl/genesis/config.yaml
-          genesis_ssz: https://config.kiln.themerge.dev/cl/genesis/genesis.ssz
-          deploy_block_txt: https://config.kiln.themerge.dev/cl/genesis/deploy_block.txt
-          deposit_contract_txt: https://config.kiln.themerge.dev/cl/genesis/deposit_contract.txt
-          deposit_contract_block_txt: https://config.kiln.themerge.dev/cl/genesis/deposit_contract_block.txt
-        args:
-          lighthouse:
-            - --testnet-dir=/data/consensus/testnet_spec \
-            - --boot-nodes="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)" \
-            - --merge \
-            - --terminal-total-difficulty-override=20000000000000
-          prysm:
-            - --bootstrap-node="$(head -n 1 /data/consensus/testnet_spec/bootstrap_nodes.txt)" \
-            - --genesis-state /data/consensus/testnet_spec/genesis.ssz \
-            - --chain-config-file=/data/consensus/testnet_spec/config.yaml
-          teku:
-            - --p2p-discovery-bootnodes="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)" \
-            - --network=/data/consensus/testnet_spec/config.yaml \
-            - --initial-state=/data/consensus/testnet_spec/genesis.ssz \
-            - --Xee-version=kilnv2 \
-            - --Xnetwork-total-terminal-difficulty-override="20000000000000"
-          nimbus:
-            - --network="/data/consensus/testnet_spec" \
-            - --terminal-total-difficulty-override=20000000000000 \
-            - --bootstrap-node="$(tr '\n' ',' < /data/consensus/testnet_spec/bootstrap_nodes.txt)"
-          lodestar:
-            - --network=kiln \
-            - --terminal-total-difficulty-override=20000000000000 \
-            - --network.connectToDiscv5Bootnodes
-    ropsten:
-      execution:
-        static_peers: []
-        config: {}
-        args:
-          geth:
-            - --ropsten \
-            - --override.terminaltotaldifficulty=50000000000000000
-          nethermind:
-            - --config=ropsten \
-            - --Merge.Enabled=true \
-            - --Merge.FeeRecipient=0x579Ece400030a1b9C04b8AD9764380859618E77d \
-            - --Merge.TerminalTotalDifficulty=50000000000000000
-          besu:
-            - --network=ropsten \
-            - --Xmerge-support=true \
-            - --override-genesis-config="terminalTotalDifficulty=50000000000000000"
-          erigon:
-            - --chain=ropsten \
-            - --override.terminaltotaldifficulty=50000000000000000
-      consensus:
-        config:
-          bootnodes: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/ropsten-beacon-chain/bootstrap_nodes.txt
-          config_yaml: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/ropsten-beacon-chain/config.yaml
-          genesis_ssz: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/ropsten-beacon-chain/genesis.ssz
-          deploy_block_txt: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/ropsten-beacon-chain/deploy_block.txt
-          deposit_contract_txt: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/ropsten-beacon-chain/deposit_contract.txt
-          deposit_contract_block_txt: https://raw.githubusercontent.com/eth-clients/merge-testnets/main/ropsten-beacon-chain/deposit_contract_block.txt
-        args:
-          lighthouse:
-            - --merge \
-            - --network=ropsten \
-            - --terminal-total-difficulty-override=50000000000000000
-          prysm:
-            - --ropsten \
-            - --terminal-total-difficulty-override=50000000000000000
-          teku:
-            - --network=ropsten \
-            - --Xnetwork-total-terminal-difficulty-override=50000000000000000
-          nimbus:
-            - --network=ropsten \
-            - --terminal-total-difficulty-override=50000000000000000
-          lodestar:
-            - --network=ropsten \
-            - --terminal-total-difficulty-override=50000000000000000 \
-            - --network.connectToDiscv5Bootnodes
     sepolia:
       execution:
         static_peers: []
@@ -234,6 +135,7 @@ global:
           lighthouse:
             - --network=sepolia
           prysm:
+            - --genesis-beacon-api-url=https://checkpoint-sync.sepolia.ethpandaops.io \
             - --sepolia
           teku:
             - --network=sepolia
@@ -267,6 +169,33 @@ global:
           - 
           lodestar:
           - 
+    holesky:
+      execution:
+        static_peers: []
+        config: {}
+        args:
+          geth:
+            - --holesky
+          nethermind:
+            - --config=holesky
+          besu:
+            - --network=holesky
+          erigon:
+            - --chain=holesky
+      consensus:
+        config: {}
+        args:
+          lighthouse:
+            - --network=holesky
+          prysm:
+            - --genesis-beacon-api-url=https://checkpoint-sync.holesky.ethpandaops.io \
+            - --holesky
+          teku:
+            - --network=holesky
+          nimbus:
+            - --network=holesky
+          lodestar:
+            - --network=holesky
 
   ethereum:
     network: sepolia
@@ -324,8 +253,8 @@ common:
   coordinator:
     enabled: true
     image:
-      repository: samcm/sync-test-coordinator
-      tag: latest
+      repository: ethpandaops/sync-test-coordinator
+      tag: debian-latest
       pullPolicy: IfNotPresent
     config_yaml:
       test:
@@ -397,10 +326,10 @@ common:
 
   metricsExporter:
     enabled: true
-    # image:
-    #   repository: samcm/ethereum-metrics-exporter
-    #   tag: latest
-    #   pullPolicy: IfNotPresent
+    image:
+      repository: ethpandaops/ethereum-metrics-exporter
+      tag: latest
+      pullPolicy: IfNotPresent
     port: 9090
 
 ## Client-specific config
@@ -433,7 +362,7 @@ prysm:
   image:
     repository: ethpandaops/prysm # Official prysm image doesnt have `sh` which is required for p2pnodeport
     # repository: gcr.io/prysmaticlabs/prysm/beacon-chain
-    tag: master
+    tag: develop
     pullPolicy: Always
 
 teku:

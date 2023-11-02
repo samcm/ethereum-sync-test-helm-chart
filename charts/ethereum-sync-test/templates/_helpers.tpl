@@ -215,13 +215,13 @@ affinity:
 {{- toYaml .Values.affinity | nindent 2 }}
 tolerations:
 {{- toYaml .Values.tolerations | nindent 2 }}
-restartPolicy: {{ .Values.cronjob.job.restartPolicy | quote }}
+restartPolicy: {{ .Values.job.restartPolicy | quote }}
 shareProcessNamespace: true
 {{- if .Values.rbac.create }}
 serviceAccountName: {{ include "ethereum-sync-tests.serviceAccountName" . }}
 {{- end }}
-{{- if .Values.cronjob.job.terminationGracePeriodSeconds }}
-terminationGracePeriodSeconds: {{ .Values.cronjob.job.terminationGracePeriodSeconds }}
+{{- if .Values.job.terminationGracePeriodSeconds }}
+terminationGracePeriodSeconds: {{ .Values.job.terminationGracePeriodSeconds }}
 {{- end }}
 {{- end }}
 
@@ -247,12 +247,12 @@ spec:
 Job Template
 */}}
 {{- define "ethereum-sync-tests.job-spec" -}}
-backoffLimit: {{ .Values.cronjob.job.backoffLimit }}
-{{- if .Values.cronjob.activeDeadlineSeconds }}
-activeDeadlineSeconds: {{ .Values.cronjob.activeDeadlineSeconds }}
+backoffLimit: {{ .Values.job.backoffLimit }}
+{{- if .Values.job.activeDeadlineSeconds }}
+activeDeadlineSeconds: {{ .Values.job.activeDeadlineSeconds }}
 {{- end }}
-{{- if .Values.cronjob.job.ttlSecondsAfterFinished }}
-ttlSecondsAfterFinished: {{ .Values.cronjob.job.ttlSecondsAfterFinished }}
+{{- if .Values.job.ttlSecondsAfterFinished }}
+ttlSecondsAfterFinished: {{ .Values.job.ttlSecondsAfterFinished }}
 {{- end }}
 template:
   {{- include "ethereum-sync-tests.pod-template" . | nindent 2}}

@@ -1,0 +1,45 @@
+{{- if .Values.workflow.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: {{ include "ethereum-sync-tests.fullname" . }}
+  labels:
+    {{- include "ethereum-sync-tests.labels" . | nindent 4 }}
+spec:
+  arguments:
+    parameters:
+      - name: cl_tag
+        value: ""
+      - name: el_tag
+        value: ""
+      - name: suspend_for
+        value: ""
+  entrypoint: main
+  templates:
+  - name: main
+    steps: 
+      - - name: suspend-job
+      - - name: create-job
+  - name: suspend
+    inputs:
+      paramaters:
+        - name: suspend_for
+    suspend:
+      duration: "{{ "{{" }}workflow.parameters.suspend_for{{ "}}" }}"
+  - name: create-k8s-job
+    inputs:
+      parameters:
+        - name: job-name
+        - name: tag
+    resource:
+      action: create
+      manifest: |
+        apiVersion: batch/v1
+        kind: Job
+        metadata:
+          name: "{{ include "ethereum-sync-tests.fullname" . | quote }}-{{ "{{" }}workflow.parameters.tag{{ "}}" }}"
+          labels:
+            {{- include "ethereum-sync-tests.labels" . | nindent 12 }}
+        spec:
+          {{ include "ethereum-sync-tests.job-spec" . | nindent 10 }}
+{{- end }}

@@ -19,7 +19,7 @@ jobs:
       matrix:
         consensus: [teku, prysm, lighthouse, nimbus, lodestar]
         execution: [geth, nethermind, erigon, besu]
-        network: [mainnet, zhejiang]
+        network: [sepolia, holesky]
         test: [is-healthy]
     steps:
       - name: Checkout
@@ -51,7 +51,7 @@ jobs:
 
       - name: Run test
         run: >
-          helm test ethereum-sync-test --timeout=5m
+          helm test ethereum-sync-test --timeout=8m
 
       - name: Coordinator Pod Logs
         if: always()
